@@ -1,0 +1,231 @@
+class Cliente{
+    private int identificador;
+    private string nome;
+    private int telefone;
+    private string email;
+
+    fazerCadastro(string nome, int telefone, string email){
+        \\salvar no BD
+        \\login e senha?
+    }
+    verCardapio(){
+        return Prato[];
+    }
+    reservarMesa(int idMesa){
+        \\criar Reserva
+        Reserva reserva = new Reserva(null, hInicio, hTermino, this.cliente, mesa, pratos, pagamento);
+        \\ diferente do diagrama
+        \\ salvar Reserva no BD
+    }
+    fazerPedido(){
+        \\escolher pratos da reserva
+    }
+    pagarPedido(){
+        \\pagar reserva OPCIONAL, pode pagar na hora
+    }
+
+    cliente(int id = null, string n, int tel, string e){
+        identificador = id;
+        nome = n;
+        telefone = tel;
+        email = e;
+
+        if(identificador == null){
+            fazerCadastro(nome, telefone, email);
+        }
+    }
+
+    getIdentificador(){
+        return identificador;
+    }
+    setIdentificador(int id){
+        identificador = id;
+    }
+    getNome(){
+        return nome;
+    }
+    setNome(string n){
+        nome = n;
+    }
+    getTelefone(){
+        return telefone;
+    }
+    setTelefone(int tel){
+        telefone = tel;
+    }
+    getEmail(){
+        return email;
+    }
+    setEmail(string e){
+        email = e;
+    }
+}
+class Reserva{
+    private int identificador;
+    private time horaInicio;
+    private time horaTermino;
+    private Cliente cliente;
+    private Mesa mesa;
+    private Prato[] pratos;
+    private datetime pagamento;
+
+    reserva(int id = null, time hInicio, time hTermino, Cliente c, Mesa m, Pratos[] p, dateTime pgmt = null){
+        identificador = id;
+        horaInicio = hInicio;
+        horaTermino = hTermino;
+        cliente = c;
+        mesa = m;
+        pratos = p;
+        pagamento = pgmt;
+    }
+
+    getIdentificador(){
+        return identificador;
+    }
+    setIdentificador(int id){
+        identificador = id;
+    }
+    getHoraInicio(){
+        return horaInicio;
+    }
+    setHoraInicio(time hora){
+        horaInicio = hora;
+    }
+    getHoraTermino(){
+        return horaTermino;
+    }
+    setHoraTermino(time hora){
+        horaTermino = hora;
+    }
+    getCliente(){
+        return cliente;
+    }
+    setCliente(Cliente c){
+        cliente = c;
+    }
+    getMesa(){
+        return mesa;
+    }
+    setMesa(Mesa m){
+        mesa = m;
+    }
+    getPratos(){
+        return pratos;
+        \\array ou lista
+    }
+    setPratos(Prato[] p){
+        pratos = p;
+    }
+    getPagamento(){
+        return pagamento;
+        \\datetime
+    }
+    setPagamento(datetime pgmt){
+        pagamento = pgmt;
+    }
+}
+class Mesa{
+    private int identificador;
+    private int quantCadeira;
+
+    mesa(int id, int qtdCadeira){
+        identificador = id;
+        quantCadeira = qtdCadeira;
+    }
+
+    getIdentificador(){
+        return identificador;
+    }
+    setIdentificador(int id){
+        identificador = id;
+    }
+    getQuantCadeira(){
+        return quantCadeira;
+    }
+    setQuantCadeira(int qtd){
+       quantCadeira = qtd;
+    }
+}
+class Lanchonete{
+    private string nome = "Nome Lanchonete";
+    private string email = "lanchonet@lanchonet.com.br";
+    private int telefone = 12345678;
+
+    verListaCliente(){
+        Cliente[] listaClientes = "SELECT * FROM CLIENTE";
+        return listaClientes[];
+    }
+    adicionarPrato(string nome, double valor, string descricao){
+        \\adicionar parametros no diagrama
+        Prato prato = new Prato(null, nome, valor, descricao);
+        \\ salvar Prato no BD
+    }
+    aplicarDesconto(Prato prato, Promocao promocao){
+        \\salvar promocao no BD, talvez criar tabela associativa
+    }
+    prepararMesa(Mesa mesa){}
+    divulgar(){
+        \\ mandar email pros clientes,
+    }
+}
+class Prato{
+    private int identificador;
+    private string nome;
+    private double valor;
+    private string descricao;
+
+    prato(int id = null, string n, double val, string desc){
+        identificador = id;
+        nome = n;
+        valor = val;
+        descricao = dec;
+    }
+
+    getIdentificador(){
+        return identificador;
+    }
+    setIdentificador(int id){
+        identificador = id;
+    }
+    getNome(){
+        return nome;
+    }
+    setNome(string n){
+        nome = n;
+    }
+    getValor(){
+        return valor;
+    }
+    setValor(double v){
+        valor = v;
+    }
+    getDescricao(){
+        return descricao;
+    }
+    setDecricao(string desc){
+        descricao = desc;
+    }
+}
+class Promocao{
+    private double valor = 0;
+    \\no diagrama de classes esta Int
+    private bool hasPorcentagem = false;
+    private double porcentagemDesconto = 0;
+    private Prato prato;
+    \\nao ta no diagrama mas talvez seja melhor fazer assim, pra fazer a associação da promoção com o prato. ainda nao estou usando este atributo
+
+    getDesconto(){
+        return valor;
+    }
+    setDesconto(double valDesc){
+        hasPorcentagem = false;
+        porcentagemDesconto = 0;
+        valor = valDesc;
+    }
+    setDesconto(double valPrato, double perc){
+        hasPorcentagem = true;
+        porcentagemDesconto = perc;
+        valor = valPrato * porcentagemDesconto;
+        \\25 = 50 * 0.5;
+    }
+}
