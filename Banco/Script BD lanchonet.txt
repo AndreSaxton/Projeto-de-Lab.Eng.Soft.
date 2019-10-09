@@ -1,0 +1,49 @@
+CREATE DATABASE lanchonet;
+
+USE lanchonet;
+
+CREATE TABLE lanchonete(
+	nm_lanchonete VARCHAR(50) NOT NULL,
+	nm_email_lanchonete VARCHAR(50),
+	nm_endereco_lanchonete VARCHAR(50) NOT NULL
+);
+CREATE TABLE prato(
+	id_prato INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	nm_prato VARCHAR(50) NOT NULL,
+	vl_prato DOUBLE NOT NULL,
+	ds_prato VARCHAR(100)
+);
+CREATE TABLE mesa(
+	id_mesa INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	qt_cadeira_mesa INT NOT NULL
+);
+CREATE TABLE cliente(
+	id_cliente INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	nm_cliente VARCHAR(100) NOT NULL,
+	nm_email_cliente VARCHAR(100) NOT NULL,
+	cd_telefone_cliente INT NOT NULL
+);
+CREATE TABLE promocao(
+	id_promocao INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	vl_promocao DOUBLE NOT NULL,
+	vl_porcentagem_promocao DOUBLE,
+	id_prato INT NOT NULL
+);
+ALTER TABLE promocao ADD CONSTRAINT FKPromocaoPrato FOREIGN KEY (id_prato) REFERENCES prato(id_prato);
+CREATE TABLE reserva(
+	id_reserva INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	dt_inicio_reserva DATETIME NOT NULL,
+	dt_termino_reserva DATETIME NOT NULL,
+	dt_pagamento_reserva DATETIME,
+	id_cliente INT NOT NULL,
+	id_mesa INT NOT NULL
+);
+ALTER TABLE reserva ADD CONSTRAINT FKReservaCliente FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente);
+ALTER TABLE reserva ADD CONSTRAINT FKReservaMesa FOREIGN KEY (id_mesa) REFERENCES mesa(id_mesa);
+CREATE TABLE refeicao(
+	id_refeicao INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id_reserva INT NOT NULL,
+	id_prato INT NOT NULL
+);
+ALTER TABLE refeicao ADD CONSTRAINT FKRefeicaoReserva FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva);
+ALTER TABLE refeicao ADD CONSTRAINT FKRefeicaoPrato FOREIGN KEY (id_prato) REFERENCES prato(id_prato);
