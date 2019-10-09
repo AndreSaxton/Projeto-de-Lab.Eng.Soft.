@@ -1,22 +1,38 @@
 <?php
+require_once('conexao.php');
+
 class Cliente{
     private $identificador;
     private $nome;
     private $telefone;
     private $email;
 
-    function fazerCadastro(string $nome, int $telefone, string $email){
+    function fazerCadastro(string $nome, float $telefone, string $email){
         //salvar no BD
-        //login e senha?
+        //login e senha?;
+        $conexao = new Conexao();
+        $conexao->insertNewCliente($nome, $telefone, $email);
     }
     function verCardapio(){
-        return $Prato;
+        $conexao = new Conexao();
+        $prato = $conexao->selectAllPrato();
+        return $prato;
     }
-    function reservarMesa(int $idMesa){
+    function reservarMesa(Reserva $reserva){
         //criar Reserva
-        $reserva = new Reserva(null, $hInicio, $hTermino, $this.$cliente, $mesa, $pratos, $pagamento);
+        // $reserva = new Reserva(null, $hInicio, $hTermino, $this.$cliente, $mesa, $pratos, $pagamento);
+
         // diferente do diagrama
         // salvar Reserva no BD
+        print_r($reserva);
+        $conexao = new Conexao();
+        $conexao->insertNewReserva(
+            $reserva->getHoraInicio(),
+            $reserva->getHoraTermino(),
+            $reserva->getPagamento(),
+            $reserva->getCliente()->getIdentificador(),
+            $reserva->getMesa()->getIdentificador()
+        );
     }
     function fazerPedido(){
         //escolher pratos da reserva
@@ -32,33 +48,33 @@ class Cliente{
         $this->email = $e;
 
         if($this->identificador == null){
-            //fazerCadastro($nome, $telefone, $email);
+            $this->fazerCadastro($this->nome, $this->telefone, $this->email);
         }
     }
 
     function getIdentificador(){
-        return $identificador;
+        return $this->identificador;
     }
     function setIdentificador(int $id){
-        $identificador = $id;
+        $this->identificador = $id;
     }
     function getNome(){
-        return $nome;
+        return $this->nome;
     }
     function setNome(string $n){
-        $nome = $n;
+        $this->nome = $n;
     }
     function getTelefone(){
-        return $telefone;
+        return $this->telefone;
     }
     function setTelefone(int $tel){
-        $telefone = $tel;
+        $this->telefone = $tel;
     }
     function getEmail(){
-        return $email;
+        return $this->email;
     }
     function setEmail(string $e){
-        $email = $e;
+        $this->email = $e;
     }
 }
 class Reserva{
@@ -67,10 +83,10 @@ class Reserva{
     private $horaTermino;
     private $cliente;
     private $mesa;
-    private $pratos;
+    private $pratos = array();
     private $pagamento;
 
-    function reserva(int $id = null, dateTime $hInicio, dateTime $hTermino, Cliente $c, Mesa $m, Prato $p, dateTime $pgmt = null){
+    function reserva(int $id = null, dateTime $hInicio, dateTime $hTermino, Cliente $c, Mesa $m, array $p, dateTime $pgmt = null){
         $this->identificador = $id;
         $this->horaInicio = $hInicio;
         $this->horaTermino = $hTermino;
@@ -81,48 +97,48 @@ class Reserva{
     }
 
     function getIdentificador(){
-        return $identificador;
+        return $this->identificador;
     }
     function setIdentificador(int $id){
-        $identificador = $id;
+        $this->identificador = $id;
     }
     function getHoraInicio(){
-        return $horaInicio;
+        return $this->horaInicio;
     }
     function setHoraInicio(time $hora){
-        $horaInicio = $hora;
+        $this->horaInicio = $hora;
     }
     function getHoraTermino(){
-        return $horaTermino;
+        return $this->horaTermino;
     }
     function setHoraTermino(time $hora){
-        $horaTermino = $hora;
+        $this->horaTermino = $hora;
     }
     function getCliente(){
-        return $cliente;
+        return $this->cliente;
     }
     function setCliente(Cliente $c){
-        $cliente = $c;
+        $this->cliente = $c;
     }
     function getMesa(){
-        return $mesa;
+        return $this->mesa;
     }
     function setMesa(Mesa $m){
-        $mesa = $m;
+        $this->mesa = $m;
     }
     function getPratos(){
-        return $pratos;
+        return $this->pratos;
         //array ou lista
     }
     function setPratos(array $p){
-        $pratos = $p;
+        $this->pratos = $p;
     }
     function getPagamento(){
-        return $pagamento;
+        return $this->pagamento;
         //datetime
     }
     function setPagamento(datetime $pgmt){
-        $pagamento = $pgmt;
+        $this->pagamento = $pgmt;
     }
 }
 class Mesa{
@@ -135,16 +151,16 @@ class Mesa{
     }
 
     function getIdentificador(){
-        return $identificador;
+        return $this->identificador;
     }
     function setIdentificador(int $id){
-        $identificador = $id;
+        $this->identificador = $id;
     }
     function getQuantCadeira(){
-        return $quantCadeira;
+        return $this->quantCadeira;
     }
     function setQuantCadeira(int $qtd){
-       $quantCadeira = $qtd;
+       $this->quantCadeira = $qtd;
     }
 }
 class Lanchonete{
