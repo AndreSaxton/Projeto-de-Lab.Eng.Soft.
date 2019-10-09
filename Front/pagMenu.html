@@ -14,7 +14,7 @@
     <style>
         html, body{
             height: 100%;
-            background-color: black;
+            /*background-color: black*/;
         }
         .navbar{
             position: relative;
@@ -24,6 +24,10 @@
             position: absolute;
             top: 0px;
             left: -10px;
+            background: url(Icones/Logo.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            padding: 50px;
         }
         .containerImg {
             display: flex;
@@ -64,12 +68,17 @@
             /* add code below to also center horizontally */
             /*align-items: center;*/
         }
+        .form{
+            background-image: url(Icones/background_etapas_genericas.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
     </style>
 </head>
 <body style="background-color: #f75353;">
     <div class="container">
         <nav class="navbar navbar-expand-sm navbar-light">
-            <a class="navbar-brand" href="#"><img class="logo" src="Icones/Logo.png"></a>
+            <a class="navbar-brand" href="#"><img class="logo"></a>
             <a class="navbar-brand" href="#"><h6 class="menu-header">Entre ou Cadastre-se</h6></a>
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                 aria-expanded="false" aria-label="Toggle navigation" style="background-color: #d61f31">
@@ -109,7 +118,8 @@
             </div>
         </div>
 
-        <div class="container h-50">
+        <div class="container h-50 form">
+
             <div class="row h-75">
                 <div class="col-12 align-self-center" style="text-align: center;">
                     <div>
