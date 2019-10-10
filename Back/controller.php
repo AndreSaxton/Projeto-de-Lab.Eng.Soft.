@@ -91,14 +91,8 @@ if(isset($action) && !empty($action)){
         echo json_encode($pratos);
     }
     if ($function == "insertNewReserva") {
-        echo "<pre>";
         $reserva = json_decode($jsonReserva, true);
-        // print_r($reserva);
-        
-        // print_r($cliente);
-        // $pratos = json_decode($reserva["prato"], true);
-        // print_r($pratos);
-        
+
         $idReserva = null;
         $hInicio = new DateTime($reserva["hInicio"]);
         $hTermino = new DateTime($reserva["hTermino"]);
