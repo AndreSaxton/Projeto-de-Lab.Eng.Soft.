@@ -53,12 +53,12 @@ class Conexao{
         if($stmt = $conn->prepare($sql)){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
-                echo "Records selected successfully.";
+                // echo "Records selected successfully.";
             } else{
-                echo "ERROR: Could not execute query: $sql. " . $conn->error;
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
         }
 
         //valores encontrados
@@ -73,11 +73,14 @@ class Conexao{
                 $nome[] = $row["nm_cliente"];
                 $email[] = $row["nm_email_cliente"];
                 $telefone[] = $row["cd_telefone_cliente"];
+
+                $clientes[] = $row;
             }
-            foreach ($id as $key => $value) {
-                //echo $key . $value . "<br>";
-                echo "ID: " . $id[$key] . ", NOME: ".$nome[$key]." ,EMAIL:".$email[$key]." ,TELEFONE:".$telefone[$key]."<br>";
-            }
+            // foreach ($id as $key => $value) {
+            //     //echo $key . $value . "<br>";
+            //     echo "ID: " . $id[$key] . ", NOME: ".$nome[$key]." ,EMAIL:".$email[$key]." ,TELEFONE:".$telefone[$key]."<br>";
+            // }
+            return $clientes;
         }
     }
     function insertNewCliente(string $nome, float $telefone, string $email){
@@ -352,7 +355,7 @@ class Conexao{
             return $pratos;
         }
     }
-    function insertNewPrato(){
+    function insertNewPrato(string $nome, float $valor, string $descricao){
         // Prepare an insert statement
         $sql = "INSERT INTO `prato`(`nm_prato`, `vl_prato`, `ds_prato`) VALUES (?,?,?)";
         $conn = $this->connectToDatabase();
@@ -362,18 +365,18 @@ class Conexao{
             $stmt->bind_param("sds", $nome, $valor, $descricao);
 
             // Set parameters
-            $nome = "Arroz com Feijao";
-            $valor = 15.50;
-            $descricao = "Tem arroz e feijao";
+            // $nome = "Arroz com Feijao";
+            // $valor = 15.50;
+            // $descricao = "Tem arroz e feijao";
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){
-                echo "Records inserted successfully.";
+                // echo "Records inserted successfully.";
             } else{
-                echo "ERROR: Could not execute query: $sql. " . $conn->error;
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
         }
         // Close statement
         $stmt->close();
@@ -413,7 +416,7 @@ class Conexao{
             }
         }
     }
-    function insertNewPromocao(){
+    function insertNewPromocao(float $valor, float $porcentagem, int $idPrato){
         // Prepare an insert statement
         $sql = "INSERT INTO `promocao`(`vl_promocao`, `vl_porcentagem_promocao`, `id_prato`) VALUES (?,?,?)";
         $conn = $this->connectToDatabase();
@@ -423,9 +426,9 @@ class Conexao{
             $stmt->bind_param("ddi", $valor, $porcentagem, $idPrato);
 
             // Set parameters
-            $valor = 5.50;
-            $porcentagem = null;
-            $idPrato = 1;
+            // $valor = 5.50;
+            // $porcentagem = null;
+            // $idPrato = 1;
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){

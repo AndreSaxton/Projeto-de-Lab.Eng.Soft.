@@ -169,19 +169,27 @@ class Lanchonete{
     private $telefone = 12345678;
 
     function verListaCliente(){
-        $listaClientes = "SELECT * FROM CLIENTE";
-        return $listaClientes;
+        $conexao = new Conexao();
+        $clientes = $conexao->selectAllCliente();
+        return $clientes;
     }
-    function adicionarPrato(string $nome, double $valor, string $descricao){
+    function adicionarPrato(string $nome, float $valor, string $descricao){
         //adicionar parametros no diagrama
-        $prato = new Prato(null, $nome, $valor, $descricao);
+        // $prato = new Prato(null, $nome, $valor, $descricao);
         // salvar Prato no BD
+        $conexao = new Conexao();
+        $conexao->insertNewPrato($nome, $valor, $descricao);
     }
-    function aplicarDesconto(Prato $prato, Promocao $promocao){
+    function aplicarDesconto(Promocao $promocao){
         //salvar promocao no BD, talvez criar tabela associativa
+        $conexao = new Conexao();
+        
+        $conexao->insertNewPromocao($promocao->getValor(), $promocao->getPorcentagemDesconto(), $promocao->getPrato()->getIdentificador());
     }
-    function prepararMesa(Mesa $mesa){}
-        function divulgar(){
+    function prepararMesa(Mesa $mesa){
+
+    }
+    function divulgar(){
         // mandar email pros clientes,
     }
 }
@@ -199,28 +207,28 @@ class Prato{
     }
 
     function getIdentificador(){
-        return $identificador;
+        return $this->identificador;
     }
     function setIdentificador(int $id){
-        $identificador = $id;
+        $this->identificador = $id;
     }
     function getNome(){
-        return $nome;
+        return $this->nome;
     }
     function setNome(string $n){
-        $nome = $n;
+        $this->nome = $n;
     }
     function getValor(){
-        return $valor;
+        return $this->valor;
     }
     function setValor(double $v){
-        $valor = $v;
+        $this->valor = $v;
     }
     function getDescricao(){
-        return $descricao;
+        return $this->descricao;
     }
     function setDecricao(string $desc){
-        $descricao = $desc;
+        $this->descricao = $desc;
     }
 }
 class Promocao{
@@ -234,16 +242,31 @@ class Promocao{
     function getDesconto(){
         return $valor;
     }
-    function setDesconto(double $valDesc){
-        $hasPorcentagem = false;
-        $porcentagemDesconto = 0;
-        $valor = $valDesc;
+    function setDesconto(Prato $prato, float $valDesc){
+        $this->prato = $prato;
+
+        $this->hasPorcentagem = false;
+        $this->porcentagemDesconto = 0;
+        $this->valor = $valDesc;
     }
-    function setDescontoPorcentagem(double $valPrato, double $perc){
-        $hasPorcentagem = true;
-        $porcentagemDesconto = $perc;
-        $valor = $valPrato * $porcentagemDesconto;
+    function setDescontoPorcentagem(Prato $prato, float $perc){
+        $this->prato = $prato;
+
+        $this->hasPorcentagem = true;
+        $this->porcentagemDesconto = $perc;
+        $this->valor = $this->prato->getValor() * ($this->porcentagemDesconto / 100);
+        // echo $this->valor;
         //25 = 50 * 0.5;
+    }
+
+    function getPorcentagemDesconto(){
+        return $this->porcentagemDesconto;
+    }
+    function getValor(){
+        return $this->valor;
+    }
+    function getPrato(){
+        return $this->prato;
     }
 }
 ?>
