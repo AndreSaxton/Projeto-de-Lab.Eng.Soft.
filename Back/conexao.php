@@ -258,6 +258,7 @@ class Conexao{
         $stmt->close();
     }
 
+    // nao sera usado
     function selectAllLanchonete(){
         $sql = "SELECT * FROM LANCHONETE";
         $conn = $this->connectToDatabase();
@@ -291,6 +292,7 @@ class Conexao{
             }
         }
     }
+    // nao sera usado
     function insertNewLanchonete(){
         // Prepare an insert statement
         $sql = "INSERT INTO `lanchonete`(`nm_lanchonete`, `nm_email_lanchonete`, `nm_endereco_lanchonete`) VALUES (?,?,?)";
