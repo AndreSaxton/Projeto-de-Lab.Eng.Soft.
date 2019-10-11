@@ -13,7 +13,7 @@ $jsonCliente = json_encode($jsonCliente);
 
 $jsonMesa = array(
     "id" => 1,
-    "qt_cadeira" => 7
+    "qt_cadeira" => 3
 );
 $jsonMesa = json_encode($jsonMesa);
 
@@ -94,7 +94,7 @@ $jsonPromocao = json_encode($jsonPromocao);
 $jsonPromocaoPercent = json_encode($jsonPromocaoPercent);
 
 
-$action = "insertNewPromocao";
+$action = "selectAllMesa";
 
 
 
@@ -185,6 +185,18 @@ if(isset($action) && !empty($action)){
         $lanchonete->aplicarDesconto($promocao);    
     }
     // prepararMesa
+    if ($function == "insertNewMesa") {
+        $mesa = json_decode($jsonMesa, true);
+        $lanchonete = new Lanchonete();
+        $mesa = new Mesa(null, $mesa["qt_cadeira"]);
+        $lanchonete->prepararMesa($mesa);
+    }
+    // verListaMesa
+    if ($function == "selectAllMesa") {
+        $lanchonete = new Lanchonete();
+        $mesas = $lanchonete->verListaMesa();
+        echo json_encode($mesas);
+    }
     // divulgar
 
     // if ($function == "saveKanban") {

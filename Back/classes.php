@@ -145,7 +145,7 @@ class Mesa{
     private $identificador;
     private $quantCadeira;
 
-    function mesa(int $id, int $qtdCadeira){
+    function mesa(int $id = null, int $qtdCadeira){
         $this->identificador = $id;
         $this->quantCadeira = $qtdCadeira;
     }
@@ -187,7 +187,15 @@ class Lanchonete{
         $conexao->insertNewPromocao($promocao->getValor(), $promocao->getPorcentagemDesconto(), $promocao->getPrato()->getIdentificador());
     }
     function prepararMesa(Mesa $mesa){
-
+        $conexao = new Conexao();
+        
+        $conexao->insertNewMesa($mesa->getQuantCadeira());
+    }
+    function verListaMesa(){
+        $conexao = new Conexao();
+        
+        $mesas = $conexao->selectAllMesa();
+        return $mesas;
     }
     function divulgar(){
         // mandar email pros clientes,

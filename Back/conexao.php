@@ -205,12 +205,12 @@ class Conexao{
         if($stmt = $conn->prepare($sql)){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
-                echo "Records selected successfully.";
+                // echo "Records selected successfully.";
             } else{
-                echo "ERROR: Could not execute query: $sql. " . $conn->error;
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
         }
 
         //valores encontrados
@@ -222,14 +222,17 @@ class Conexao{
             while($row = $result->fetch_assoc()){
                 $id[] = $row["id_mesa"];
                 $qtCadeira[] = $row["qt_cadeira_mesa"];
+
+                $mesas[] = $row;
             }
-            foreach ($id as $key => $value) {
-                //echo $key . $value . "<br>";
-                echo "ID: " . $id[$key] . ", QUANT_CADEIRA: ".$qtCadeira[$key]."<br>";
-            }
+            // foreach ($id as $key => $value) {
+            //     //echo $key . $value . "<br>";
+            //     echo "ID: " . $id[$key] . ", QUANT_CADEIRA: ".$qtCadeira[$key]."<br>";
+            // }
+            return $mesas;
         }
     }
-    function insertNewMesa(){
+    function insertNewMesa(int $qtCadeira){
         // Prepare an insert statement
         $sql = "INSERT INTO `mesa`(`qt_cadeira_mesa`) VALUES (?)";
         $conn = $this->connectToDatabase();
@@ -239,7 +242,7 @@ class Conexao{
             $stmt->bind_param("i", $qtCadeira);
 
             // Set parameters
-            $qtCadeira = 7;
+            // $qtCadeira = 7;
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){
