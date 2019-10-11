@@ -104,7 +104,7 @@ $jsonRefeicao = array(
 );
 $jsonRefeicao = json_encode($jsonRefeicao);
 
-$action = "selectAllRefeicaoOfReserva";
+$action = "açao";
 
 
 
@@ -132,6 +132,8 @@ if(isset($action) && !empty($action)){
         $cliente = new Cliente(null, $cliente["nome"], 
         $cliente["telefone"], $cliente["email"]);
     }
+    // alterarCadastro
+    if ($function == "") {}
     // reservarMesa
     if ($function == "insertNewReserva") {
         $reserva = json_decode($jsonReserva, true);
@@ -165,6 +167,7 @@ if(isset($action) && !empty($action)){
         $cliente->fazerPedido($jsonRefeicao["idReserva"], $jsonRefeicao["idPrato"]);
     }
     // pagarPedido
+    if ($function == "") {}
 
     // Lanchonete
     // verListaCliente
@@ -179,6 +182,10 @@ if(isset($action) && !empty($action)){
         $lanchonete = new Lanchonete();
         $lanchonete->adicionarPrato($newPrato["nome"],$newPrato["valor"],$newPrato["descricao"]);
     }
+    // alterarPrato
+    if ($function == "") {}
+    // removerPrato
+    if ($function == "") {}
     // aplicarDesconto
     if ($function == "insertNewPromocao") {
         $jsonPratoPromocao = json_decode($jsonPratoPromocao, true);
@@ -201,6 +208,12 @@ if(isset($action) && !empty($action)){
 
         $lanchonete->aplicarDesconto($promocao);    
     }
+    // verListaDesconto
+    if ($function == "") {}
+    // alterarDesconto
+    if ($function == "") {}
+    // removerDesconto
+    if ($function == "") {}
     // prepararMesa
     if ($function == "insertNewMesa") {
         $mesa = json_decode($jsonMesa, true);
@@ -214,6 +227,8 @@ if(isset($action) && !empty($action)){
         $mesas = $lanchonete->verListaMesa();
         echo json_encode($mesas);
     }
+    // alterarMesa
+    if ($function == "") {}
     // verListaReserva
     if ($function == "selectAllReserva") {
         $lanchonete = new Lanchonete();
@@ -230,14 +245,7 @@ if(isset($action) && !empty($action)){
         $refeicoes = $lanchonete->verListaRefeicaoDeReserva($idReserva["id"]);
         echo json_encode($refeicoes);
     }
-    
     // divulgar
-
-    // if ($function == "saveKanban") {
-    //     $kanban = json_decode($_POST['kanban'], true);
-    //     $colab = new colaborador();
-    //     $result = $colab->saveKanban($kanban);
-    //     echo $result;
-    // }
+    if ($function == "") {}
 }
 ?>
