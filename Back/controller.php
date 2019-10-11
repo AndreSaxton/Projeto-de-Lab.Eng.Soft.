@@ -98,6 +98,12 @@ $jsonReservaOfRefeicao = array(
 );
 $jsonReservaOfRefeicao = json_encode($jsonReservaOfRefeicao);
 
+$jsonRefeicao = array(
+    "idPrato" => 2,
+    "idReserva" => 7,
+);
+$jsonRefeicao = json_encode($jsonRefeicao);
+
 $action = "selectAllRefeicaoOfReserva";
 
 
@@ -151,6 +157,13 @@ if(isset($action) && !empty($action)){
         $cliente->reservarMesa($reserva);
     }
     // fazerPedido
+    if ($function == "insertNewRefeicao") {
+        $jsonRefeicao = json_decode($jsonRefeicao, true);
+        $cliente = json_decode($jsonCliente, true);
+        $cliente = new Cliente(1, $cliente["nome"], $cliente["telefone"], $cliente["email"]);
+
+        $cliente->fazerPedido($jsonRefeicao["idReserva"], $jsonRefeicao["idPrato"]);
+    }
     // pagarPedido
 
     // Lanchonete

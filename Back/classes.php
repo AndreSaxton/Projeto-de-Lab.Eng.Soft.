@@ -34,8 +34,10 @@ class Cliente{
             $reserva->getMesa()->getIdentificador()
         );
     }
-    function fazerPedido(){
+    function fazerPedido(int $idReserva, int $idPrato){
         //escolher pratos da reserva
+        $conexao = new Conexao();
+        $conexao->insertNewRefeicao($idReserva, $idPrato);
     }
     function pagarPedido(){
         //pagar reserva OPCIONAL, pode pagar na hora

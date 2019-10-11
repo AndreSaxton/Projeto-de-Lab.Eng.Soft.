@@ -486,7 +486,7 @@ class Conexao{
             return $refeicoes;
         }
     }
-    function insertNewRefeicao(){
+    function insertNewRefeicao(int $idReserva, int $idPrato){
         // Prepare an insert statement
         $sql = "INSERT INTO `refeicao`(`id_reserva`, `id_prato`) VALUES ((SELECT id_reserva FROM reserva WHERE id_reserva = ?),(SELECT id_prato FROM prato WHERE id_prato = ?))";
         $conn = $this->connectToDatabase();
@@ -496,8 +496,8 @@ class Conexao{
             $stmt->bind_param("ii", $idReserva, $idPrato);
 
             // Set parameters
-            $idReserva = 7;
-            $idPrato = 1;
+            // $idReserva = 7;
+            // $idPrato = 1;
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){
