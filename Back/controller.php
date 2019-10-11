@@ -94,7 +94,7 @@ $jsonPromocao = json_encode($jsonPromocao);
 $jsonPromocaoPercent = json_encode($jsonPromocaoPercent);
 
 
-$action = "selectAllMesa";
+$action = "selectAllReserva";
 
 
 
@@ -196,6 +196,12 @@ if(isset($action) && !empty($action)){
         $lanchonete = new Lanchonete();
         $mesas = $lanchonete->verListaMesa();
         echo json_encode($mesas);
+    }
+    // verListaReserva
+    if ($function == "selectAllReserva") {
+        $lanchonete = new Lanchonete();
+        $reservas = $lanchonete->verListaReserva();
+        echo json_encode($reservas);
     }
     // divulgar
 

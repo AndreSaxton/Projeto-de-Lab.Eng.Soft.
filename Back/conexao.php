@@ -120,12 +120,12 @@ class Conexao{
         if($stmt = $conn->prepare($sql)){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
-                echo "Records selected successfully.";
+                // echo "Records selected successfully.";
             } else{
-                echo "ERROR: Could not execute query: $sql. " . $conn->error;
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
         }
 
         //valores encontrados
@@ -136,20 +136,23 @@ class Conexao{
         if($result->num_rows)
         {
             while($row = $result->fetch_assoc()){
-            $id[] = $row["id_reserva"];
-            $dtInicio[] = $row["dt_inicio_reserva"];
-            $dtTermino[] = $row["dt_termino_reserva"];
-            $dtPagamento[] = $row["dt_pagamento_reserva"];
-            $idCliente[] = $row["id_cliente"];
-            $idMesa[] = $row["id_mesa"];
+                $id[] = $row["id_reserva"];
+                $dtInicio[] = $row["dt_inicio_reserva"];
+                $dtTermino[] = $row["dt_termino_reserva"];
+                $dtPagamento[] = $row["dt_pagamento_reserva"];
+                $idCliente[] = $row["id_cliente"];
+                $idMesa[] = $row["id_mesa"];
+
+                $reserva[] = $row;
             }
-            foreach ($id as $key => $value) {
-                //echo $key . $value . "<br>";
-                echo "ID: " . $id[$key] . ", INICIO: ".$dtInicio[$key].
-                " ,TERMINO:".$dtTermino[$key]." ,PAGAMENTO: ".$dtPagamento[$key].
-                " ,ID_CLIENTE: ".$idCliente[$key]." ,ID_MESA: ".$idMesa[$key].
-                "<br>";
-            }
+            // foreach ($id as $key => $value) {
+            //     //echo $key . $value . "<br>";
+            //     echo "ID: " . $id[$key] . ", INICIO: ".$dtInicio[$key].
+            //     " ,TERMINO:".$dtTermino[$key]." ,PAGAMENTO: ".$dtPagamento[$key].
+            //     " ,ID_CLIENTE: ".$idCliente[$key]." ,ID_MESA: ".$idMesa[$key].
+            //     "<br>";
+            // }
+            return $reserva;
         }
     }
     function insertNewReserva($dtInicio, $dtTermino, 
@@ -472,10 +475,13 @@ class Conexao{
                 $id[] = $row["id_refeicao"];
                 $idReserva[] = $row["id_reserva"];
                 $idPrato[] = $row["id_prato"];
+
+                $refeicao[] = $row;
             }
-            foreach ($id as $key => $value) {
-                echo "ID: " . $id[$key] . ", ID_RESERVA: ".$idReserva[$key]." ,ID_PRATO:".$idPrato[$key]." ,ID_PRATO:".$idPrato[$key]."<br>";
-            }
+            // foreach ($id as $key => $value) {
+            //     echo "ID: " . $id[$key] . ", ID_RESERVA: ".$idReserva[$key]." ,ID_PRATO:".$idPrato[$key]." ,ID_PRATO:".$idPrato[$key]."<br>";
+            // }
+            return $refeicao;
         }
     }
     function insertNewRefeicao(){

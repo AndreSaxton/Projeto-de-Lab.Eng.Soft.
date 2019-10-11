@@ -197,6 +197,12 @@ class Lanchonete{
         $mesas = $conexao->selectAllMesa();
         return $mesas;
     }
+    function verListaReserva(){
+        $conexao = new Conexao();
+        
+        $reserva = $conexao->selectAllReserva();
+        return $reserva;
+    }
     function divulgar(){
         // mandar email pros clientes,
     }
