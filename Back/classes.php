@@ -203,6 +203,12 @@ class Lanchonete{
         $reserva = $conexao->selectAllReserva();
         return $reserva;
     }
+    function verListaRefeicaoDeReserva(int $idReserva){
+        $conexao = new Conexao();
+        
+        $refeicoes = $conexao->selectAllRefeicaoOfReserva($idReserva);
+        return $refeicoes;
+    }
     function divulgar(){
         // mandar email pros clientes,
     }

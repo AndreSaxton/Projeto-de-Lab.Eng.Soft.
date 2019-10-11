@@ -93,8 +93,12 @@ $jsonPratoPromocao = json_encode($jsonPratoPromocao);
 $jsonPromocao = json_encode($jsonPromocao);
 $jsonPromocaoPercent = json_encode($jsonPromocaoPercent);
 
+$jsonReservaOfRefeicao = array(
+    "id" => 7
+);
+$jsonReservaOfRefeicao = json_encode($jsonReservaOfRefeicao);
 
-$action = "selectAllReserva";
+$action = "selectAllRefeicaoOfReserva";
 
 
 
@@ -203,6 +207,17 @@ if(isset($action) && !empty($action)){
         $reservas = $lanchonete->verListaReserva();
         echo json_encode($reservas);
     }
+    // selectAllRefeicaoOfReserva
+    if ($function == "selectAllRefeicaoOfReserva") {
+        $lanchonete = new Lanchonete();
+        
+        $idReserva = json_decode($jsonReservaOfRefeicao, true);
+        $lanchonete = new Lanchonete();
+
+        $refeicoes = $lanchonete->verListaRefeicaoDeReserva($idReserva["id"]);
+        echo json_encode($refeicoes);
+    }
+    
     // divulgar
 
     // if ($function == "saveKanban") {
