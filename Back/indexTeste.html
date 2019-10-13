@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <title>Teste</title>
+    <style>
+        table {
+           border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+    
+    <script src="../Front/jquery-3.4.1.min.js"></script>
+    <script src="ajax.js"></script>
+</head>
+<body>
+    Os dados recebidos estão no log.
+    
+    <div id="divPrato">
+        <h3>Pratos</h3>
+        <table>
+            <tr><th>Id</th><th>Nome</th><th>Valor</th><th>Descricao</th></tr>
+        </table>
+    </div>
+    <div id="divCliente">
+        <h3>Clientes</h3>
+        <table>
+            <tr><th>Id</th><th>Nome</th><th>Email</th><th>Telefone</th></tr>
+        </table>
+    </div>
+    <div id="divMesa">
+        <h3>Mesa</h3>
+        <table>
+            <tr><th>Id</th><th>Qtd Cadeiras</th></tr>
+        </table>
+    </div>
+    <div id="divReserva">
+        <h3>Reserva</h3>
+        <table>
+            <tr><th>Id</th><th>Inicio</th><th>Termino</th><th>Pagamento</th><th>Id Cliente</th><th>Id Mesa</th></tr>
+        </table>
+    </div>
+    <div id="divRefeicao">
+        <h3>Refeicao</h3>
+        <table>
+            <tr><th>Id</th><th>Id Reserva</th><th>Id Prato</th></tr>
+        </table>
+    </div>
+</body>
+</html>

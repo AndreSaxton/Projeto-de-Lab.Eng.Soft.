@@ -104,10 +104,10 @@ $jsonRefeicao = array(
 );
 $jsonRefeicao = json_encode($jsonRefeicao);
 
-$action = "açao";
 
-
-
+// recebendo json do front
+$action = $_POST["action"];
+// var_dump( $action);
 
 // if(isset($_POST['action']) && !empty($_POST['action'])){
 if(isset($action) && !empty($action)){
