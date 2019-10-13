@@ -14,6 +14,51 @@
     <script src="ajax.js"></script>
 </head>
 <body>
+    <div id="divDados">
+        <h3>Dados do Cliente</h3>
+        <p>Id:</p>
+        <p>Nome:</p>
+        <p>Telefone:</p>
+        <p>Email:</p>
+    </div>
+
+    <div>
+        <h4>Novo Cliente</h4>
+        <input type="text" name="clienteNome" id="clienteNome" placeholder="Nome">
+        <input type="tel" name="clienteTelefone" id="clienteTelefone" placeholder="Telefone">
+        <input type="email" name="clienteEmail" id="clienteEmail" placeholder="Email">
+        <button id="cadastrarCliente">Cadastrar</button>
+    </div>
+    <div>
+        <h4>Novo Prato</h4>
+        <input type="text" name="pratoNome" id="pratoNome" placeholder="Nome">
+        <input type="number" name="pratoValor" id="pratoValor" placeholder="Valor">
+        <input type="text" name="pratoDescricao" id="pratoDescricao" placeholder="Descrição">
+        <button id="cadastrarPrato">Cadastrar</button>
+    </div>
+    <div>
+        <h4>Nova Mesa</h4>
+        <input type="number" name="mesaQtdCadeira" id="mesaQtdCadeira" placeholder="Qtd de Cadeira">
+        <button id="cadastrarMesa">Cadastrar</button>
+    </div>
+    <div>
+        <h4>Nova Reserva</h4>
+        <input type="datetime-local" name="reservaHInicio" id="reservaHInicio" placeholder="reservaHInicio">
+        <input type="datetime-local" name="reservaHTermino" id="reservaHTermino" placeholder="reservaHTermino">
+        <input type="datetime-local" name="reservaPagamento" id="reservaPagamento" placeholder="reservaPagamento">
+        <input type="number" name="reservaIdCliente" id="reservaIdCliente" placeholder="reservaIdCliente">
+        <input type="number" name="reservaIdMesa" id="reservaIdMesa" placeholder="reservaIdMesa">
+        <input type="number" name="reservaIdPrato" id="reservaIdPrato" placeholder="reservaIdPrato">
+        <button id="adicionarReservaPrato">Adicionar Prato</button>
+        <button id="cadastrarReserva">Cadastrar</button>
+
+        <div id="divRefeicaoReserva">
+            <table>
+                <tr><th>Id</th><th>Nome</th><th>Valor</th><th>Descricao</th></tr>
+            </table>
+        </div>
+    </div>
+
     
     <div id="divPrato">
         <h3>Pratos</h3>

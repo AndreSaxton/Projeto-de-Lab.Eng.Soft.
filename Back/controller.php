@@ -127,10 +127,14 @@ if(isset($action) && !empty($action)){
     }
     // fazerCadastro
     if ($function == "insertNewCliente") {
-        // so executa de o cliente nao tiver ID
-        $cliente = json_decode($jsonCliente, true);
+        $data = $_POST["data"];
+        
+        $cliente = json_decode($data, true);
+
+        // so cadastra de o cliente nao tiver ID
         $cliente = new Cliente(null, $cliente["nome"], 
         $cliente["telefone"], $cliente["email"]);
+        
     }
     // alterarCadastro
     if ($function == "") {}

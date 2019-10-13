@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    // para guardar os pratos
+    var pratos = Array();
+    var pratosRefeicao = Array();
+
+
+    // requisicoes AJAX
     function selectAllPrato(){
         let action = "selectAllPrato";
         // console.log(action);
@@ -10,6 +16,8 @@ $(document).ready(function () {
             success: function(response){
                 let array = JSON.parse(response);
                 console.table(array);
+
+                pratos = array;
 
                 let divPrato = $("#divPrato");
                 // console.log(divPrato);
@@ -242,6 +250,7 @@ $(document).ready(function () {
     selectAllReserva();
     selectAllRefeicaoOfReserva();
 
+    // classes
     class Cliente{
         id;
         nome;
@@ -338,5 +347,124 @@ $(document).ready(function () {
     }
     let ref = new Refeicao(2, 7);
     console.log(ref);
+
+
+    function popularDadosCliente() {
+        $("#divDados p")[0].innerHTML += c.id;
+        $("#divDados p")[1].innerHTML += c.nome;
+        $("#divDados p")[2].innerHTML += c.telefone;
+        $("#divDados p")[3].innerHTML += c.email;
+    }
+    popularDadosCliente();
+    
+    function cadastrarCliente(){
+        let nome = $("#clienteNome").val();
+        let telefone = $("#clienteTelefone").val();
+        let email = $("#clienteEmail").val();
+
+        if(nome && telefone && email){
+            cliente = new Cliente(null, nome, telefone, email);
+            console.log(cliente);
+
+            let action = "insertNewCliente";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(cliente)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
+    function cadastrarPrato(){
+        let nome = $("#pratoNome").val();
+        let valor = $("#pratoValor").val();
+        let descricao = $("#pratoDescricao").val();
+        prato = new Prato(null, nome, valor, descricao);
+        console.log(prato);
+    }
+    function cadastrarMesa(){
+        let qt_cadeira = $("#mesaQtdCadeira").val();
+        mesa = new Mesa(null, qt_cadeira);
+        console.log(mesa);
+    }
+    function cadastrarReserva(){
+        let inicio = $("#reservaHInicio").val();
+        let termino = $("#reservaHTermino").val();
+        let cliente = $("#reservaIdCliente").val();
+        let mesa = $("#reservaIdMesa").val();
+        let prato = pratosRefeicao;
+        let pagamento = $("#reservaPagamento").val();
+        reserva = new Reserva(null, inicio, termino, cliente, mesa, prato, pagamento);
+        console.log(reserva);
+    }
+    function adicionarReservaPrato(){
+        let idPrato = $("#reservaIdPrato").val();
+        
+        let refeicaoTable = $("#divRefeicaoReserva table");
+        
+        $("#reservaIdPrato").val(null);
+
+        let prato = $.map(pratos, function( n ) {
+            if(n.id_prato == idPrato){
+                return n;
+            }
+        });
+
+        pratosRefeicao.push(prato);
+
+        prato.forEach(element => {
+            
+            let tr = document.createElement("tr");
+
+            let tdId = document.createElement("td");
+            let tdNm = document.createElement("td");
+            let tdVl = document.createElement("td");
+            let tdDs = document.createElement("td");
+        
+            let textId = document.createTextNode(element.id_prato);
+            let textNm = document.createTextNode(element.nm_prato);
+            let textVl = document.createTextNode(element.vl_prato);
+            let textDs = document.createTextNode(element.ds_prato);
+
+            tdId.append(textId);
+            tdNm.append(textNm);
+            tdVl.append(textVl);
+            tdDs.append(textDs);
+
+            tr.append(tdId);
+            tr.append(tdNm);
+            tr.append(tdVl);
+            tr.append(tdDs);
+
+            refeicaoTable.append(tr);
+        });
+    }
+
+    
+
+    $("#cadastrarCliente").click(function(){
+        cadastrarCliente();
+    });
+    $("#cadastrarPrato").click(function(){
+        cadastrarPrato();
+    });
+    $("#cadastrarMesa").click(function(){
+        cadastrarMesa()
+    });
+    $("#cadastrarReserva").click(function(){
+        cadastrarReserva()
+    });
+    $("#adicionarReservaPrato").click(function(){
+        adicionarReservaPrato();
+    });
 
 });
