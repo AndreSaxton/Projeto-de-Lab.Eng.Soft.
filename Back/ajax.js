@@ -413,8 +413,28 @@ $(document).ready(function () {
     }
     function cadastrarMesa(){
         let qt_cadeira = $("#mesaQtdCadeira").val();
-        mesa = new Mesa(null, qt_cadeira);
-        console.log(mesa);
+        
+        if(qt_cadeira){
+            mesa = new Mesa(null, qt_cadeira);
+            console.log(mesa);
+
+            let action = "insertNewMesa";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(mesa)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
     }
     function cadastrarReserva(){
         let inicio = $("#reservaHInicio").val();

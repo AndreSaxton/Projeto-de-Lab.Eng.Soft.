@@ -221,7 +221,9 @@ if(isset($action) && !empty($action)){
     if ($function == "") {}
     // prepararMesa
     if ($function == "insertNewMesa") {
-        $mesa = json_decode($jsonMesa, true);
+        $data = $_POST["data"];
+
+        $mesa = json_decode($data, true);
         $lanchonete = new Lanchonete();
         $mesa = new Mesa(null, $mesa["qt_cadeira"]);
         $lanchonete->prepararMesa($mesa);
