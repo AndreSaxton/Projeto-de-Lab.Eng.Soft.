@@ -241,4 +241,102 @@ $(document).ready(function () {
     selectAllMesa();
     selectAllReserva();
     selectAllRefeicaoOfReserva();
+
+    class Cliente{
+        id;
+        nome;
+        telefone;
+        email;
+
+        constructor(id, nome, telefone, email){
+            this.id = id;
+            this.nome = nome;
+            this.telefone = telefone;
+            this.email = email;
+        }
+    }
+    let c = new Cliente(1, "João", 13912345678, "email@email.com");
+    console.log(c);
+
+    class Mesa{
+        id;
+        qt_cadeira;
+
+        constructor(id, qt_cadeira_mesa){
+            this.id = id;
+            this.qt_cadeira = qt_cadeira_mesa;
+        }
+    }
+    let m = new Mesa(1, 3);
+    console.log(m);
+    
+    class Prato{
+        id;
+        nome;
+        valor;
+        descricao;
+
+        constructor(id, nome, valor, descricao){
+            this.id = id;
+            this.nome = nome;
+            this.valor = valor;
+            this.descricao = descricao;
+        }
+    }
+    let p = new Prato(1, "Arroz com Feijao", 15.5, "Tem arroz e feijao");
+    console.log(p);
+
+    class Reserva{
+        id;
+        hInicio;
+        hTermino;
+        cliente = new Cliente();
+        mesa = new Mesa();
+        prato = Array();
+        pagamento;
+
+        constructor(id, hInicio, hTermino, cliente, mesa, prato, pagamento){
+            this.id = id;
+            this.hInicio = hInicio;
+            this.hTermino = hTermino;
+            this.cliente = cliente;
+            this.mesa = mesa;
+            this.prato = prato;
+            this.pagamento = pagamento;
+        }
+    }
+    let prato = Array();
+    prato.push(
+        new Prato(1, "Arroz com Feijao", 15.5, "Tem arroz e feijao"),
+        new Prato(2, "P\u00e3o com ovo", 5, "P\u00e3o com ovo frito")
+    );
+    let r = new Reserva(null, "2019-02-15 15:20:14", "2019-02-15 16:20:14", c, m, prato, null);
+    console.log(r);
+
+    class Promocao{
+        valor;
+        isPorcentagem;
+        porcentagem;
+
+        constructor(valor, isPorcentagem, porcentagem){
+            this.valor = valor;
+            this.isPorcentagem = isPorcentagem;
+            this.porcentagem = porcentagem;
+        }
+    }
+    let pro = new Promocao(0, true, 20.5);
+    console.log(pro);
+
+    class Refeicao{
+        idPrato;
+        idReserva;;
+
+        constructor(idPrato, idReserva){
+            this.idPrato = idPrato;
+            this.idReserva = idReserva;
+        }
+    }
+    let ref = new Refeicao(2, 7);
+    console.log(ref);
+
 });
