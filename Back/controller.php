@@ -134,7 +134,6 @@ if(isset($action) && !empty($action)){
         // so cadastra de o cliente nao tiver ID
         $cliente = new Cliente(null, $cliente["nome"], 
         $cliente["telefone"], $cliente["email"]);
-        
     }
     // alterarCadastro
     if ($function == "") {}
@@ -182,7 +181,9 @@ if(isset($action) && !empty($action)){
     }
     // adicionarPrato
     if ($function == "insertNewPrato") {
-        $newPrato = json_decode($jsonNewPrato, true);
+        $data = $_POST["data"];
+        
+        $newPrato = json_decode($data, true);
         $lanchonete = new Lanchonete();
         $lanchonete->adicionarPrato($newPrato["nome"],$newPrato["valor"],$newPrato["descricao"]);
     }

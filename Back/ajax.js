@@ -388,8 +388,28 @@ $(document).ready(function () {
         let nome = $("#pratoNome").val();
         let valor = $("#pratoValor").val();
         let descricao = $("#pratoDescricao").val();
-        prato = new Prato(null, nome, valor, descricao);
-        console.log(prato);
+
+        if(nome && valor && descricao){
+            prato = new Prato(null, nome, valor, descricao);
+            console.log(prato);
+
+            let action = "insertNewPrato";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(prato)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
     }
     function cadastrarMesa(){
         let qt_cadeira = $("#mesaQtdCadeira").val();
