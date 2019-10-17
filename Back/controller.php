@@ -139,26 +139,44 @@ if(isset($action) && !empty($action)){
     if ($function == "") {}
     // reservarMesa
     if ($function == "insertNewReserva") {
-        $reserva = json_decode($jsonReserva, true);
+        $data = $_POST["data"];
+
+        // print_r($data);
+
+        $reserva = json_decode($data, true);
 
         $idReserva = null;
         $hInicio = new DateTime($reserva["hInicio"]);
         $hTermino = new DateTime($reserva["hTermino"]);
-        $cliente = $reserva["cliente"];
-        $cliente = new Cliente($cliente["id"], $cliente["nome"], $cliente["telefone"], $cliente["email"]);
-        $mesa = $reserva["mesa"];
-        $mesa = new Mesa($mesa["id"], $mesa["qt_cadeira"]);
+        $pagamento = $reserva["pagamento"];
+        if($pagamento != null)
+            $pagamento = new DateTime($pagamento);
+        else
+            $pagamento = null;
+        
+        $cliente = $reserva["cliente"][0];
+        $cliente = new Cliente($cliente["id_cliente"], $cliente["nm_cliente"], $cliente["cd_telefone_cliente"], $cliente["nm_email_cliente"]);
+
+        $mesa = $reserva["mesa"][0];
+        $mesa = new Mesa($mesa["id_mesa"], $mesa["qt_cadeira_mesa"]);
+        // print_r($mesa);
+        
+        $refeicao = $reserva["prato"]["prato"];
+        // print_r($refeicao);
         
         $pratos = array();
-        foreach ($reserva["prato"] as $prato) {
-            $pratos[] = new Prato($prato["id"], $prato["nome"], $prato["valor"], $prato["descricao"]);
+        foreach ($refeicao as $prato) {
+            // print_r($prato[0]);
+            $pratos[] = new Prato($prato[0]["id_prato"], $prato[0]["nm_prato"], $prato[0]["vl_prato"], $prato[0]["ds_prato"]);
         }
-        $pagamento = $reserva["pagamento"];
+        // print_r($pratos);
+
         $reserva = new Reserva(
             $idReserva, $hInicio, $hTermino, $cliente, $mesa,
             $pratos, $pagamento
         );
         // print_r($reserva);
+        
         $cliente->reservarMesa($reserva);
     }
     // fazerPedido

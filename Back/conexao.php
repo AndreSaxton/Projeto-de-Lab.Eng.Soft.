@@ -113,6 +113,71 @@ class Conexao{
         $stmt->close();
     }
 
+    function selectAllRefeicaoOfReserva(int $idReserva){
+        $sql = "SELECT * FROM REFEICAO WHERE id_reserva = ?";
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("i", $idReserva);
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records selected successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+
+        //valores encontrados
+        $result = $stmt->get_result();
+
+        // Close statement
+        $stmt->close();
+
+        if($result->num_rows){
+            while($row = $result->fetch_assoc()){
+                // $id[] = $row["id_refeicao"];
+                // $idReserva[] = $row["id_reserva"];
+                // $idPrato[] = $row["id_prato"];
+
+                $refeicoes[] = $row;
+            }
+            // foreach ($id as $key => $value) {
+            //     echo "ID: " . $id[$key] . ", ID_RESERVA: ".$idReserva[$key]." ,ID_PRATO:".$idPrato[$key]." ,ID_PRATO:".$idPrato[$key]."<br>";
+            // }
+            return $refeicoes;
+        }
+    }
+    function insertNewRefeicao(int $idReserva, int $idPrato){
+        // Prepare an insert statement
+        $sql = "INSERT INTO `refeicao`(`id_reserva`, `id_prato`) VALUES ((SELECT id_reserva FROM reserva WHERE id_reserva = ?),(SELECT id_prato FROM prato WHERE id_prato = ?))";
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("ii", $idReserva, $idPrato);
+
+            // Set parameters
+            // $idReserva = 7;
+            // $idPrato = 1;
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
+
     function selectAllReserva(){
         $sql = "SELECT * FROM RESERVA";
         $conn = $this->connectToDatabase();
@@ -155,7 +220,7 @@ class Conexao{
             return $reserva;
         }
     }
-    function insertNewReserva($dtInicio, $dtTermino, $dtPagamento, $idCliente, $idMesa){
+    function insertNewReserva($dtInicio, $dtTermino, $dtPagamento, $idCliente, $idMesa, $pratos){
         // Prepare an insert statement
         $sql = "INSERT INTO `reserva`(`dt_inicio_reserva`, `dt_termino_reserva`, `dt_pagamento_reserva`, `id_cliente`, `id_mesa`) VALUES (?,?,?,?,?)";
         $conn = $this->connectToDatabase();
@@ -188,12 +253,18 @@ class Conexao{
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){
-                echo "Records inserted successfully.";
+                // echo "Records inserted successfully.";
+                $idReserva = $conn->insert_id;
+
+                foreach ($pratos as $prato) {
+                    $this->insertNewRefeicao($idReserva, $prato->getIdentificador());
+                }
+
             } else{
-                echo "ERROR: Could not execute query: $sql. " . $conn->error;
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
         }
         // Close statement
         $stmt->close();
@@ -434,71 +505,6 @@ class Conexao{
             // Set parameters
             // $valor = 5.50;
             // $porcentagem = null;
-            // $idPrato = 1;
-
-            // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                echo "Records inserted successfully.";
-            } else{
-                echo "ERROR: Could not execute query: $sql. " . $conn->error;
-            }
-        } else{
-            echo "ERROR: Could not prepare query: $sql. " . $conn->error;
-        }
-        // Close statement
-        $stmt->close();
-    }
-
-    function selectAllRefeicaoOfReserva(int $idReserva){
-        $sql = "SELECT * FROM REFEICAO WHERE id_reserva = ?";
-        $conn = $this->connectToDatabase();
-
-        if($stmt = $conn->prepare($sql)){
-
-            // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("i", $idReserva);
-
-            // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                // echo "Records selected successfully.";
-            } else{
-                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
-            }
-        } else{
-            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
-        }
-
-        //valores encontrados
-        $result = $stmt->get_result();
-
-        // Close statement
-        $stmt->close();
-
-        if($result->num_rows){
-            while($row = $result->fetch_assoc()){
-                // $id[] = $row["id_refeicao"];
-                // $idReserva[] = $row["id_reserva"];
-                // $idPrato[] = $row["id_prato"];
-
-                $refeicoes[] = $row;
-            }
-            // foreach ($id as $key => $value) {
-            //     echo "ID: " . $id[$key] . ", ID_RESERVA: ".$idReserva[$key]." ,ID_PRATO:".$idPrato[$key]." ,ID_PRATO:".$idPrato[$key]."<br>";
-            // }
-            return $refeicoes;
-        }
-    }
-    function insertNewRefeicao(int $idReserva, int $idPrato){
-        // Prepare an insert statement
-        $sql = "INSERT INTO `refeicao`(`id_reserva`, `id_prato`) VALUES ((SELECT id_reserva FROM reserva WHERE id_reserva = ?),(SELECT id_prato FROM prato WHERE id_prato = ?))";
-        $conn = $this->connectToDatabase();
-
-        if($stmt = $conn->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("ii", $idReserva, $idPrato);
-
-            // Set parameters
-            // $idReserva = 7;
             // $idPrato = 1;
 
             // Attempt to execute the prepared statement

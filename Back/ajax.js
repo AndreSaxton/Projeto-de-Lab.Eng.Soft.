@@ -1,9 +1,4 @@
 $(document).ready(function () {
-    // para guardar os pratos
-    var pratos = Array();
-    var pratosRefeicao = Array();
-
-
     // requisicoes AJAX
     function selectAllPrato(){
         let action = "selectAllPrato";
@@ -70,6 +65,8 @@ $(document).ready(function () {
                 let array = JSON.parse(response);
                 console.table(array);
 
+                clientes = array;
+
                 let divCliente = $("#divCliente");
                 // console.log(divCliente);
                 // let table = document.createElement("table");
@@ -118,6 +115,8 @@ $(document).ready(function () {
             success: function(response){
                 console.table(JSON.parse(response));
                 let array = JSON.parse(response);
+
+                mesas = array;
 
                 let divMesa = $("#divMesa");
                 let table = $("#divMesa table");
@@ -337,17 +336,30 @@ $(document).ready(function () {
     console.log(pro);
 
     class Refeicao{
-        idPrato;
-        idReserva;;
+        prato = new Array();
+        idReserva;
 
-        constructor(idPrato, idReserva){
-            this.idPrato = idPrato;
+        constructor(idReserva = null){
             this.idReserva = idReserva;
         }
+
+        adicionarPrato(prato) {
+            this.prato.push(prato);
+        }
     }
-    let ref = new Refeicao(2, 7);
+    let ref = new Refeicao();
+    ref.adicionarPrato(7);
     console.log(ref);
 
+    // para guardar os pratos
+    var pratos = Array();
+    // para guardar os pratos da reserva
+    var refeicao = new Refeicao();
+    // var pratosRefeicao = Array();
+    // para guardar os clientes
+    var clientes = Array();
+    // para guardar as mesas
+    var mesas = Array();
 
     function popularDadosCliente() {
         $("#divDados p")[0].innerHTML += c.id;
@@ -439,12 +451,51 @@ $(document).ready(function () {
     function cadastrarReserva(){
         let inicio = $("#reservaHInicio").val();
         let termino = $("#reservaHTermino").val();
-        let cliente = $("#reservaIdCliente").val();
-        let mesa = $("#reservaIdMesa").val();
-        let prato = pratosRefeicao;
+        let idCliente = $("#reservaIdCliente").val();
+        let idMesa = $("#reservaIdMesa").val();
         let pagamento = $("#reservaPagamento").val();
-        reserva = new Reserva(null, inicio, termino, cliente, mesa, prato, pagamento);
-        console.log(reserva);
+
+        console.log(refeicao);
+        console.log(clientes);
+        console.log(mesas);
+
+        if(inicio && termino && idCliente && idMesa && refeicao){
+            
+            cliente = $.map(clientes, function( n ) {
+                if(n.id_cliente == idCliente){
+                    return n;
+                }
+            });
+
+            mesa = $.map(mesas, function( n ) {
+                console.log(n);
+                if(n.id_mesa == idMesa){
+                    return n;
+                }
+            });
+
+            
+            console.log(mesa);
+            reserva = new Reserva(null, inicio, termino, cliente, mesa, refeicao, pagamento);
+            console.log(reserva);
+
+            let action = "insertNewReserva";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(reserva)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
     }
     function adicionarReservaPrato(){
         let idPrato = $("#reservaIdPrato").val();
@@ -459,7 +510,8 @@ $(document).ready(function () {
             }
         });
 
-        pratosRefeicao.push(prato);
+        refeicao.adicionarPrato(prato);
+        // pratosRefeicao.push(prato);
 
         prato.forEach(element => {
             

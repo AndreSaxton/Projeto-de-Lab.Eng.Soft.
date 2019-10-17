@@ -31,7 +31,8 @@ class Cliente{
             $reserva->getHoraTermino(),
             $reserva->getPagamento(),
             $reserva->getCliente()->getIdentificador(),
-            $reserva->getMesa()->getIdentificador()
+            $reserva->getMesa()->getIdentificador(),
+            $reserva->getPratos()
         );
     }
     function fazerPedido(int $idReserva, int $idPrato){
