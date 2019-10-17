@@ -200,14 +200,17 @@ $(document).ready(function () {
             console.log(response);
         })
     }
-    function selectAllRefeicaoOfReserva(){
+    function selectAllRefeicaoOfReserva(id_reserva){
         let action = "selectAllRefeicaoOfReserva";
         // console.log(action);
 
         $.ajax({
             method: "POST",
             url: "controller.php",
-            data: {action: action},
+            data: {
+                action: action,
+                id_reserva: id_reserva
+            },
             success: function(response){
                 console.table(JSON.parse(response));
                 array = JSON.parse(response);
@@ -243,11 +246,7 @@ $(document).ready(function () {
             console.log(response);
         })
     }
-    selectAllPrato();
-    selectAllCliente();
-    selectAllMesa();
-    selectAllReserva();
-    selectAllRefeicaoOfReserva();
+    
 
     // classes
     class Cliente{
@@ -360,6 +359,17 @@ $(document).ready(function () {
     var clientes = Array();
     // para guardar as mesas
     var mesas = Array();
+    // usado na selectAllRefeicaoOfReserva()
+    var idReservaRefeicao = 19;
+
+    // funções que populam a pagina
+    selectAllPrato();
+    selectAllCliente();
+    selectAllMesa();
+    selectAllReserva();
+    selectAllRefeicaoOfReserva(idReservaRefeicao);
+
+
 
     function popularDadosCliente() {
         $("#divDados p")[0].innerHTML += c.id;
@@ -540,8 +550,6 @@ $(document).ready(function () {
             refeicaoTable.append(tr);
         });
     }
-
-    
 
     $("#cadastrarCliente").click(function(){
         cadastrarCliente();

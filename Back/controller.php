@@ -262,12 +262,14 @@ if(isset($action) && !empty($action)){
     }
     // selectAllRefeicaoOfReserva
     if ($function == "selectAllRefeicaoOfReserva") {
+        $idReserva = $_POST["id_reserva"];
         $lanchonete = new Lanchonete();
         
-        $idReserva = json_decode($jsonReservaOfRefeicao, true);
+        // $idReserva = json_decode($jsonReservaOfRefeicao, true);
+        
         $lanchonete = new Lanchonete();
 
-        $refeicoes = $lanchonete->verListaRefeicaoDeReserva($idReserva["id"]);
+        $refeicoes = $lanchonete->verListaRefeicaoDeReserva($idReserva);
         echo json_encode($refeicoes);
     }
     // divulgar
