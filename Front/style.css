@@ -1,5 +1,116 @@
-html, body{
-    height: 100%;
-    background-color: black;
+header{
+    background-color: #f75353;
 }
 
+.navbar{
+    position: relative;
+}
+
+.area-imagem{
+    margin-right: 10%;
+}
+
+.linha-itens-menu{
+    margin-top: -1%;
+}
+
+img.logo{
+    height: 80px;
+    position: absolute;
+    top: 0px;
+    left: -10px;
+}
+.containerImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /*customize to your needs 100%*/
+    height: 100%; /*customize to your needs*/
+}
+.containerImg img
+{
+    max-width:100%;
+    max-height:100%;
+}
+h6.menu-header{
+    color: white;
+    border-bottom: 3px solid;
+    border-bottom-color: orange;
+}
+
+.item-menu{
+    color: white!important;
+}
+
+.item-menu:hover{
+    transition: all 1s ease!important;
+    color: orange!important;
+    border-bottom: 3px solid;
+    border-bottom-color: orange;
+}
+
+h5{
+    color: white;
+    
+}
+.text-red{
+    color: rgb(189, 32, 32);
+    float: left;
+    margin-bottom: 0px;
+}
+.text-orange{
+    color: rgb(202, 73, 33);
+    position: relative;
+    left: 10px;
+    margin-bottom: 0px;
+}
+
+.img-w100{
+    width: 100%;
+}
+
+#chamada{
+    margin: 5%;
+}
+
+.titulo-chamada{
+    text-align: center;
+    margin-top: 12%;
+}
+
+.subtitulo-chamada{
+    text-align: center;
+    margin-left: 20%;
+    line-height: 25%;
+}
+
+.text-chamada{
+    padding: 4% 0;
+    margin-left: 12%;
+    font-size: 16px;
+}
+
+#container-acao{
+    background: url(Icones/background-lanchonete-1.jpg);
+}
+
+.btn-log{
+    padding: 2% 18%;
+    border-radius: 0%;
+    font-size: 20px;
+}
+
+#bloco-texto{
+    text-align: center;
+    color: white;
+}
+
+.area-logins{
+    padding: 15% 5%;
+}
+
+.btn-log{
+    padding: 2% 18%;
+    border-radius: 0%;
+    font-size: 20px;
+}
