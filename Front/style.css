@@ -92,6 +92,8 @@ h5{
 
 #container-acao{
     background: url(Icones/background-lanchonete-1.jpg);
+    background-position: bottom;
+    transition: background 0.5s linear;
 }
 
 .btn-log{
@@ -113,4 +115,47 @@ h5{
     padding: 2% 18%;
     border-radius: 0%;
     font-size: 20px;
+}
+
+#bloco-login{
+    margin-left: 40%;
+    margin-top: 15%;
+}
+
+.lbl-login{
+    color: #f99a44;
+    font-size: 50px;
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 0;
+    transform: translateY(23px);
+    text-shadow: 4px 3px 5px rgba(0,0,0,0.94);
+}
+
+.input-login{
+    width: 70%;
+    height: 55px;
+}
+
+#bloco-login a{
+    margin-left: 25%;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 4px 3px 5px rgba(0,0,0,0.94);
+}
+
+#bloco-login a::after{
+    border: 1px solid black;
+}
+
+#entrar{
+    background: transparent;
+    color: white;
+    text-shadow: 4px 3px 5px rgba(0,0,0,0.94);
+    border: none;
+    margin-left: 2%;
+}
+
+.error{
+    display: block;
 }
