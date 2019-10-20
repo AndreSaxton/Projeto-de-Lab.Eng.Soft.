@@ -22,4 +22,48 @@ $( document ).ready(function() {
 		}
 	});
 
+	$('#validar-log-admin').validate({
+		rules: {
+			login: { required: true, minlength: 2 },
+			senha: { required: true,  minlength: 6}
+		},messages: {
+			login: { required: 'Preencha o seu Login', minlength: 'No mínimo 2 letras'},
+			senha: { required: 'Informe a sua senha',  minlength: 'Tamanho mínimo: 06 dígitos' }
+		},submitHandler: function(form) {
+			var dados = $(form).serialize();
+			$.ajax({
+				type: 'POST',
+				url: document.location.origin + '/Front/php/admin/login.php',
+				async: true,
+				data: dados,
+				success: function(data) {
+					if(data == '1') {
+						alert('sucesso! Redirecionando...');
+						window.location.href ="http://localhost/Front/admin.php"; 
+					}else{
+						alert('Acesso Negado');
+					}
+				}
+			});
+		}
+	});
+
+	$('.retornar').click(function() {
+		window.location.href ="http://localhost/Front/admin.php"; 
+	});
+
+	$('.atualizar').click(function() {
+		var opcao = $(this).data("item");
+		switch(opcao) {
+			case 'lanchonete':
+			    alert('lanchonete');
+			break;
+		  	case 'teste':
+			    alert('não');
+			break;
+		  	default:
+		    alert('caso excessão');
+		}
+	});
+
 });
