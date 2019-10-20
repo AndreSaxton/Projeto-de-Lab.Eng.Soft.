@@ -31,7 +31,7 @@ $(document).ready(function () {
                     let tdDs = document.createElement("td");
 
                     let textId = document.createTextNode(element.id_prato);
-                    let textNm = document.createTextNode(element.ds_prato);
+                    let textNm = document.createTextNode(element.nm_prato);
                     let textVl = document.createTextNode(element.vl_prato);
                     let textDs = document.createTextNode(element.ds_prato);
 

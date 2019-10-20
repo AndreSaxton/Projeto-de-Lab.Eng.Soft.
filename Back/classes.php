@@ -187,6 +187,10 @@ class Lanchonete{
         $conexao = new Conexao();
         $conexao->insertNewPrato($nome, $valor, $descricao);
     }
+    function alterarPrato(int $identificador, string $nome, float $valor, string $descricao){
+        $conexao = new Conexao();
+        $conexao->updatePrato($identificador, $nome, $valor, $descricao);
+    }
     function aplicarDesconto(Promocao $promocao){
         //salvar promocao no BD, talvez criar tabela associativa
         $conexao = new Conexao();

@@ -479,6 +479,32 @@ class Conexao{
         // Close statement
         $stmt->close();
     }
+    function updatePrato(int $identificador, string $nome, float $valor, string $descricao){
+        // Prepare an insert statement
+        $sql = "UPDATE `prato` SET `nm_prato`= ?,`vl_prato`= ?,`ds_prato`= ? WHERE `id_prato`= ?";
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("sdsi", $nome, $valor, $descricao, $identificador);
+
+            // Set parameters
+            // $nome = "Arroz com Feijao";
+            // $valor = 15.50;
+            // $descricao = "Tem arroz e feijao";
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
 
     function selectAllPromocao(){
         $sql = "SELECT * FROM PROMOCAO";

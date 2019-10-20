@@ -215,7 +215,13 @@ if(isset($action) && !empty($action)){
         $lanchonete->adicionarPrato($newPrato["nome"],$newPrato["valor"],$newPrato["descricao"]);
     }
     // alterarPrato
-    if ($function == "") {}
+    if ($function == "updatePrato") {
+        $data = $_POST["data"];
+        
+        $prato = json_decode($data, true);
+        $lanchonete = new Lanchonete();
+        $lanchonete->alterarPrato($prato["id"],$prato["nome"],$prato["valor"],$prato["descricao"]);
+    }
     // removerPrato
     if ($function == "") {}
     // aplicarDesconto
