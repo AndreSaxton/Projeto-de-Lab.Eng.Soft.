@@ -133,6 +133,27 @@ class Conexao{
         // Close statement
         $stmt->close();
     }
+    function deleteCliente(int $identificador){
+        // Prepare an insert statement
+        $sql = "DELETE FROM `cliente` WHERE id_cliente = ?";
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("i", $identificador);
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
 
     function selectAllRefeicaoOfReserva(int $idReserva){
         $sql = "SELECT * FROM REFEICAO WHERE id_reserva = ?";
@@ -291,6 +312,28 @@ class Conexao{
         $stmt->close();
 
     }
+    function deleteReserva($identificador){
+        // Prepare an insert statement
+        $sql = "DELETE FROM `reserva` WHERE id_reserva = ?";
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("i", $identificador);
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+
+    }
 
     function selectAllMesa(){
         $sql = "SELECT * FROM MESA";
@@ -357,6 +400,27 @@ class Conexao{
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("ii", $qtCadeira, $identificador);
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
+    function deleteMesa(int $identificador){
+        // Prepare an insert statement
+        $sql = "DELETE FROM `mesa` WHERE id_mesa = ?";
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("i", $identificador);
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -530,6 +594,27 @@ class Conexao{
         // Close statement
         $stmt->close();
     }
+    function deletePrato(int $identificador){
+        // Prepare an insert statement
+        $sql = "DELETE FROM `prato` WHERE `id_prato`= ?";
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("i", $identificador);
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
 
     function selectAllPromocao(){
         $sql = "SELECT * FROM PROMOCAO";
@@ -607,6 +692,27 @@ class Conexao{
             // $valor = 5.50;
             // $porcentagem = null;
             // $idPrato = 1;
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
+    function deletePromocao(int $identificador){
+        // Prepare an insert statement
+        $sql = "DELETE FROM `promocao` WHERE id_promocao = ?";
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("i", $identificador);
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){

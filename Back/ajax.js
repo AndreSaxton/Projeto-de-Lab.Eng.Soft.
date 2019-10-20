@@ -158,6 +158,8 @@ $(document).ready(function () {
                 // console.table(JSON.parse(response));
                 array = JSON.parse(response);
 
+                reservas = array;
+
                 let divReserva = $("#divReserva");
                 let table = $("#divReserva table");
 
@@ -259,7 +261,7 @@ $(document).ready(function () {
                 // console.table(JSON.parse(response));
                 let array = JSON.parse(response);
 
-                mesas = array;
+                promocoes = array;
 
                 let divPromocao = $("#divPromocao");
                 let table = $("#divPromocao table");
@@ -638,6 +640,148 @@ $(document).ready(function () {
             })
         }
     }
+    // estas montam um objeto e enviam via json para serem alterados no BD
+    function deletarCliente(){
+        let idCliente = $("#delclienteId").val();
+
+        if(idCliente){
+            cliente = $.map(clientes, function( n ) {
+                if(n.id_cliente == idCliente){
+                    return n;
+                }
+            });
+            
+            cliente = new Cliente(idCliente, cliente.nm_cliente, cliente.cd_telefone_cliente, cliente.nm_email_cliente);
+            let action = "deleteCliente";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(cliente)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
+    function deletarPrato(){
+        let idPrato = $("#delpratoId").val();
+
+        if(idPrato){
+            let prato = $.map(pratos, function( n ) {
+                if(n.id_prato == idPrato){
+                    return n;
+                }
+            });
+            prato = new Prato(idPrato, prato.nm_prato, prato.vl_prato, prato.ds_prato);
+            let action = "deletePrato";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(prato)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
+    function deletarMesa(){
+        let idMesa = $("#delmesaId").val();
+        
+        if(idMesa){
+            let mesa = $.map(mesas, function( n ) {
+                if(n.id_mesa == idMesa){
+                    return n;
+                }
+            });
+            mesa = new Mesa(mesa[0].id_mesa, mesa[0].qt_cadeira_mesa);
+
+            let action = "deleteMesa";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(mesa)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
+    function deletarReserva(){
+        let idReserva = $("#delreservaId").val();
+        
+        if(idReserva){
+            let reserva = $.map(reservas, function( n ) {
+                if(n.id_reserva == idReserva){
+                    return n;
+                }
+            });
+            reserva = reserva[0];
+            reserva = new Reserva(idReserva, reserva.dt_inicio_reserva, reserva.dt_termino_reserva, reserva.id_cliente, reserva.id_mesa, null, reserva.dt_pagamento_reserva);
+            console.table(reserva);
+
+            let action = "deleteReserva";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(reserva)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
+    function deletarPromocao(){
+        let id_promocao = $("#delpromocaoId").val();
+        
+        if(id_promocao){
+            promocao = new Promocao(id_promocao, null, null, null, null);
+            
+            let action = "deletePromocao";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(promocao)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
     // este salva os pratos em um json no front
     function adicionarReservaPrato(){
         let idPrato = $("#reservaIdPrato").val();
@@ -834,11 +978,14 @@ $(document).ready(function () {
     var pratos = Array();
     // para guardar os pratos da reserva
     var refeicao = new Refeicao();
-    // var pratosRefeicao = Array();
     // para guardar os clientes
     var clientes = Array();
     // para guardar as mesas
     var mesas = Array();
+    // para guardar as promocoes
+    var promocoes = Array();
+    // para guardar as reservas
+    var reservas = Array();
     // usado na selectAllRefeicaoOfReserva()
     var idReservaRefeicao = 19;
 
@@ -868,6 +1015,7 @@ $(document).ready(function () {
     $("#cadastrarPromocao").click(function(){
         cadastrarPromocao();
     });
+
     $("#alterarCliente").click(function(){
         alterarCliente();
     });
@@ -882,6 +1030,22 @@ $(document).ready(function () {
     });
     $("#alterarPromocao").click(function(){
         alterarPromocao();
+    });
+
+    $("#deletarCliente").click(function(){
+        deletarCliente();
+    });
+    $("#deletarPrato").click(function(){
+        deletarPrato();
+    });
+    $("#deletarMesa").click(function(){
+        deletarMesa()
+    });
+    $("#deletarReserva").click(function(){
+        deletarReserva()
+    });
+    $("#deletarPromocao").click(function(){
+        deletarPromocao();
     });
 
     $("#promocaoIsPorcentagem").change(function (e) {

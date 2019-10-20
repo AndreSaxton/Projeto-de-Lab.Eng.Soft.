@@ -17,6 +17,10 @@ class Cliente{
         $conexao = new Conexao();
         $conexao->updateCliente($identificador, $nome, $telefone, $email);
     }
+    function desativarCadastro(int $identificador){
+        $conexao = new Conexao();
+        $conexao->deleteCliente($identificador);
+    }
     function verCardapio(){
         $conexao = new Conexao();
         $prato = $conexao->selectAllPrato();
@@ -39,6 +43,10 @@ class Cliente{
             $reserva->getPratos()
         );
     }
+    function desativarReserva(int $identificador){
+        $conexao = new Conexao();
+        $conexao->deleteReserva($identificador);
+    }
     function fazerPedido(int $idReserva, int $idPrato){
         //escolher pratos da reserva
         $conexao = new Conexao();
@@ -48,15 +56,11 @@ class Cliente{
         //pagar reserva OPCIONAL, pode pagar na hora
     }
 
-    function Cliente(int $id = null, string $n, float $tel, string $e){
+    function Cliente(int $id = null, string $n = null, float $tel = null, string $e = null){
         $this->identificador = $id;
         $this->nome = $n;
         $this->telefone = $tel;
         $this->email = $e;
-
-        if($this->identificador == null){
-            $this->fazerCadastro($this->nome, $this->telefone, $this->email);
-        }
     }
 
     function getIdentificador(){
@@ -191,6 +195,10 @@ class Lanchonete{
         $conexao = new Conexao();
         $conexao->updatePrato($identificador, $nome, $valor, $descricao);
     }
+    function desativarPrato(int $identificador){
+        $conexao = new Conexao();
+        $conexao->deletePrato($identificador);
+    }
     function aplicarDesconto(Promocao $promocao){
         //salvar promocao no BD, talvez criar tabela associativa
         $conexao = new Conexao();
@@ -203,6 +211,11 @@ class Lanchonete{
         
         $conexao->updatePromocao($promocao->getIdentificador(), $promocao->getValor(), $promocao->getPorcentagemDesconto(), $promocao->getPrato()->getIdentificador());
     }
+    function desativarDesconto(int $identificador){
+        $conexao = new Conexao();
+        
+        $conexao->deletePromocao($identificador);
+    }
     function prepararMesa(Mesa $mesa){
         $conexao = new Conexao();
         
@@ -212,6 +225,11 @@ class Lanchonete{
         $conexao = new Conexao();
         
         $conexao->updateMesa($mesa->getIdentificador(), $mesa->getQuantCadeira());
+    }
+    function desativarMesa(Mesa $mesa){
+        $conexao = new Conexao();
+        
+        $conexao->deleteMesa($mesa->getIdentificador());
     }
     function verListaMesa(){
         $conexao = new Conexao();

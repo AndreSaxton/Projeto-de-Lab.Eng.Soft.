@@ -2,53 +2,22 @@
 // dados que serao recebidos do front
 // tirar quando juntar com o front
 // o back recebera um json com os dados abaixo, a depender do que será realizado
-
-
-$jsonCliente = array(
-    "id" => 1,
-    "nome" => "João",
-    "telefone" => 13912345678,
-    "email" => "email@email.com"
-);
-$jsonCliente = json_encode($jsonCliente);
 /*
-$jsonMesa = array(
-    "id" => 1,
-    "qt_cadeira" => 3
-);
-$jsonMesa = json_encode($jsonMesa);
-
-$jsonPrato = array(
-    array(
-        "id" => 1,
-        "nome" => "Arroz com Feijao",
-        "valor" => 15.5,
-        "descricao" => "Tem arroz e feijao"
-    ),
-    array(
-        "id" => 2,
-        "nome" => "P\u00e3o com ovo",
-        "valor" => 5,
-        "descricao" => "P\u00e3o com ovo frito"
-    )
-);
-$jsonPrato = json_encode($jsonPrato);
-
-$jsonReserva = array(
-    "id" => null,
-    "hInicio" => "2019-02-15 15:20:14",
-    "hTermino" => "2019-02-15 16:20:14",
-    "cliente" => array(
+    $jsonCliente = array(
         "id" => 1,
         "nome" => "João",
         "telefone" => 13912345678,
         "email" => "email@email.com"
-    ),
-    "mesa" => array(
+    );
+    $jsonCliente = json_encode($jsonCliente);
+
+    $jsonMesa = array(
         "id" => 1,
-        "qt_cadeira" => 7
-    ),
-    "prato" => array(
+        "qt_cadeira" => 3
+    );
+    $jsonMesa = json_encode($jsonMesa);
+
+    $jsonPrato = array(
         array(
             "id" => 1,
             "nome" => "Arroz com Feijao",
@@ -61,49 +30,79 @@ $jsonReserva = array(
             "valor" => 5,
             "descricao" => "P\u00e3o com ovo frito"
         )
-    ),
-    "pagamento" => null
-);
-$jsonReserva = json_encode($jsonReserva);
+    );
+    $jsonPrato = json_encode($jsonPrato);
 
-$jsonNewPrato = array(
-    "id" => null,
-    "nome" => "Nova Coisa",
-    "valor" => 25.5,
-    "descricao" => "è comida"
-);
-$jsonNewPrato = json_encode($jsonNewPrato);
-*/
-$jsonPromocao = array(
-    "valor" => 25.5,
-    "isPorcentagem" => false,
-    "porcentagem" => null
-);
-$jsonPromocaoPercent = array(
-    "valor" => 0,
-    "isPorcentagem" => true,
-    "porcentagem" => 20.5
-);
-$jsonPratoPromocao = array(
-    "id" => 1,
-    "nome" => "Arroz com Feijao",
-    "valor" => 15.5,
-    "descricao" => "Tem arroz e feijao"
-);
-$jsonPratoPromocao = json_encode($jsonPratoPromocao);
-$jsonPromocao = json_encode($jsonPromocao);
-$jsonPromocaoPercent = json_encode($jsonPromocaoPercent);
-/*
-$jsonReservaOfRefeicao = array(
-    "id" => 7
-);
-$jsonReservaOfRefeicao = json_encode($jsonReservaOfRefeicao);
+    $jsonReserva = array(
+        "id" => null,
+        "hInicio" => "2019-02-15 15:20:14",
+        "hTermino" => "2019-02-15 16:20:14",
+        "cliente" => array(
+            "id" => 1,
+            "nome" => "João",
+            "telefone" => 13912345678,
+            "email" => "email@email.com"
+        ),
+        "mesa" => array(
+            "id" => 1,
+            "qt_cadeira" => 7
+        ),
+        "prato" => array(
+            array(
+                "id" => 1,
+                "nome" => "Arroz com Feijao",
+                "valor" => 15.5,
+                "descricao" => "Tem arroz e feijao"
+            ),
+            array(
+                "id" => 2,
+                "nome" => "P\u00e3o com ovo",
+                "valor" => 5,
+                "descricao" => "P\u00e3o com ovo frito"
+            )
+        ),
+        "pagamento" => null
+    );
+    $jsonReserva = json_encode($jsonReserva);
 
-$jsonRefeicao = array(
-    "idPrato" => 2,
-    "idReserva" => 7,
-);
-$jsonRefeicao = json_encode($jsonRefeicao);
+    $jsonNewPrato = array(
+        "id" => null,
+        "nome" => "Nova Coisa",
+        "valor" => 25.5,
+        "descricao" => "è comida"
+    );
+    $jsonNewPrato = json_encode($jsonNewPrato);
+
+    $jsonPromocao = array(
+        "valor" => 25.5,
+        "isPorcentagem" => false,
+        "porcentagem" => null
+    );
+    $jsonPromocaoPercent = array(
+        "valor" => 0,
+        "isPorcentagem" => true,
+        "porcentagem" => 20.5
+    );
+    $jsonPratoPromocao = array(
+        "id" => 1,
+        "nome" => "Arroz com Feijao",
+        "valor" => 15.5,
+        "descricao" => "Tem arroz e feijao"
+    );
+    $jsonPratoPromocao = json_encode($jsonPratoPromocao);
+    $jsonPromocao = json_encode($jsonPromocao);
+    $jsonPromocaoPercent = json_encode($jsonPromocaoPercent);
+
+    $jsonReservaOfRefeicao = array(
+        "id" => 7
+    );
+    $jsonReservaOfRefeicao = json_encode($jsonReservaOfRefeicao);
+
+    $jsonRefeicao = array(
+        "idPrato" => 2,
+        "idReserva" => 7,
+    );
+    $jsonRefeicao = json_encode($jsonRefeicao);
 */
 
 // recebendo json do front
@@ -120,8 +119,8 @@ if(isset($action) && !empty($action)){
     // Cliente
     // verCardapio
     if ($function == "selectAllPrato") {
-        $cliente = json_decode($jsonCliente, true);
-        $cliente = new Cliente(1, $cliente["nome"], $cliente["telefone"], $cliente["email"]);
+        // $cliente = json_decode($jsonCliente, true);
+        $cliente = new Cliente(null, null, null, null);
         
         $pratos = $cliente->verCardapio();
         echo json_encode($pratos);
@@ -133,8 +132,8 @@ if(isset($action) && !empty($action)){
         $cliente = json_decode($data, true);
 
         // so cadastra de o cliente nao tiver ID
-        $cliente = new Cliente(null, $cliente["nome"], 
-        $cliente["telefone"], $cliente["email"]);
+        $cliente = new Cliente(null, $cliente["nome"], $cliente["telefone"], $cliente["email"]);
+        $cliente->fazerCadastro($cliente["nome"], $cliente["telefone"], $cliente["email"]);
     }
     // alterarCadastro
     if ($function == "updateCliente") {
@@ -144,6 +143,16 @@ if(isset($action) && !empty($action)){
 
         $cliente = new Cliente($cliente["id"], $cliente["nome"], $cliente["telefone"], $cliente["email"]);
         $cliente->alterarCadastro($cliente->getIdentificador(), $cliente->getNome(), $cliente->getTelefone(), $cliente->getEmail());
+    }
+    // deletarCadastro
+    if ($function == "deleteCliente") {
+        $data = $_POST["data"];
+        
+        $cliente = json_decode($data, true);
+        print_r($cliente);
+
+        $cliente = new Cliente($cliente["id"], null, null, null);
+        $cliente->desativarCadastro($cliente->getIdentificador());
     }
     // reservarMesa
     if ($function == "insertNewReserva") {
@@ -191,6 +200,15 @@ if(isset($action) && !empty($action)){
     if ($function == "updateReserva") {
         echo "A FAZER";
     }
+    // deletar reserva
+    if ($function == "deleteReserva") {
+        $data = $_POST["data"];
+        
+        $reserva = json_decode($data, true);
+
+        $cliente = new Cliente($reserva["cliente"], null, null, null);
+        $cliente->desativarReserva($reserva["id"]);
+    }
     // fazerPedido
     /*executado dentro do cadastrarReserva
     if ($function == "insertNewRefeicao") {
@@ -227,7 +245,13 @@ if(isset($action) && !empty($action)){
         $lanchonete->alterarPrato($prato["id"],$prato["nome"],$prato["valor"],$prato["descricao"]);
     }
     // removerPrato
-    if ($function == "") {}
+    if ($function == "deletePrato") {
+        $data = $_POST["data"];
+        
+        $prato = json_decode($data, true);
+        $lanchonete = new Lanchonete();
+        $lanchonete->desativarPrato($prato["id"]);
+    }
     // aplicarDesconto
     if ($function == "insertNewPromocao") {
         $data = $_POST["data"];
@@ -264,7 +288,6 @@ if(isset($action) && !empty($action)){
     if ($function == "updatePromocao") {
         $data = $_POST["data"];
         $jsonPromocao = json_decode($data, true);
-        print_r($jsonPromocao);
         
         $promocao = new Promocao();
         $lanchonete = new Lanchonete();
@@ -279,7 +302,13 @@ if(isset($action) && !empty($action)){
         $lanchonete->alterarDesconto($promocao);
     }
     // removerDesconto
-    if ($function == "") {}
+    if ($function == "deletePromocao") {
+        $data = $_POST["data"];
+        $jsonPromocao = json_decode($data, true);
+        
+        $lanchonete = new Lanchonete();
+        $lanchonete->desativarDesconto($jsonPromocao["id"]);
+    }
     // prepararMesa
     if ($function == "insertNewMesa") {
         $data = $_POST["data"];
@@ -303,6 +332,16 @@ if(isset($action) && !empty($action)){
         $lanchonete = new Lanchonete();
         $mesa = new Mesa($mesa["id"], $mesa["qt_cadeira"]);
         $lanchonete->alterarMesa($mesa);
+    }
+    // deletarMesa
+    if ($function == "deleteMesa") {
+        $data = $_POST["data"];
+
+        $mesa = json_decode($data, true);
+        $lanchonete = new Lanchonete();
+        print_r($mesa);
+        $mesa = new Mesa($mesa["id"], $mesa["qt_cadeira"]);
+        $lanchonete->desativarMesa($mesa);
     }
     // verListaReserva
     if ($function == "selectAllReserva") {
