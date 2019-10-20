@@ -1,5 +1,6 @@
 $(document).ready(function () {
     // requisicoes AJAX
+    // estas recebem um json, e exibe o resultado em uma tabela
     function selectAllPrato(){
         let action = "selectAllPrato";
         // console.log(action);
@@ -10,7 +11,7 @@ $(document).ready(function () {
             data: {action: action},
             success: function(response){
                 let array = JSON.parse(response);
-                console.table(array);
+                // console.table(array);
 
                 pratos = array;
 
@@ -63,7 +64,7 @@ $(document).ready(function () {
             data: {action: action},
             success: function(response){
                 let array = JSON.parse(response);
-                console.table(array);
+                // console.table(array);
 
                 clientes = array;
 
@@ -113,7 +114,7 @@ $(document).ready(function () {
             url: "controller.php",
             data: {action: action},
             success: function(response){
-                console.table(JSON.parse(response));
+                // console.table(JSON.parse(response));
                 let array = JSON.parse(response);
 
                 mesas = array;
@@ -154,7 +155,7 @@ $(document).ready(function () {
             url: "controller.php",
             data: {action: action},
             success: function(response){
-                console.table(JSON.parse(response));
+                // console.table(JSON.parse(response));
                 array = JSON.parse(response);
 
                 let divReserva = $("#divReserva");
@@ -212,7 +213,7 @@ $(document).ready(function () {
                 id_reserva: id_reserva
             },
             success: function(response){
-                console.table(JSON.parse(response));
+                // console.table(JSON.parse(response));
                 array = JSON.parse(response);
 
                 let divRefeicao = $("#divRefeicao");
@@ -246,139 +247,7 @@ $(document).ready(function () {
             console.log(response);
         })
     }
-    
-
-    // classes
-    class Cliente{
-        id;
-        nome;
-        telefone;
-        email;
-
-        constructor(id, nome, telefone, email){
-            this.id = id;
-            this.nome = nome;
-            this.telefone = telefone;
-            this.email = email;
-        }
-    }
-    let c = new Cliente(1, "João", 13912345678, "email@email.com");
-    console.log(c);
-
-    class Mesa{
-        id;
-        qt_cadeira;
-
-        constructor(id, qt_cadeira_mesa){
-            this.id = id;
-            this.qt_cadeira = qt_cadeira_mesa;
-        }
-    }
-    let m = new Mesa(1, 3);
-    console.log(m);
-    
-    class Prato{
-        id;
-        nome;
-        valor;
-        descricao;
-
-        constructor(id, nome, valor, descricao){
-            this.id = id;
-            this.nome = nome;
-            this.valor = valor;
-            this.descricao = descricao;
-        }
-    }
-    let p = new Prato(1, "Arroz com Feijao", 15.5, "Tem arroz e feijao");
-    console.log(p);
-
-    class Reserva{
-        id;
-        hInicio;
-        hTermino;
-        cliente = new Cliente();
-        mesa = new Mesa();
-        prato = Array();
-        pagamento;
-
-        constructor(id, hInicio, hTermino, cliente, mesa, prato, pagamento){
-            this.id = id;
-            this.hInicio = hInicio;
-            this.hTermino = hTermino;
-            this.cliente = cliente;
-            this.mesa = mesa;
-            this.prato = prato;
-            this.pagamento = pagamento;
-        }
-    }
-    let prato = Array();
-    prato.push(
-        new Prato(1, "Arroz com Feijao", 15.5, "Tem arroz e feijao"),
-        new Prato(2, "P\u00e3o com ovo", 5, "P\u00e3o com ovo frito")
-    );
-    let r = new Reserva(null, "2019-02-15 15:20:14", "2019-02-15 16:20:14", c, m, prato, null);
-    console.log(r);
-
-    class Promocao{
-        valor;
-        isPorcentagem;
-        porcentagem;
-
-        constructor(valor, isPorcentagem, porcentagem){
-            this.valor = valor;
-            this.isPorcentagem = isPorcentagem;
-            this.porcentagem = porcentagem;
-        }
-    }
-    let pro = new Promocao(0, true, 20.5);
-    console.log(pro);
-
-    class Refeicao{
-        prato = new Array();
-        idReserva;
-
-        constructor(idReserva = null){
-            this.idReserva = idReserva;
-        }
-
-        adicionarPrato(prato) {
-            this.prato.push(prato);
-        }
-    }
-    let ref = new Refeicao();
-    ref.adicionarPrato(7);
-    console.log(ref);
-
-    // para guardar os pratos
-    var pratos = Array();
-    // para guardar os pratos da reserva
-    var refeicao = new Refeicao();
-    // var pratosRefeicao = Array();
-    // para guardar os clientes
-    var clientes = Array();
-    // para guardar as mesas
-    var mesas = Array();
-    // usado na selectAllRefeicaoOfReserva()
-    var idReservaRefeicao = 19;
-
-    // funções que populam a pagina
-    selectAllPrato();
-    selectAllCliente();
-    selectAllMesa();
-    selectAllReserva();
-    selectAllRefeicaoOfReserva(idReservaRefeicao);
-
-
-
-    function popularDadosCliente() {
-        $("#divDados p")[0].innerHTML += c.id;
-        $("#divDados p")[1].innerHTML += c.nome;
-        $("#divDados p")[2].innerHTML += c.telefone;
-        $("#divDados p")[3].innerHTML += c.email;
-    }
-    popularDadosCliente();
-    
+    // estas montam um objeto e enviam via json para ser salvo no BD
     function cadastrarCliente(){
         let nome = $("#clienteNome").val();
         let telefone = $("#clienteTelefone").val();
@@ -386,7 +255,7 @@ $(document).ready(function () {
 
         if(nome && telefone && email){
             cliente = new Cliente(null, nome, telefone, email);
-            console.log(cliente);
+            // console.log(cliente);
 
             let action = "insertNewCliente";
 
@@ -413,7 +282,7 @@ $(document).ready(function () {
 
         if(nome && valor && descricao){
             prato = new Prato(null, nome, valor, descricao);
-            console.log(prato);
+            // console.log(prato);
 
             let action = "insertNewPrato";
 
@@ -438,7 +307,7 @@ $(document).ready(function () {
         
         if(qt_cadeira){
             mesa = new Mesa(null, qt_cadeira);
-            console.log(mesa);
+            // console.log(mesa);
 
             let action = "insertNewMesa";
 
@@ -465,9 +334,9 @@ $(document).ready(function () {
         let idMesa = $("#reservaIdMesa").val();
         let pagamento = $("#reservaPagamento").val();
 
-        console.log(refeicao);
-        console.log(clientes);
-        console.log(mesas);
+        // console.log(refeicao);
+        // console.log(clientes);
+        // console.log(mesas);
 
         if(inicio && termino && idCliente && idMesa && refeicao){
             
@@ -478,16 +347,16 @@ $(document).ready(function () {
             });
 
             mesa = $.map(mesas, function( n ) {
-                console.log(n);
+                // console.log(n);
                 if(n.id_mesa == idMesa){
                     return n;
                 }
             });
 
             
-            console.log(mesa);
+            // console.log(mesa);
             reserva = new Reserva(null, inicio, termino, cliente, mesa, refeicao, pagamento);
-            console.log(reserva);
+            // console.log(reserva);
 
             let action = "insertNewReserva";
 
@@ -507,6 +376,52 @@ $(document).ready(function () {
             })
         }
     }
+    function cadastrarPromocao(){
+        let isPorcentagem = $("#promocaoIsPorcentagem:checked").val()
+        let id_prato = $("#promocaoIdPrato").val();
+        let valor = $("#promocaoValor").val();
+
+        if(id_prato && valor){
+            let prato = $.map(pratos, function( n ) {
+                if(n.id_prato == id_prato){
+                    return n;
+                }
+            });
+            let valorPorcentagem;
+            let valorReal;
+            if (isPorcentagem) {
+                isPorcentagem = true;
+                valorReal = calcularPorcentagem(prato[0].vl_prato, valor);
+                valorPorcentagem = valor;
+            }
+            else{
+                isPorcentagem = false;
+                valorReal = valor;
+                valorPorcentagem = 0;
+            }
+            
+            promocao = new Promocao(prato, valorPorcentagem, isPorcentagem, valorReal);
+            console.table(promocao);
+
+            let action = "insertNewPromocao";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(promocao)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
+    // este salva os pratos em um json no front
     function adicionarReservaPrato(){
         let idPrato = $("#reservaIdPrato").val();
         
@@ -550,7 +465,171 @@ $(document).ready(function () {
             refeicaoTable.append(tr);
         });
     }
+    // calcular porcentagem
+    function calcularPorcentagem (valor, porcentagem) {
+        console.log(valor * (porcentagem / 100));
+        
+        return valor * (porcentagem / 100);
+    }
+    // calcula e exibe o desconto do prato
+    function calcularValorFinal (id_prato, valor) {
+            let prato = $.map(pratos, function( n ) {
+                if(n.id_prato == id_prato){
+                    return n;
+                }
+            });
+            
+            if($("#promocaoIsPorcentagem:checked").val())
+                valorFinal = prato[0].vl_prato - calcularPorcentagem(prato[0].vl_prato, valor);
+            else
+                valorFinal = prato[0].vl_prato - valor;
+            return valorFinal;
+    }
+    // muda o valor final do prato
+    function mudarValorFinalPromocao() {
+        let id_prato = $("#promocaoIdPrato").val();
+        let valor = $("#promocaoValor").val();
 
+        if(id_prato && valor){
+            let valorFinal = calcularValorFinal(id_prato, valor);
+            $("#promocaoValorFinal").val(valorFinal);
+            console.table(valor);
+            console.table(valorFinal);
+        }
+    }
+    
+    // classes
+    class Cliente{
+        id;
+        nome;
+        telefone;
+        email;
+
+        constructor(id, nome, telefone, email){
+            this.id = id;
+            this.nome = nome;
+            this.telefone = telefone;
+            this.email = email;
+        }
+    }
+    class Mesa{
+        id;
+        qt_cadeira;
+
+        constructor(id, qt_cadeira_mesa){
+            this.id = id;
+            this.qt_cadeira = qt_cadeira_mesa;
+        }
+    }
+    class Prato{
+        id;
+        nome;
+        valor;
+        descricao;
+
+        constructor(id, nome, valor, descricao){
+            this.id = id;
+            this.nome = nome;
+            this.valor = valor;
+            this.descricao = descricao;
+        }
+    }
+    class Reserva{
+        id;
+        hInicio;
+        hTermino;
+        cliente = new Cliente();
+        mesa = new Mesa();
+        prato = Array();
+        pagamento;
+
+        constructor(id, hInicio, hTermino, cliente, mesa, prato, pagamento){
+            this.id = id;
+            this.hInicio = hInicio;
+            this.hTermino = hTermino;
+            this.cliente = cliente;
+            this.mesa = mesa;
+            this.prato = prato;
+            this.pagamento = pagamento;
+        }
+    }
+    class Promocao{
+        valor;
+        isPorcentagem;
+        porcentagem;
+        prato;
+
+        constructor(prato, porcentagem, isPorcentagem, valor){
+            this.prato = prato;
+            this.porcentagem = porcentagem;
+            this.isPorcentagem = isPorcentagem;
+            this.valor = valor;
+        }
+    }
+    class Refeicao{
+        prato = new Array();
+        idReserva;
+
+        constructor(idReserva = null){
+            this.idReserva = idReserva;
+        }
+
+        adicionarPrato(prato) {
+            this.prato.push(prato);
+        }
+    }
+    
+    // instanciando e exibindo o objeto no log
+    /*
+    let c = new Cliente(1, "João", 13912345678, "email@email.com");
+    console.log(c);
+    let m = new Mesa(1, 3);
+    console.log(m);
+    let p = new Prato(1, "Arroz com Feijao", 15.5, "Tem arroz e feijao");
+    console.log(p);
+    let prato = Array();
+    prato.push(
+        new Prato(1, "Arroz com Feijao", 15.5, "Tem arroz e feijao"),
+        new Prato(2, "P\u00e3o com ovo", 5, "P\u00e3o com ovo frito")
+    );
+    let r = new Reserva(null, "2019-02-15 15:20:14", "2019-02-15 16:20:14", c, m, prato, null);
+    console.log(r);
+    let pro = new Promocao(0, true, 20.5);
+    console.log(pro);
+    let ref = new Refeicao();
+    ref.adicionarPrato(7);
+    console.log(ref);
+
+    // exibe os dados do cliente
+    function popularDadosCliente() {
+        $("#divDados p")[0].innerHTML += c.id;
+        $("#divDados p")[1].innerHTML += c.nome;
+        $("#divDados p")[2].innerHTML += c.telefone;
+        $("#divDados p")[3].innerHTML += c.email;
+    }
+    popularDadosCliente();
+    */
+   
+
+    // para guardar os pratos
+    var pratos = Array();
+    // para guardar os pratos da reserva
+    var refeicao = new Refeicao();
+    // var pratosRefeicao = Array();
+    // para guardar os clientes
+    var clientes = Array();
+    // para guardar as mesas
+    var mesas = Array();
+    // usado na selectAllRefeicaoOfReserva()
+    var idReservaRefeicao = 19;
+
+    // funções que populam a pagina
+    selectAllPrato();
+    selectAllCliente();
+    selectAllMesa();
+    selectAllReserva();
+    selectAllRefeicaoOfReserva(idReservaRefeicao);
+    
     $("#cadastrarCliente").click(function(){
         cadastrarCliente();
     });
@@ -566,5 +645,22 @@ $(document).ready(function () {
     $("#adicionarReservaPrato").click(function(){
         adicionarReservaPrato();
     });
-
+    $("#cadastrarPromocao").click(function(){
+        cadastrarPromocao();
+    });
+    $("#promocaoIsPorcentagem").change(function (e) {
+        if(this.checked)
+            $("#promocaoValor").attr("placeholder", "Porcentagem");
+        else
+            $("#promocaoValor").attr("placeholder", "Desconto em Real");
+        $("#promocaoValor").val(0);
+        mudarValorFinalPromocao();
+    });
+    $("#promocaoIdPrato").change(function (e) {
+        mudarValorFinalPromocao();
+    });
+    $("#promocaoValor").change(function (e) {
+        mudarValorFinalPromocao();
+    });
+    
 });

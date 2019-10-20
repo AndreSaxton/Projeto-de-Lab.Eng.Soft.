@@ -3,6 +3,7 @@
 // tirar quando juntar com o front
 // o back recebera um json com os dados abaixo, a depender do que será realizado
 
+
 $jsonCliente = array(
     "id" => 1,
     "nome" => "João",
@@ -10,7 +11,7 @@ $jsonCliente = array(
     "email" => "email@email.com"
 );
 $jsonCliente = json_encode($jsonCliente);
-
+/*
 $jsonMesa = array(
     "id" => 1,
     "qt_cadeira" => 3
@@ -72,7 +73,7 @@ $jsonNewPrato = array(
     "descricao" => "è comida"
 );
 $jsonNewPrato = json_encode($jsonNewPrato);
-
+*/
 $jsonPromocao = array(
     "valor" => 25.5,
     "isPorcentagem" => false,
@@ -92,7 +93,7 @@ $jsonPratoPromocao = array(
 $jsonPratoPromocao = json_encode($jsonPratoPromocao);
 $jsonPromocao = json_encode($jsonPromocao);
 $jsonPromocaoPercent = json_encode($jsonPromocaoPercent);
-
+/*
 $jsonReservaOfRefeicao = array(
     "id" => 7
 );
@@ -103,7 +104,7 @@ $jsonRefeicao = array(
     "idReserva" => 7,
 );
 $jsonRefeicao = json_encode($jsonRefeicao);
-
+*/
 
 // recebendo json do front
 $action = $_POST["action"];
@@ -180,13 +181,14 @@ if(isset($action) && !empty($action)){
         $cliente->reservarMesa($reserva);
     }
     // fazerPedido
+    /*executado dentro do cadastrarReserva
     if ($function == "insertNewRefeicao") {
         $jsonRefeicao = json_decode($jsonRefeicao, true);
         $cliente = json_decode($jsonCliente, true);
         $cliente = new Cliente(1, $cliente["nome"], $cliente["telefone"], $cliente["email"]);
 
         $cliente->fazerPedido($jsonRefeicao["idReserva"], $jsonRefeicao["idPrato"]);
-    }
+    }*/
     // pagarPedido
     if ($function == "") {}
 
@@ -211,14 +213,17 @@ if(isset($action) && !empty($action)){
     if ($function == "") {}
     // aplicarDesconto
     if ($function == "insertNewPromocao") {
-        $jsonPratoPromocao = json_decode($jsonPratoPromocao, true);
-        $jsonPromocao = json_decode($jsonPromocao, true);
+        $data = $_POST["data"];
+
+        // $jsonPratoPromocao = json_decode($jsonPratoPromocao, true);
+        $jsonPromocao = json_decode($data, true);
         // $jsonPromocao = json_decode($jsonPromocaoPercent, true);
         // print_r($jsonPromocaoPercent);
         // print_r($jsonPromocao);
         $promocao = new Promocao();
         $lanchonete = new Lanchonete();
-        $prato = new Prato($jsonPratoPromocao["id"], $jsonPratoPromocao["nome"], $jsonPratoPromocao["valor"], $jsonPratoPromocao["descricao"]);
+        $prato = new Prato($jsonPromocao["prato"][0]["id_prato"], $jsonPromocao["prato"][0]["nm_prato"],
+         $jsonPromocao["prato"][0]["vl_prato"], $jsonPromocao["prato"][0]["ds_prato"]);
         
 
         if($jsonPromocao["isPorcentagem"]==true)
@@ -226,6 +231,7 @@ if(isset($action) && !empty($action)){
         else
             $promocao->setDesconto($prato, $jsonPromocao["valor"]);
 
+        
         // print_r($promocao);
         // print_r($prato);
 
