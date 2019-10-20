@@ -26,7 +26,7 @@ include('header-adm.php'); ?>
 							<p class="text-bloco">Gerenciar <br> Usuarios</p>
 						</div>
 					</a>
-					<a href="http://localhost/Front/gerencia-prato.php">
+					<a href="gerencia-prato.php">
 						<div class="box-item" style="background-color:#97bf0d;">
 							<img src="./Icones/pratos.png" class="img-responsive">
 							<p class="text-bloco">Gerenciar <br> Pratos</p>

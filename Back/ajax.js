@@ -7,7 +7,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: "POST",
-            url: "controller.php",
+            url: urlController,
             data: {action: action},
             success: function(response){
                 let array = JSON.parse(response);
@@ -15,38 +15,68 @@ $(document).ready(function () {
 
                 pratos = array;
 
-                let divPrato = $("#divPrato");
+                // let divPrato = $("#divPrato");
                 // console.log(divPrato);
                 // let table = document.createElement("table");
-                let table = $("#divPrato table");
+                let table = $(".tablePrato");
 
                 array.forEach(element => {
                     // console.table(element);
-                    
-                    let tr = document.createElement("tr");
+                    // criando elementos da tabela
+                    let tr = document.createElement("div");
 
-                    let tdId = document.createElement("td");
-                    let tdNm = document.createElement("td");
-                    let tdVl = document.createElement("td");
-                    let tdDs = document.createElement("td");
+                    let tdId = document.createElement("div");
+                    let tdNm = document.createElement("div");
+                    let tdVl = document.createElement("div");
+                    let tdDs = document.createElement("div");
+                    let tdAtivo = document.createElement("a");
+                    let tdEditar = document.createElement("a");
 
                     let textId = document.createTextNode(element.id_prato);
                     let textNm = document.createTextNode(element.nm_prato);
                     let textVl = document.createTextNode(element.vl_prato);
                     let textDs = document.createTextNode(element.ds_prato);
+                    let textAtivo = document.createTextNode("Ativo");
+                    let textEditar = document.createTextNode("Editar");
+
+                    // atribuindo classes
+                    tr.className = "row";
+                    tdId.className = "cell";
+                    tdNm.className = "cell";
+                    tdVl.className = "cell";
+                    tdDs.className = "cell";
+                    tdAtivo.className = "cell";
+                    tdEditar.className = "cell atualizar";
 
                     tdId.append(textId);
                     tdNm.append(textNm);
                     tdVl.append(textVl);
                     tdDs.append(textDs);
+                    tdAtivo.append(textAtivo);
+                    tdEditar.append(textEditar);
 
                     tr.append(tdId);
                     tr.append(tdNm);
                     tr.append(tdVl);
                     tr.append(tdDs);
+                    tr.append(tdAtivo);
+                    tr.append(tdEditar);
 
                     table.append(tr);
-                    divPrato.append(table);
+                    // divPrato.append(table);
+
+                    
+                    $(tdAtivo).attr("id", "deletarPrato");
+                    $(tdAtivo).attr("href", "#");
+                    $(tdEditar).attr("href", "#");
+                    // atribuindo funcao para carregar dados no form editar
+                    $(tdEditar).click(function(){
+                        carregarDadosFormEditar(element.id_prato);
+                    });
+                    $(tdAtivo).click(function(){
+                        $("#delpratoId").val(element.id_prato);
+                        deletarPrato();
+                    });
                 });
             }
         })
@@ -60,7 +90,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: "POST",
-            url: "controller.php",
+            url: urlController,
             data: {action: action},
             success: function(response){
                 let array = JSON.parse(response);
@@ -111,7 +141,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: "POST",
-            url: "controller.php",
+            url: urlController,
             data: {action: action},
             success: function(response){
                 // console.table(JSON.parse(response));
@@ -152,7 +182,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: "POST",
-            url: "controller.php",
+            url: urlController,
             data: {action: action},
             success: function(response){
                 // console.table(JSON.parse(response));
@@ -209,7 +239,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: "POST",
-            url: "controller.php",
+            url: urlController,
             data: {
                 action: action,
                 id_reserva: id_reserva
@@ -255,7 +285,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: "POST",
-            url: "controller.php",
+            url: urlController,
             data: {action: action},
             success: function(response){
                 // console.table(JSON.parse(response));
@@ -312,7 +342,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(cliente)
@@ -339,7 +369,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(prato)
@@ -364,7 +394,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(mesa)
@@ -413,7 +443,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(reserva)
@@ -458,7 +488,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(promocao)
@@ -485,7 +515,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(cliente)
@@ -511,7 +541,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(prato)
@@ -537,7 +567,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(mesa)
@@ -580,7 +610,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(reserva)
@@ -626,7 +656,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(promocao)
@@ -656,7 +686,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(cliente)
@@ -684,7 +714,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(prato)
@@ -713,7 +743,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(mesa)
@@ -744,7 +774,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(reserva)
@@ -768,7 +798,7 @@ $(document).ready(function () {
 
             $.ajax({
                 method: "POST",
-                url: "controller.php",
+                url: urlController,
                 data: {
                     action: action,
                     data: JSON.stringify(promocao)
@@ -858,6 +888,20 @@ $(document).ready(function () {
             console.table(valorFinal);
         }
     }
+    // muda o valor final do prato
+    function carregarDadosFormEditar(id_prato){
+        let prato = $.map(pratos, function( n ) {
+            if(n.id_prato == id_prato){
+                return n;
+            }
+        });
+        prato = prato[0];
+        $("#altpratoId").val(prato.id_prato);
+        $("#altpratoNome").val(prato.nm_prato);
+        $("#altpratoValor").val(prato.vl_prato);
+        $("#altpratoDescricao").val(prato.ds_prato);
+    }
+    
     
     // classes
     class Cliente{
@@ -942,38 +986,6 @@ $(document).ready(function () {
         }
     }
     
-    // instanciando e exibindo o objeto no log
-    /*
-    let c = new Cliente(1, "João", 13912345678, "email@email.com");
-    console.log(c);
-    let m = new Mesa(1, 3);
-    console.log(m);
-    let p = new Prato(1, "Arroz com Feijao", 15.5, "Tem arroz e feijao");
-    console.log(p);
-    let prato = Array();
-    prato.push(
-        new Prato(1, "Arroz com Feijao", 15.5, "Tem arroz e feijao"),
-        new Prato(2, "P\u00e3o com ovo", 5, "P\u00e3o com ovo frito")
-    );
-    let r = new Reserva(null, "2019-02-15 15:20:14", "2019-02-15 16:20:14", c, m, prato, null);
-    console.log(r);
-    let pro = new Promocao(0, true, 20.5);
-    console.log(pro);
-    let ref = new Refeicao();
-    ref.adicionarPrato(7);
-    console.log(ref);
-
-    // exibe os dados do cliente
-    function popularDadosCliente() {
-        $("#divDados p")[0].innerHTML += c.id;
-        $("#divDados p")[1].innerHTML += c.nome;
-        $("#divDados p")[2].innerHTML += c.telefone;
-        $("#divDados p")[3].innerHTML += c.email;
-    }
-    popularDadosCliente();
-    */
-   
-
     // para guardar os pratos
     var pratos = Array();
     // para guardar os pratos da reserva
@@ -988,6 +1000,8 @@ $(document).ready(function () {
     var reservas = Array();
     // usado na selectAllRefeicaoOfReserva()
     var idReservaRefeicao = 19;
+    // url onde esta o controller
+    var urlController = "../Back/controller.php";
 
     // funções que populam a pagina
     selectAllPrato();

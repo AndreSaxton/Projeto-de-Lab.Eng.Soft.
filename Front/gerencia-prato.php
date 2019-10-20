@@ -20,7 +20,7 @@ include('header-adm.php');
 	<div class="container">
 		<div class="row">
 			
-			<div class="table">
+			<div class="table tablePrato">
     
 			    <div class="row header">
 			      <div class="cell">
@@ -83,21 +83,21 @@ include('header-adm.php');
 			<form id="pratos-editar-form">
 			  <div class="form-group">
 			    <label for="codigo" class="form-label">Código</label>
-			    <input type="text" class="form-control" id="codigo" name="codigo" value="<?php //adicionar ?>">
+			    <input type="text" class="form-control" id="altpratoId" name="codigo" value="<?php //adicionar ?>" readonly>
 			  </div>
 			  <div class="form-group">
 			    <label for="prato" class="form-label">Prato</label>
-			    <input type="text" class="form-control" id="prato" name="prato" value="<?php //adicionar ?>">
+			    <input type="text" class="form-control" id="altpratoNome" name="prato" value="<?php //adicionar ?>">
 			  </div>
 			  <div class="form-group" >
-			    <label for="preco" class="form-label">preco</label>
-			    <input type="email" class="form-control" id="preco" name="preco" value="<?php //adicionar ?>">
+			    <label for="preco" class="form-label">Preço</label>
+			    <input type="email" class="form-control" id="altpratoValor" name="preco" value="<?php //adicionar ?>">
 			  </div>
 			  <div class="form-group">
-			    <label for="descricao" class="form-label">Endereço Completo</label>
-			    <input type="text" class="form-control" id="descricao" name="descricao" value="<?php //adicionar ?>">
+			    <label for="descricao" class="form-label">Descrição</label>
+			    <input type="text" class="form-control" id="altpratoDescricao" name="descricao" value="<?php //adicionar ?>">
 			  </div>
-			  <button type="submit" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;">Submit</button>
+			  <button type="button" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;" id="alterarPrato">Submit</button>
 			</form>
 		</div>
 	</div>
@@ -108,18 +108,21 @@ include('header-adm.php');
 			<form id="pratos-inserir-form">
 			  <div class="form-group">
 			    <label for="prato" class="form-label">Prato</label>
-			    <input type="text" class="form-control" id="prato" name="prato">
+			    <input type="text" class="form-control" id="pratoNome" name="prato">
 			  </div>
 			  <div class="form-group" >
 			    <label for="preco" class="form-label">Preço</label>
-			    <input type="email" class="form-control" id="preco" name="preco">
+			    <input type="email" class="form-control" id="pratoValor" name="preco">
 			  </div>
 			  <div class="form-group">
 			    <label for="descricao" class="form-label">Descrição</label>
-			    <input type="text" class="form-control" id="descricao" name="descricao">
+			    <input type="text" class="form-control" id="pratoDescricao" name="descricao">
 			  </div>
-			  <button type="submit" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;">Submit</button>
+			  <button type="button" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;" id="cadastrarPrato">Submit</button>
 			</form>
 		</div>
 	</div>
+</section>
+<section id="formulario-exclusao" style="display: none;">
+	<input type="number" name="delpratoId" id="delpratoId">
 </section>
