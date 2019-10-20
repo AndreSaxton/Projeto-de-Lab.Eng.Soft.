@@ -200,6 +200,12 @@ class Lanchonete{
         $mesas = $conexao->selectAllMesa();
         return $mesas;
     }
+    function verListaPromocao(){
+        $conexao = new Conexao();
+        
+        $promocoes = $conexao->selectAllPromocao();
+        return $promocoes;
+    }
     function verListaReserva(){
         $conexao = new Conexao();
         

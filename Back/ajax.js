@@ -247,6 +247,55 @@ $(document).ready(function () {
             console.log(response);
         })
     }
+    function selectAllPromocao(){
+        let action = "selectAllPromocao";
+        // console.log(action);
+
+        $.ajax({
+            method: "POST",
+            url: "controller.php",
+            data: {action: action},
+            success: function(response){
+                console.table(JSON.parse(response));
+                let array = JSON.parse(response);
+
+                mesas = array;
+
+                let divPromocao = $("#divPromocao");
+                let table = $("#divPromocao table");
+
+                array.forEach(element => {                    
+                    let tr = document.createElement("tr");
+
+                    let tdId = document.createElement("td");
+                    let tdVlReal = document.createElement("td");
+                    let tdVlPorc = document.createElement("td");
+                    let tdIdPrato = document.createElement("td");
+
+                    let textId = document.createTextNode(element.id_promocao);
+                    let textVlReal = document.createTextNode(element.vl_promocao);
+                    let textVlPorc = document.createTextNode(element.vl_porcentagem_promocao);
+                    let textIdPrato = document.createTextNode(element.id_prato);
+
+                    tdId.append(textId);
+                    tdVlReal.append(textVlReal);
+                    tdVlPorc.append(textVlPorc);
+                    tdIdPrato.append(textIdPrato);
+
+                    tr.append(tdId);
+                    tr.append(tdVlReal);
+                    tr.append(tdVlPorc);
+                    tr.append(tdIdPrato);
+
+                    table.append(tr);
+                    divPromocao.append(table);
+                });
+            }
+        })
+        .fail(function (response){
+            console.log(response);
+        })
+    }
     // estas montam um objeto e enviam via json para ser salvo no BD
     function cadastrarCliente(){
         let nome = $("#clienteNome").val();
@@ -629,6 +678,7 @@ $(document).ready(function () {
     selectAllMesa();
     selectAllReserva();
     selectAllRefeicaoOfReserva(idReservaRefeicao);
+    selectAllPromocao();
     
     $("#cadastrarCliente").click(function(){
         cadastrarCliente();

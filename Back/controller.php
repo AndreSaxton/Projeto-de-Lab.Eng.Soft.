@@ -238,7 +238,11 @@ if(isset($action) && !empty($action)){
         $lanchonete->aplicarDesconto($promocao);    
     }
     // verListaDesconto
-    if ($function == "") {}
+    if ($function == "selectAllPromocao") {
+        $lanchonete = new Lanchonete();
+        $promocoes = $lanchonete->verListaPromocao();
+        echo json_encode($promocoes);
+    }
     // alterarDesconto
     if ($function == "") {}
     // removerDesconto

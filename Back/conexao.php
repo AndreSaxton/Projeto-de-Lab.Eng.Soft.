@@ -466,12 +466,12 @@ class Conexao{
         if($stmt = $conn->prepare($sql)){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
-                echo "Records selected successfully.";
+                // echo "Records selected successfully.";
             } else{
-                echo "ERROR: Could not execute query: $sql. " . $conn->error;
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
         }
 
         //valores encontrados
@@ -486,11 +486,14 @@ class Conexao{
                 $valor[] = $row["vl_promocao"];
                 $porcentagem[] = $row["vl_porcentagem_promocao"];
                 $idPrato[] = $row["id_prato"];
+
+                $promocoes[] = $row;
             }
-            foreach ($id as $key => $value) {
-                //echo $key . $value . "<br>";
-                echo "ID: " . $id[$key] . ", VALOR: ".$valor[$key]." ,PORCENTAGEM:".$porcentagem[$key]." ,ID_PRATO:".$idPrato[$key]."<br>";
-            }
+            // foreach ($id as $key => $value) {
+            //     //echo $key . $value . "<br>";
+            //     echo "ID: " . $id[$key] . ", VALOR: ".$valor[$key]." ,PORCENTAGEM:".$porcentagem[$key]." ,ID_PRATO:".$idPrato[$key]."<br>";
+            // }
+            return $promocoes;
         }
     }
     function insertNewPromocao(float $valor, float $porcentagem, int $idPrato){
