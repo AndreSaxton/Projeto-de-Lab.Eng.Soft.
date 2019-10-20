@@ -590,6 +590,32 @@ class Conexao{
         // Close statement
         $stmt->close();
     }
+    function updatePromocao(int $identificador, float $valor, float $porcentagem, int $idPrato){
+        // Prepare an insert statement
+        $sql = "UPDATE `promocao` SET `vl_promocao` = ?, `vl_porcentagem_promocao` = ?, `id_prato` = ? WHERE id_promocao = ?";
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("ddii", $valor, $porcentagem, $idPrato, $identificador);
+
+            // Set parameters
+            // $valor = 5.50;
+            // $porcentagem = null;
+            // $idPrato = 1;
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
     // Close connection
     //$conn->close();
 }

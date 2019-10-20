@@ -197,6 +197,12 @@ class Lanchonete{
         
         $conexao->insertNewPromocao($promocao->getValor(), $promocao->getPorcentagemDesconto(), $promocao->getPrato()->getIdentificador());
     }
+    function alterarDesconto(Promocao $promocao){
+        //salvar promocao no BD, talvez criar tabela associativa
+        $conexao = new Conexao();
+        
+        $conexao->updatePromocao($promocao->getIdentificador(), $promocao->getValor(), $promocao->getPorcentagemDesconto(), $promocao->getPrato()->getIdentificador());
+    }
     function prepararMesa(Mesa $mesa){
         $conexao = new Conexao();
         
@@ -274,6 +280,7 @@ class Prato{
     }
 }
 class Promocao{
+    private $identificador;
     private $valor = 0;
     //no diagrama de classes esta Int
     private $hasPorcentagem = false;
@@ -281,8 +288,14 @@ class Promocao{
     private $prato;
     //nao ta no diagrama mas talvez seja melhor fazer assim, pra fazer a associação da promoção com o prato. ainda nao estou usando este atributo
 
+    function setIdentificador(int $identificador){
+        $this->identificador = $identificador;
+    }
+    function getIdentificador(){
+        return $this->identificador;
+    }
     function getDesconto(){
-        return $valor;
+        return $this->valor;
     }
     function setDesconto(Prato $prato, float $valDesc){
         $this->prato = $prato;

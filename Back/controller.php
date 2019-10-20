@@ -187,6 +187,10 @@ if(isset($action) && !empty($action)){
         
         $cliente->reservarMesa($reserva);
     }
+    // alterar reserva
+    if ($function == "updateReserva") {
+        echo "A FAZER";
+    }
     // fazerPedido
     /*executado dentro do cadastrarReserva
     if ($function == "insertNewRefeicao") {
@@ -257,7 +261,23 @@ if(isset($action) && !empty($action)){
         echo json_encode($promocoes);
     }
     // alterarDesconto
-    if ($function == "") {}
+    if ($function == "updatePromocao") {
+        $data = $_POST["data"];
+        $jsonPromocao = json_decode($data, true);
+        print_r($jsonPromocao);
+        
+        $promocao = new Promocao();
+        $lanchonete = new Lanchonete();
+        $prato = new Prato($jsonPromocao["prato"][0]["id_prato"], $jsonPromocao["prato"][0]["nm_prato"],
+         $jsonPromocao["prato"][0]["vl_prato"], $jsonPromocao["prato"][0]["ds_prato"]);
+
+        if($jsonPromocao["isPorcentagem"]==true)
+            $promocao->setDescontoPorcentagem($prato, $jsonPromocao["porcentagem"]);
+        else
+            $promocao->setDesconto($prato, $jsonPromocao["valor"]);
+        $promocao->setIdentificador($jsonPromocao["id"]);
+        $lanchonete->alterarDesconto($promocao);
+    }
     // removerDesconto
     if ($function == "") {}
     // prepararMesa
