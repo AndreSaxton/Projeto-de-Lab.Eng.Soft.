@@ -349,6 +349,27 @@ class Conexao{
         // Close statement
         $stmt->close();
     }
+    function updateMesa(int $identificador, int $qtCadeira){
+        // Prepare an insert statement
+        $sql = "UPDATE `mesa` SET `qt_cadeira_mesa` = ? WHERE id_mesa = ?";
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("ii", $qtCadeira, $identificador);
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
 
     // nao sera usado
     function selectAllLanchonete(){

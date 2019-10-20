@@ -202,6 +202,11 @@ class Lanchonete{
         
         $conexao->insertNewMesa($mesa->getQuantCadeira());
     }
+    function alterarMesa(Mesa $mesa){
+        $conexao = new Conexao();
+        
+        $conexao->updateMesa($mesa->getIdentificador(), $mesa->getQuantCadeira());
+    }
     function verListaMesa(){
         $conexao = new Conexao();
         

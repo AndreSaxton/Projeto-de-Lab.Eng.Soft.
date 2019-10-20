@@ -276,7 +276,14 @@ if(isset($action) && !empty($action)){
         echo json_encode($mesas);
     }
     // alterarMesa
-    if ($function == "") {}
+    if ($function == "updateMesa") {
+        $data = $_POST["data"];
+
+        $mesa = json_decode($data, true);
+        $lanchonete = new Lanchonete();
+        $mesa = new Mesa($mesa["id"], $mesa["qt_cadeira"]);
+        $lanchonete->alterarMesa($mesa);
+    }
     // verListaReserva
     if ($function == "selectAllReserva") {
         $lanchonete = new Lanchonete();
