@@ -435,6 +435,10 @@ class Conexao{
 
     function selectAllPrato(){
         $sql = "SELECT * FROM PRATO";
+        /*$sql = "SELECT prato.id_prato, nm_prato, ds_prato,
+         vl_prato-promocao.vl_promocao AS vl_prato  FROM `prato` 
+         JOIN promocao on promocao.id_prato = prato.id_prato";*/
+        
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
