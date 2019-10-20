@@ -84,18 +84,24 @@ $( document ).ready(function() {
 	});
 
 	$('.atualizar').click(function() {
-		var opcao = $(this).data("item");
-		$('#formulario-edicao').slideDown();
-		// switch(opcao) {
-		// 	case 'lanchonete':
-		// 	    alert('lanchonete');
-		// 	break;
-		//   	case 'teste':
-		// 	    alert('não');
-		// 	break;
-		//   	default:
-		//     alert('caso excessão');
-		// }
+		if($('#formulario-edicao').hasClass('aberto')){
+			$('#formulario-edicao').removeClass('aberto');
+			$('#formulario-edicao').slideUp();
+		}else{
+			$('#formulario-edicao').addClass('aberto');
+			$('#formulario-edicao').slideDown();
+		}
+
+	});
+
+	$('.inserir').click(function() {
+		if($('#formulario-insercao').hasClass('aberto')){
+			$('#formulario-insercao').removeClass('aberto');
+			$('#formulario-insercao').slideUp();
+		}else{
+			$('#formulario-insercao').addClass('aberto');
+			$('#formulario-insercao').slideDown();
+		}
 	});
 
 });
