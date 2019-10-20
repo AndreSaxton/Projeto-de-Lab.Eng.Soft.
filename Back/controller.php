@@ -104,13 +104,26 @@
     );
     $jsonRefeicao = json_encode($jsonRefeicao);
 */
+//Chamadas genéricas para renderização de front
+Class Chamadas{
 
-// recebendo json do front
+    function verificaPratos(){
+        require_once('classes.php');
+        $cliente = new Cliente();
+        $pratos = $cliente->verCardapio();
+
+        return $pratos;
+       
+    }
+    
+}   
+
+
 $action = $_POST["action"];
-// var_dump( $action);
 
 // if(isset($_POST['action']) && !empty($_POST['action'])){
 if(isset($action) && !empty($action)){
+    
     // $function = $_POST['action'];
     $function = $action;
 
@@ -251,6 +264,14 @@ if(isset($action) && !empty($action)){
         $prato = json_decode($data, true);
         $lanchonete = new Lanchonete();
         $lanchonete->desativarPrato($prato["id"]);
+    }
+    // adicionarUsuario
+    if ($function == "insertNewUsuario") {
+        $data = $_POST["data"];
+        
+        $newUsuario = json_decode($data, true);
+        $usuario = new Usuario();
+        $usuario->adicionarUsuario($newUsuario["nome"],$newUsuario["login"],$newUsuario["senha"]);
     }
     // aplicarDesconto
     if ($function == "insertNewPromocao") {

@@ -104,4 +104,9 @@ $( document ).ready(function() {
 		}
 	});
 
+	$('.desativar').click(function() {
+		$('#deluserId').value($(this).data('id'));
+		alert($(this).data('id'));
+	});
+
 });

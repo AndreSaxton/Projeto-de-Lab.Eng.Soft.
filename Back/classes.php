@@ -88,6 +88,29 @@ class Cliente{
         $this->email = $e;
     }
 }
+class Usuario{
+    private $nome;
+    private $usuario;
+    private $senha;
+
+    function prato(int $id = null, string $n, string $log, string $desc){
+        $this->identificador = $id;
+        $this->nome = $n;
+        $this->usuario = $log;
+        $this->senha = $senha;
+    }
+
+    function verUsuarios(){
+        $conexao = new Conexao();
+        $user = $conexao->selectAllUsuario();
+        return $user;
+    }
+
+    function adicionarUsuario(string $nome, string $login, string $senha){
+        $conexao = new Conexao();
+        $user = $conexao->insertNewUser($nome, $login, $senha);
+    }
+}
 class Reserva{
     private $identificador;
     private $horaInicio;

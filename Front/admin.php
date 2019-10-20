@@ -14,13 +14,13 @@ include('header-adm.php'); ?>
 			<div align="center" class="fond">
 				<div style="width:1000px;">
 
-					<a href="http://localhost/Front/dados-lanchonete.php">
+					<a href="dados-lanchonete.php">
 						<div class="box-item" style="background-color:#cb2025;">
 							<img src="./Icones/garfo.png" class="img-responsive">
 							<p class="text-bloco">Dados da <br> Lanchonete</p>
 						</div>
 					</a>
-					<a href="https://www.devmedia.com.br/javascript-redirect-redirecionando-o-usuario-com-window-location/39809">
+					<a href="gerencia-usuario.php">
 						<div class="box-item" style="background-color:#f8b334;">
 							<img src="./Icones/usuarios.png" class="img-responsive">
 							<p class="text-bloco">Gerenciar <br> Usuarios</p>

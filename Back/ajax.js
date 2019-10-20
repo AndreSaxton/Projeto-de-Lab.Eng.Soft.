@@ -383,6 +383,35 @@ $(document).ready(function () {
             })
         }
     }
+    function cadastrarUsuario(){
+        let nome = $("#usuarioNome").val();
+        let login = $("#usuarioLogin").val();
+        let senha = $("#usuarioSenha").val();
+        console.log(nome);
+
+        if(nome && login && senha){
+            user = new Usuario(null, nome, login, senha);
+            // console.log(prato);
+
+            let action = "insertNewUsuario";
+
+            $.ajax({
+                method: "POST",
+                url: urlController,
+                data: {
+                    action: action,
+                    data: JSON.stringify(user)
+                },
+                success: function(response){
+                    console.table(response);
+                    location.reload();
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
     function cadastrarMesa(){
         let qt_cadeira = $("#mesaQtdCadeira").val();
         
@@ -939,6 +968,19 @@ $(document).ready(function () {
             this.descricao = descricao;
         }
     }
+    class Usuario{
+        id;
+        nome;
+        login;
+        senha;
+
+        constructor(id, nome, login, senha){
+            this.id = id;
+            this.nome = nome;
+            this.login = login;
+            this.senha = senha;
+        }
+    }
     class Reserva{
         id;
         hInicio;
@@ -1016,6 +1058,9 @@ $(document).ready(function () {
     });
     $("#cadastrarPrato").click(function(){
         cadastrarPrato();
+    });
+    $("#cadastrarUsuario").click(function(){
+        cadastrarUsuario();
     });
     $("#cadastrarMesa").click(function(){
         cadastrarMesa()

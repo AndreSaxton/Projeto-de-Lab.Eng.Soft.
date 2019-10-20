@@ -38,33 +38,12 @@ include('header-adm.php');
 			      <div class="cell">
 			        Ativar/Desativar
 			      </div>
-			      <div class="cell">
+			      <div class="cell atualizar">
 			        Editar
 			      </div>
 			    </div>
 			    <?php //aqui começa o foreach para gerar as linhas da tabela, tem um exemplo em 'dados-lanchonete.php"' ?>
-  					<div class="row">
-				      <div class="cell" data-title="codigo">
-				        01
-				      </div>
-				      <div class="cell" data-title="prato">
-				        Batata Rústica
-				      </div>
-				      <div class="cell" data-title="preco">
-				        R$ 20,00
-				      </div>
-				      <div class="cell" data-title="descricao">
-				        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				        tempor incididunt ut labore et dolore magna aliqua. 
-				      </div>
-				      <div class="cell" data-title="desativar">
-				        <a href="#"> Ativo </a>
-				      </div>
-				      <div class="cell" data-title="editar">
-				        <a href="#" class="atualizar"> Editar </a>
-				      </div>
-				    </div>
-		    
+	    
 			 </div>
 			<div style="margin: 0 auto;">
 				<input class="yes-or-no-field">
@@ -126,3 +105,4 @@ include('header-adm.php');
 <section id="formulario-exclusao" style="display: none;">
 	<input type="number" name="delpratoId" id="delpratoId">
 </section>
+

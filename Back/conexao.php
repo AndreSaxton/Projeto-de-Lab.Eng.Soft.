@@ -1,9 +1,9 @@
 <?php
 class Conexao{
-    public $servername = "localhost";
+    public $servername = "127.0.0.1";
     public $username = "root";
     public $password = "";
-    public $dbname = "lanchonet";
+    public $dbname = "id10939434_lancheonnet";
 
     /*// Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -153,6 +153,47 @@ class Conexao{
         }
         // Close statement
         $stmt->close();
+    }
+
+    function selectAllUsuario(){
+        $sql = "SELECT * FROM USUARIO";
+        /*$sql = "SELECT prato.id_prato, nm_prato, ds_prato,
+         vl_prato-promocao.vl_promocao AS vl_prato  FROM `prato` 
+         JOIN promocao on promocao.id_prato = prato.id_prato";*/
+        
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records selected successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+
+        //valores encontrados
+        $result = $stmt->get_result();
+
+        // Close statement
+        $stmt->close();
+
+        if($result->num_rows){
+            $usuarios = array();
+
+            while($row = $result->fetch_assoc()){
+                $usuarios[$row['id']]['id'] = $row['id'];
+                $usuarios[$row['id']]['login'] = $row['login'];
+                $usuarios[$row['id']]['nome'] = $row['nome'];
+                $usuarios[$row['id']]['ativo'] = $row['ativo'];
+ 
+            }
+
+            
+            return $usuarios;
+        }
     }
 
     function selectAllRefeicaoOfReserva(int $idReserva){
@@ -564,6 +605,29 @@ class Conexao{
             }
         } else{
             // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
+    function insertNewUser(string $nome, string $login, string $senha){
+        // Prepare an insert statement
+        $sql = "INSERT INTO `usuario`(`login`, `nome`, `senha`,`ativo`) VALUES (?,?,?,?)";
+        $conn = $this->connectToDatabase();
+        $senhaCodificada = md5($senha);
+        $ativo = 1;
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("sssi", $login, $nome, $senhaCodificada,$ativo);
+            var_dump($stmt->execute());
+            die();
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                echo $conn->error;
+
+            }
+        } else{
+            echo $conn->error;
         }
         // Close statement
         $stmt->close();
