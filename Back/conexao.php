@@ -112,6 +112,27 @@ class Conexao{
         // Close statement
         $stmt->close();
     }
+    function updateCliente(int $identificador, string $nome, float $telefone, string $email){
+        // Prepare an insert statement
+        $sql = "UPDATE `cliente` SET `nm_cliente` = ?, `nm_email_cliente` = ?, `cd_telefone_cliente` = ? WHERE id_cliente = ?";
+        $conn = $this->connectToDatabase();
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("ssii", $nome, $email, $telefone, $identificador);
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
 
     function selectAllRefeicaoOfReserva(int $idReserva){
         $sql = "SELECT * FROM REFEICAO WHERE id_reserva = ?";

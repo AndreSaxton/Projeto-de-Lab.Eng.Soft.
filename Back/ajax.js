@@ -256,7 +256,7 @@ $(document).ready(function () {
             url: "controller.php",
             data: {action: action},
             success: function(response){
-                console.table(JSON.parse(response));
+                // console.table(JSON.parse(response));
                 let array = JSON.parse(response);
 
                 mesas = array;
@@ -449,10 +449,178 @@ $(document).ready(function () {
                 valorPorcentagem = 0;
             }
             
-            promocao = new Promocao(prato, valorPorcentagem, isPorcentagem, valorReal);
+            promocao = new Promocao(null, prato, valorPorcentagem, isPorcentagem, valorReal);
             console.table(promocao);
 
             let action = "insertNewPromocao";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(promocao)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
+    // estas montam um objeto e enviam via json para serem alterados no BD
+    function alterarCliente(){
+        let id = $("#altclienteId").val();
+        let nome = $("#altclienteNome").val();
+        let telefone = $("#altclienteTelefone").val();
+        let email = $("#altclienteEmail").val();
+
+        if(nome && telefone && email){
+            cliente = new Cliente(id, nome, telefone, email);
+            let action = "updateCliente";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(cliente)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
+    function alterarPrato(){
+        let id = $("#altpratoId").val();
+        let nome = $("#altpratoNome").val();
+        let valor = $("#altpratoValor").val();
+        let descricao = $("#altpratoDescricao").val();
+
+        if(nome && valor && descricao){
+            prato = new Prato(id, nome, valor, descricao);
+            let action = "updatePrato";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(prato)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
+    function alterarMesa(){
+        let id = $("#altmesaId").val();
+        let qt_cadeira = $("#altmesaQtdCadeira").val();
+        
+        if(qt_cadeira){
+            mesa = new Mesa(id, qt_cadeira);
+            // console.log(mesa);
+
+            let action = "updateMesa";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(mesa)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
+    function alterarReserva(){
+        let id = $("#altreservaId").val();
+        let inicio = $("#altreservaHInicio").val();
+        let termino = $("#altreservaHTermino").val();
+        let idCliente = $("#altreservaIdCliente").val();
+        let idMesa = $("#altreservaIdMesa").val();
+        let pagamento = $("#altreservaPagamento").val();
+
+        if(inicio && termino && idCliente && idMesa && refeicao){
+            
+            cliente = $.map(clientes, function( n ) {
+                if(n.id_cliente == idCliente){
+                    return n;
+                }
+            });
+
+            mesa = $.map(mesas, function( n ) {
+                // console.log(n);
+                if(n.id_mesa == idMesa){
+                    return n;
+                }
+            });
+
+            reserva = new Reserva(id, inicio, termino, cliente, mesa, refeicao, pagamento);
+
+            let action = "updateReserva";
+
+            $.ajax({
+                method: "POST",
+                url: "controller.php",
+                data: {
+                    action: action,
+                    data: JSON.stringify(reserva)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
+    function alterarPromocao(){
+        let id = $("#altpromocaoId").val();
+        let isPorcentagem = $("#altpromocaoIsPorcentagem:checked").val()
+        let id_prato = $("#altpromocaoIdPrato").val();
+        let valor = $("#altpromocaoValor").val();
+
+        if(id_prato && valor){
+            let prato = $.map(pratos, function( n ) {
+                if(n.id_prato == id_prato){
+                    return n;
+                }
+            });
+            let valorPorcentagem;
+            let valorReal;
+            if (isPorcentagem) {
+                isPorcentagem = true;
+                valorReal = calcularPorcentagem(prato[0].vl_prato, valor);
+                valorPorcentagem = valor;
+            }
+            else{
+                isPorcentagem = false;
+                valorReal = valor;
+                valorPorcentagem = 0;
+            }
+            
+            promocao = new Promocao(id, prato, valorPorcentagem, isPorcentagem, valorReal);
+            console.table(promocao);
+
+            let action = "updatePromocao";
 
             $.ajax({
                 method: "POST",
@@ -603,12 +771,14 @@ $(document).ready(function () {
         }
     }
     class Promocao{
+        id;
         valor;
         isPorcentagem;
         porcentagem;
         prato;
 
-        constructor(prato, porcentagem, isPorcentagem, valor){
+        constructor(id, prato, porcentagem, isPorcentagem, valor){
+            this.id = id;
             this.prato = prato;
             this.porcentagem = porcentagem;
             this.isPorcentagem = isPorcentagem;
@@ -698,6 +868,22 @@ $(document).ready(function () {
     $("#cadastrarPromocao").click(function(){
         cadastrarPromocao();
     });
+    $("#alterarCliente").click(function(){
+        alterarCliente();
+    });
+    $("#alterarPrato").click(function(){
+        alterarPrato();
+    });
+    $("#alterarMesa").click(function(){
+        alterarMesa()
+    });
+    $("#alterarReserva").click(function(){
+        alterarReserva()
+    });
+    $("#alterarPromocao").click(function(){
+        alterarPromocao();
+    });
+
     $("#promocaoIsPorcentagem").change(function (e) {
         if(this.checked)
             $("#promocaoValor").attr("placeholder", "Porcentagem");

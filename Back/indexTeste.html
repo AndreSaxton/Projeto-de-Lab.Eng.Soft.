@@ -106,5 +106,39 @@
             <tr><th>Id</th><th>Valor Real</th><th>Valor Porcentagem</th><th>Id Prato</th></tr>
         </table>
     </div>
+
+    <div>
+        <h4>Alterar Cliente</h4>
+        <input type="number" name="clienteId" id="altclienteId" placeholder="Id">
+        <input type="text" name="clienteNome" id="altclienteNome" placeholder="Nome">
+        <input type="tel" name="clienteTelefone" id="altclienteTelefone" placeholder="Telefone">
+        <input type="email" name="clienteEmail" id="altclienteEmail" placeholder="Email">
+        <button id="alterarCliente">Alterar</button>
+    </div>
+    <div>
+        <h4>Alterar Prato</h4>
+        <input type="number" name="pratoId" id="altpratod" placeholder="Id">
+        <input type="text" name="pratoNome" id="altpratoNome" placeholder="Nome">
+        <input type="number" name="pratoValor" id="altpratoValor" placeholder="Valor">
+        <input type="text" name="pratoDescricao" id="altpratoDescricao" placeholder="Descrição">
+        <button id="alterarPrato">Alterar</button>
+    </div>
+    <div>
+        <h4>Alterar Promoção</h4>
+        <input type="number" name="promocaoId" id="altpromocaoId" placeholder="Id">
+        <input type="number" name="promocaoIdPrato" id="altpromocaoIdPrato" placeholder="Id do Prato">
+        <br>
+        <p>Usar porcentagem?<input type="checkbox" name="promocaoIsPorcentagem" id="altpromocaoIsPorcentagem"></p>
+        <input type="number" name="promocaoValor" id="altpromocaoValor" placeholder="Desconto em Real">
+        <br>
+        <input type="number" name="promocaoValorFinal" id="altpromocaoValorFinal" placeholder="Valor do Prato com desconto">
+        <button id="alterarPromocao">Alterar</button>
+    </div>
+    <div>
+        <h4>Alterar Mesa</h4>
+        <input type="number" name="mesaId" id="altmesaId" placeholder="Id">
+        <input type="number" name="mesaQtdCadeira" id="altmesaQtdCadeira" placeholder="Qtd de Cadeira">
+        <button id="alterarMesa">Alterar</button>
+    </div>
 </body>
 </html>

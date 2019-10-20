@@ -137,7 +137,14 @@ if(isset($action) && !empty($action)){
         $cliente["telefone"], $cliente["email"]);
     }
     // alterarCadastro
-    if ($function == "") {}
+    if ($function == "updateCliente") {
+        $data = $_POST["data"];
+        
+        $cliente = json_decode($data, true);
+
+        $cliente = new Cliente($cliente["id"], $cliente["nome"], $cliente["telefone"], $cliente["email"]);
+        $cliente->alterarCadastro($cliente->getIdentificador(), $cliente->getNome(), $cliente->getTelefone(), $cliente->getEmail());
+    }
     // reservarMesa
     if ($function == "insertNewReserva") {
         $data = $_POST["data"];

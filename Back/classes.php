@@ -13,6 +13,10 @@ class Cliente{
         $conexao = new Conexao();
         $conexao->insertNewCliente($nome, $telefone, $email);
     }
+    function alterarCadastro(int $identificador, string $nome, float $telefone, string $email){
+        $conexao = new Conexao();
+        $conexao->updateCliente($identificador, $nome, $telefone, $email);
+    }
     function verCardapio(){
         $conexao = new Conexao();
         $prato = $conexao->selectAllPrato();
