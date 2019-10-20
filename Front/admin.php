@@ -71,12 +71,6 @@ include('header-adm.php'); ?>
 		</div>
 	</div>
 </section>
-<section id="formulario-edicao">
-	<form>
-		<label> Nome Fantasia: </label>
-		<input type="" name="">
-	</form>
-</section>
 
 </body>
 </html>

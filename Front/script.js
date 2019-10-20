@@ -48,22 +48,54 @@ $( document ).ready(function() {
 		}
 	});
 
+	$('#lanchonete-form').validate({
+		rules: {
+			fantasia: { required: true, minlength: 2 },
+			cnpj: { required: true},
+			email: { required: true},
+			endereco: { required: true}
+
+		},messages: {
+			fantasia: { required: 'Preencha o seu Login', minlength: 'No mínimo 2 letras'},
+			cnpj: { required:'Campo obrigatório'},
+			email: { required: 'Campo obrigatório'},
+			endereco: { required: 'Campo obrigatório'}
+		},submitHandler: function(form) {
+			var dados = $(form).serialize();
+			$.ajax({
+				type: 'POST',
+				url: document.location.origin + '/Front/php/admin/atualiza-lanchonete.php',
+				async: true,
+				data: dados,
+				success: function(data) {
+					if(data == '1') {
+						alert('Atualizado com Sucesso!');
+						location.reload();
+					}else{
+						alert('Acesso Negado');
+					}
+				}
+			});
+		}
+	});
+
 	$('.retornar').click(function() {
 		window.location.href ="http://localhost/Front/admin.php"; 
 	});
 
 	$('.atualizar').click(function() {
 		var opcao = $(this).data("item");
-		switch(opcao) {
-			case 'lanchonete':
-			    alert('lanchonete');
-			break;
-		  	case 'teste':
-			    alert('não');
-			break;
-		  	default:
-		    alert('caso excessão');
-		}
+		$('#formulario-edicao').slideDown();
+		// switch(opcao) {
+		// 	case 'lanchonete':
+		// 	    alert('lanchonete');
+		// 	break;
+		//   	case 'teste':
+		// 	    alert('não');
+		// 	break;
+		//   	default:
+		//     alert('caso excessão');
+		// }
 	});
 
 });
