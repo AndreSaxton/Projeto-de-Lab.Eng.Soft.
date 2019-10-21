@@ -47,7 +47,7 @@ include('header-adm.php'); ?>
 							<p class="text-bloco">Gerenciar <br> Reservas</p>
 						</div>
 					</a>
-					<a href="https://www.devmedia.com.br/javascript-redirect-redirecionando-o-usuario-com-window-location/39809">
+					<a href="gerencia-mesa.php">
 						<div class="box-item" style="background-color:#f8b334;">
 							<img src="./Icones/mesas.png" class="img-responsive">
 							<p class="text-bloco">Gerenciar <br> Mesas</p>
