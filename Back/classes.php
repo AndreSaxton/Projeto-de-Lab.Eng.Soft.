@@ -190,11 +190,18 @@ class Reserva{
 }
 class Mesa{
     private $identificador;
+    private $numero;
     private $quantCadeira;
+    private $descricao;
+    private $disponibilidade;
 
-    function mesa(int $id = null, int $qtdCadeira){
+
+    function mesa(int $id = null, int $numero, int $qtdCadeira, string $desc, int $disp){
         $this->identificador = $id;
+        $this->numero = $numero;
         $this->quantCadeira = $qtdCadeira;
+        $this->descricao = $desc;
+        $this->disponibilidade = $disp;
     }
 
     function getIdentificador(){
@@ -252,20 +259,17 @@ class Lanchonete{
         
         $conexao->deletePromocao($identificador);
     }
-    function prepararMesa(Mesa $mesa){
-        $conexao = new Conexao();
-        
-        $conexao->insertNewMesa($mesa->getQuantCadeira());
+    function prepararMesa(int $numero, int $qt_cadeira, string $descricao, int $disp){
+        $conexao = new Conexao();        
+        $conexao->insertNewMesa( $numero, $qt_cadeira, $descricao, $disp);
     }
-    function alterarMesa(Mesa $mesa){
-        $conexao = new Conexao();
-        
-        $conexao->updateMesa($mesa->getIdentificador(), $mesa->getQuantCadeira());
+    function alterarMesa(int $identificador, int $numero, int $qt_cadeira, string $descricao, int $disp){
+        $conexao = new Conexao();        
+        $conexao->updateMesa($identificador, $numero, $qt_cadeira, $descricao, $disp);
     }
-    function desativarMesa(Mesa $mesa){
+    function desativarMesa(int $identificador, int $situa){
         $conexao = new Conexao();
-        
-        $conexao->deleteMesa($mesa->getIdentificador());
+        $conexao->deleteMesa($identificador, $situa);
     }
     function verListaMesa(){
         $conexao = new Conexao();

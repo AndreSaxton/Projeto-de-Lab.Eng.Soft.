@@ -27,6 +27,15 @@ Class Chamadas{
         return $clientes;
        
     }
+
+    function verListaMesa(){
+        require_once('classes.php');
+        $lanchonete = new Lanchonete();
+        $mesas = $lanchonete->verListaMesa();
+
+        return $mesas;
+       
+    }
     
 }    
 

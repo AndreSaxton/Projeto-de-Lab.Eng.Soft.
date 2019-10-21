@@ -413,10 +413,12 @@ $(document).ready(function () {
         }
     }
     function cadastrarMesa(){
-        let qt_cadeira = $("#mesaQtdCadeira").val();
+        let numero = $("#mesaNumero").val();
+        let qt_cadeira = $("#mesaCadeira").val();
+        let desc = $("#mesaDesc").val();
         
-        if(qt_cadeira){
-            mesa = new Mesa(null, qt_cadeira);
+        if(qt_cadeira && desc && numero){
+             mesa = new Mesa(null, numero, qt_cadeira, desc,1);
             // console.log(mesa);
 
             let action = "insertNewMesa";
@@ -430,6 +432,7 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    location.reload();
                 }
             })
             .fail(function (response){
@@ -612,12 +615,14 @@ $(document).ready(function () {
         }
     }
     function alterarMesa(){
-        let id = $("#altmesaId").val();
-        let qt_cadeira = $("#altmesaQtdCadeira").val();
+        let id = $("#idMesa").val();
+        let numero = $("#numeroMesa").val();
+        let qt_cadeira = $("#cadeiraMesa").val();
+        let desc = $("#descMesa").val();
         
-        if(qt_cadeira){
-            mesa = new Mesa(id, qt_cadeira);
-            // console.log(mesa);
+        //id, numero, qt_cadeira_mesa, descricao, disponibilidade
+        if(qt_cadeira && desc && numero){
+            mesa = new Mesa(id, numero, qt_cadeira, desc,1);
 
             let action = "updateMesa";
 
@@ -630,6 +635,7 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    location.reload();
                 }
             })
             .fail(function (response){
@@ -810,32 +816,29 @@ $(document).ready(function () {
     }
     function deletarMesa(){
         let idMesa = $("#delmesaId").val();
+        let situacao = $("#delmesaAtivo").val(); 
         
-        if(idMesa){
-            let mesa = $.map(mesas, function( n ) {
-                if(n.id_mesa == idMesa){
-                    return n;
-                }
-            });
-            mesa = new Mesa(mesa[0].id_mesa, mesa[0].qt_cadeira_mesa);
 
-            let action = "deleteMesa";
+        mesa = new Mesa(idMesa,null,null,null, situacao); 
 
-            $.ajax({
-                method: "POST",
-                url: urlController,
-                data: {
-                    action: action,
-                    data: JSON.stringify(mesa)
-                },
-                success: function(response){
-                    console.table(response);
-                }
-            })
-            .fail(function (response){
-                console.log(response);
-            })
-        }
+        let action = "deleteMesa";
+
+        $.ajax({
+            method: "POST",
+            url: urlController,
+            data: {
+                action: action,
+                data: JSON.stringify(mesa)
+            },
+            success: function(response){
+                console.table(response);
+                location.reload();
+            }
+        })
+        .fail(function (response){
+            console.log(response);
+        })
+
     }
     function deletarReserva(){
         let idReserva = $("#delreservaId").val();
@@ -999,11 +1002,17 @@ $(document).ready(function () {
     }
     class Mesa{
         id;
+        numero;
         qt_cadeira;
+        descricao;
+        disponibilidade;
 
-        constructor(id, qt_cadeira_mesa){
+        constructor(id, numero, qt_cadeira_mesa, descricao, disponibilidade){
             this.id = id;
+            this.numero = numero;
             this.qt_cadeira = qt_cadeira_mesa;
+            this.descricao = descricao;
+            this.disponibilidade = disponibilidade;
         }
     }
     class Prato{
@@ -1158,6 +1167,13 @@ $(document).ready(function () {
     });
     $("#deletarMesa").click(function(){
         deletarMesa()
+    });
+    $('.desativarMesa').click(function() {
+        id = $(this).data('id')
+        ativo = $(this).data('ativo');
+        $('#delmesaId').val(id);
+        $('#delmesaAtivo').val(ativo);
+         deletarMesa();
     });
     $("#deletarReserva").click(function(){
         deletarReserva()

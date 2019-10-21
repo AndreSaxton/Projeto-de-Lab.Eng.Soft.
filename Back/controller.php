@@ -351,8 +351,7 @@ if(isset($action) && !empty($action)){
 
         $mesa = json_decode($data, true);
         $lanchonete = new Lanchonete();
-        $mesa = new Mesa(null, $mesa["qt_cadeira"]);
-        $lanchonete->prepararMesa($mesa);
+        $lanchonete->prepararMesa($mesa['numero'],$mesa['qt_cadeira'],$mesa['descricao'],1);
     }
     // verListaMesa
     if ($function == "selectAllMesa") {
@@ -363,11 +362,10 @@ if(isset($action) && !empty($action)){
     // alterarMesa
     if ($function == "updateMesa") {
         $data = $_POST["data"];
-
+        //id, numero, qt_cadeira, descricao, disponibilidade
         $mesa = json_decode($data, true);
         $lanchonete = new Lanchonete();
-        $mesa = new Mesa($mesa["id"], $mesa["qt_cadeira"]);
-        $lanchonete->alterarMesa($mesa);
+        $lanchonete->alterarMesa($mesa['id'],$mesa['numero'],$mesa['qt_cadeira'],$mesa['descricao'],1);
     }
     // deletarMesa
     if ($function == "deleteMesa") {
@@ -375,9 +373,7 @@ if(isset($action) && !empty($action)){
 
         $mesa = json_decode($data, true);
         $lanchonete = new Lanchonete();
-        print_r($mesa);
-        $mesa = new Mesa($mesa["id"], $mesa["qt_cadeira"]);
-        $lanchonete->desativarMesa($mesa);
+        $lanchonete->desativarMesa($mesa['id'],$mesa['disponibilidade']);
     }
     // verListaReserva
     if ($function == "selectAllReserva") {

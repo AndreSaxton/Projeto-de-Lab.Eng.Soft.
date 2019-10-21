@@ -9,7 +9,7 @@ if((!isset ($_SESSION['login']) == true) and (!isset ($_SESSION['senha']) == tru
 include('header-adm.php');
 include('./../Back/chamadas.php');
 $base = new Chamadas();
-$users = $base->verificaUsuarios();
+$mesas = $base->verListaMesa();
 
 ?>
 
@@ -29,7 +29,7 @@ $users = $base->verificaUsuarios();
 			      <div class="cell">
 			        Número
 			      </div>
-			      <div class="cell">
+			      <div class="cell" style="width: 120px;">
 			        Nº cadeiras
 			      </div>
 			      <div class="cell">
@@ -42,12 +42,30 @@ $users = $base->verificaUsuarios();
 			        Editar
 			      </div>
 			    </div>
-			<?php //foreach ($users as $user) { ?>
-				
+			<?php foreach ($mesas as $mesa) { ?>
+				<div class="row">
+			      <div class="cell" >
+			        <span id="<?php echo 'numero-'.$mesa['id'] ?>"><?php echo $mesa['numero']; ?></span>
+			      </div>
+			      <div class="cell" >
+			        <span id="<?php echo 'cadeira-'.$mesa['id'] ?>"><?php echo $mesa['cadeira']; ?></span>
+			      </div>
+			      <div class="cell" >
+			        <span id="<?php echo 'desc-'.$mesa['id'] ?>"><?php echo $mesa['descricao']; ?></span>
+			      </div>
+			      <div class="cell">
+			      	<a href="#" class="desativarMesa" data-id='<?php echo $mesa['id'];?>' data-ativo='<?php echo ($mesa['disponibilidade']==1) ? 0 : 1;  ?>' >
+			      		<?php echo ($mesa['disponibilidade']==1) ? 'Disponivel' : 'Indisponivel';  ?>
+			      	</a>	        
+			      </div>
+			      <div class="cell">
+			      	<a href="#" class="atualizar" data-id='<?php echo $mesa['id'];?>' > Editar </a>
+			      </div>
+			    </div>
 				
 
 
-			<?php//} ?>
+			<?php } ?>
 	    
 			</div>
 
@@ -67,19 +85,20 @@ $users = $base->verificaUsuarios();
 		<div class="row">
 			<form id="usuario-editar-form">
 			  <div class="form-group">
-			    <label for="nome" class="form-label">Nome</label>
-			    <input type="text" class="form-control" id="nomeUsuario" name="nome" >
+			    <label for="numeroMesa" class="form-label">Numero da Mesa</label>
+			    <input type="text" class="form-control" id="numeroMesa" name="numeroMesa" >
 			  </div>
 			  <div class="form-group" >
-			    <label for="login" class="form-label">Login</label>
-			    <input type="text" class="form-control" id="loginUsuario" name="login" >
+			    <label for="cadeiraMesa" class="form-label">Numero de Cadeiras</label>
+			    <input type="text" class="form-control" id="cadeiraMesa" name="cadeiraMesa" >
 			  </div>
 			  <div class="form-group">
-			    <label for="senha" class="form-label">Nova Senha</label>
-			    <input type="password" class="form-control" id="senhaUsuario" name="senha" >
+			    <label for="descMesa" class="form-label">Descrição da mesa</label>
+			    <textarea class="form-control" id="descMesa" name="descMesa" rows="3"></textarea>
+			    <!-- <input type="text" class="form-control" id="descMesa" name="descMesa" > -->
 			  </div>
-			  <input type="hidden" name="idUsuario" id='idUsuario' value="" >
-			  <button type="button" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;" id="alterarUsuario">Alterar</button>
+			  <input type="hidden" name="idMesa" id='idMesa' value="" >
+			  <button type="button" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;" id="alterarMesa">Alterar</button>
 			</form>
 		</div>
 	</div>
@@ -89,34 +108,36 @@ $users = $base->verificaUsuarios();
 		<div class="row">
 			<form id="usuario-inserir-form">
 			  <div class="form-group">
-			    <label for="nomeUsuario" class="form-label">Nome do Usuario</label>
-			    <input type="text" class="form-control" id="usuarioNome" name="nomeUsuario">
+			    <label for="mesaNumero" class="form-label">Numero da Mesa</label>
+			    <input type="text" class="form-control" id="mesaNumero" name="mesaNumero">
 			  </div>
 			  <div class="form-group" >
-			    <label for="loginUsuario" class="form-label">Login</label>
-			    <input type="text" class="form-control" id="usuarioLogin" name="loginUsuario">
+			    <label for="mesaCadeira" class="form-label">Numero de cadeiras</label>
+			    <input type="text" class="form-control" id="mesaCadeira" name="mesaCadeira">
 			  </div>
 			  <div class="form-group">
-			    <label for="senhaUsuario" class="form-label">Senha</label>
-			    <input type="password" class="form-control" id="usuarioSenha" name="senhaUsuario">
+			    <label for="mesaDesc" class="form-label">Descrição da mesa</label>
+			    <textarea class="form-control" id="mesaDesc" name="mesaDesc" rows="3"></textarea>
 			  </div>
-			  <button type="button" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;" id="cadastrarUsuario">Cadastrar</button>
+			  <button type="button" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;" id="cadastrarMesa">Cadastrar</button>
 			</form>
 		</div>
 	</div>
 </section>
 <section id="formulario-exclusao" style="display: none;">
-	<input type="number" name="deluserId" id="deluserId" value="">
-	<input type="hidden" id="deluserAtivo" name="deluserAtivo" value="">
+	<input type="number" name="delmesaId" id="delmesaId" value="">
+	<input type="hidden" id="delmesaAtivo" name="delmesaAtivo" value="">
 </section>
 <script>
 	$('.atualizar').click(function() {
 		id = $(this).data('id');
-		nome = '#nome-' + id;
-		login = '#login-' + id;
-		$('#nomeUsuario').val($(nome).html());
-		$('#loginUsuario').val($(login).html());
-		$('#idUsuario').val(id);
+		numero = '#numero-' + id;
+		cadeira = '#cadeira-' + id;
+		desc = '#desc-' + id;
+		$('#numeroMesa').val($(numero).html());
+		$('#cadeiraMesa').val($(cadeira).html());
+		$('#descMesa').val($(desc).html());
+		$('#idMesa').val(id);
 	
 	});
 

@@ -396,28 +396,28 @@ class Conexao{
         // Close statement
         $stmt->close();
         if($result->num_rows){
-            while($row = $result->fetch_assoc()){
-                $id[] = $row["id_mesa"];
-                $qtCadeira[] = $row["qt_cadeira_mesa"];
+            $mesas = array();
 
-                $mesas[] = $row;
+            while($row = $result->fetch_assoc()){
+                $mesas[$row['id_mesa']]['id'] = $row['id_mesa'];
+                $mesas[$row['id_mesa']]['numero'] = $row['cd_numero_mesa'];
+                $mesas[$row['id_mesa']]['cadeira'] = $row['qt_cadeira_mesa'];
+                $mesas[$row['id_mesa']]['descricao'] = $row['ds_mesa'];
+                $mesas[$row['id_mesa']]['disponibilidade'] = $row['disponibilidade'];
+                
             }
-            // foreach ($id as $key => $value) {
-            //     //echo $key . $value . "<br>";
-            //     echo "ID: " . $id[$key] . ", QUANT_CADEIRA: ".$qtCadeira[$key]."<br>";
-            // }
+
             return $mesas;
         }
     }
-    function insertNewMesa(int $qtCadeira){
+    function insertNewMesa( int $numero, int $qt_cadeira, string $descricao, int $disp){
         // Prepare an insert statement
-        $sql = "INSERT INTO `mesa`(`qt_cadeira_mesa`) VALUES (?)";
+        $sql = "INSERT INTO `mesa`(`cd_numero_mesa`, `qt_cadeira_mesa`, `ds_mesa`, `disponibilidade`) VALUES (?,?,?,?)";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("i", $qtCadeira);
-
+            $stmt->bind_param("iisi", $numero, $qt_cadeira, $descricao, $disp);
             // Set parameters
             // $qtCadeira = 7;
 
@@ -428,19 +428,19 @@ class Conexao{
                 // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+            echo $conn->error;
         }
         // Close statement
         $stmt->close();
     }
-    function updateMesa(int $identificador, int $qtCadeira){
+    function updateMesa(int $identificador, int $numero, int $qt_cadeira, string $descricao, int $disp){
         // Prepare an insert statement
-        $sql = "UPDATE `mesa` SET `qt_cadeira_mesa` = ? WHERE id_mesa = ?";
+        $sql = "UPDATE `mesa` SET `cd_numero_mesa` = ?, `qt_cadeira_mesa` = ?, `ds_mesa` = ?, `disponibilidade` = ? WHERE id_mesa = ?";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("ii", $qtCadeira, $identificador);
+            $stmt->bind_param("iisii", $numero, $qt_cadeira, $descricao, $disp, $identificador);
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -449,19 +449,19 @@ class Conexao{
                 // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+             echo $conn->error;
         }
         // Close statement
         $stmt->close();
     }
-    function deleteMesa(int $identificador){
+    function deleteMesa(int $identificador, int $situacao){
         // Prepare an insert statement
-        $sql = "DELETE FROM `mesa` WHERE id_mesa = ?";
+        $sql = "UPDATE `mesa` SET `disponibilidade` = ? WHERE id_mesa = ?";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("i", $identificador);
+            $stmt->bind_param("ii", $situacao,$identificador);
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -470,7 +470,7 @@ class Conexao{
                 // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+            echo $conn->error;
         }
         // Close statement
         $stmt->close();
