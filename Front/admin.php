@@ -35,7 +35,7 @@ include('header-adm.php'); ?>
 					
 					<hr>
 
-					<a href="https://www.devmedia.com.br/javascript-redirect-redirecionando-o-usuario-com-window-location/39809">
+					<a href="visualiza-cliente.php">
 						<div class="box-item" style="background-color:#97bf0d;">
 							<img src="./Icones/cliente.png" class="img-responsive">
 							<p class="text-bloco">Ver<br> Clientes</p>

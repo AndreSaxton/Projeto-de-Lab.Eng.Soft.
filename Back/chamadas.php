@@ -18,6 +18,15 @@ Class Chamadas{
         return $usuarios;
        
     }
+
+    function verificaClientes(){
+        require_once('classes.php');
+        $lanchonete = new Lanchonete();
+        $clientes = $lanchonete->verListaCliente();
+
+        return $clientes;
+       
+    }
     
 }    
 

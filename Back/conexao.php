@@ -49,6 +49,7 @@ class Conexao{
     function selectAllCliente(){
         $sql = "SELECT * FROM CLIENTE";
         $conn = $this->connectToDatabase();
+        
 
         if($stmt = $conn->prepare($sql)){
             // Attempt to execute the prepared statement
@@ -68,18 +69,17 @@ class Conexao{
         $stmt->close();
 
         if($result->num_rows){
-            while($row = $result->fetch_assoc()){
-                $id[] = $row["id_cliente"];
-                $nome[] = $row["nm_cliente"];
-                $email[] = $row["nm_email_cliente"];
-                $telefone[] = $row["cd_telefone_cliente"];
+            
+            $clientes = array();
 
-                $clientes[] = $row;
+            while($row = $result->fetch_assoc()){
+                $clientes[$row['id_cliente']]['id'] = $row['id_cliente'];
+                $clientes[$row['id_cliente']]['nome'] = $row['nm_cliente'];
+                $clientes[$row['id_cliente']]['email'] = $row['nm_email_cliente'];
+                $clientes[$row['id_cliente']]['telefone'] = $row['cd_telefone_cliente'];
+                
             }
-            // foreach ($id as $key => $value) {
-            //     //echo $key . $value . "<br>";
-            //     echo "ID: " . $id[$key] . ", NOME: ".$nome[$key]." ,EMAIL:".$email[$key]." ,TELEFONE:".$telefone[$key]."<br>";
-            // }
+
             return $clientes;
         }
     }

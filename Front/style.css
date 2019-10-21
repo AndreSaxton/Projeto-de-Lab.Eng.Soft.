@@ -278,6 +278,7 @@ body {
 }
 .yes-button:disabled, .no-button:disabled{
     background-color: #ddd;
+    cursor: no-drop;
 }
 .or-button{
     background: #eee;
@@ -311,9 +312,16 @@ body {
 }
 
 .form-label{
-    font-weight: 900;
-    color: #ffffff;
-    font-size: 15px;
+  font-weight: 900;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+#info-detalhes{
+  text-align: center;
+  color: white;
+  font-size: 12px;
+  margin-top: -1%;
 }
 
 /*END INTERNA DE ELEMENTO DO PAINEL*/
