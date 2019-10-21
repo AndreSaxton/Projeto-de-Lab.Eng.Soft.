@@ -51,9 +51,9 @@ $users = $base->verificaUsuarios();
 			        <span id="<?php echo 'login-'.$user['id'] ?>"><?php echo $user['login']; ?></span>
 			      </div>
 			      <div class="cell">
-			      	<a href="#" class="desativar" data-id='<?php echo $user['id'];?>' >
+			      	<a href="#" class="desativarUsuario" data-id='<?php echo $user['id'];?>' data-ativo='<?php echo ($user['ativo']==1) ? 0 : 1;  ?>' >
 			      		<?php echo ($user['ativo']==1) ? 'Desativar' : 'Ativar';  ?>
-			      	</a>			        
+			      	</a>	        
 			      </div>
 			      <div class="cell">
 			      	<a href="#" class="atualizar" data-id='<?php echo $user['id'];?>' > Editar </a>
@@ -82,18 +82,18 @@ $users = $base->verificaUsuarios();
 			<form id="usuario-editar-form">
 			  <div class="form-group">
 			    <label for="nome" class="form-label">Nome</label>
-			    <input type="text" class="form-control" id="nomeUsuario" name="nome" value="<?php //adicionar ?>">
+			    <input type="text" class="form-control" id="nomeUsuario" name="nome" >
 			  </div>
 			  <div class="form-group" >
 			    <label for="login" class="form-label">Login</label>
-			    <input type="text" class="form-control" id="loginUsuario" name="login" value="<?php //adicionar ?>">
+			    <input type="text" class="form-control" id="loginUsuario" name="login" >
 			  </div>
 			  <div class="form-group">
 			    <label for="senha" class="form-label">Nova Senha</label>
-			    <input type="text" class="form-control" id="senhaUsuario" name="senha" value="<?php //adicionar ?>">
+			    <input type="password" class="form-control" id="senhaUsuario" name="senha" >
 			  </div>
-			  <input type="hidden" name="id" id='id' value="" >
-			  <button type="button" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;" id="alterarPrato">Submit</button>
+			  <input type="hidden" name="idUsuario" id='idUsuario' value="" >
+			  <button type="button" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;" id="alterarUsuario">Alterar</button>
 			</form>
 		</div>
 	</div>
@@ -114,13 +114,14 @@ $users = $base->verificaUsuarios();
 			    <label for="senhaUsuario" class="form-label">Senha</label>
 			    <input type="password" class="form-control" id="usuarioSenha" name="senhaUsuario">
 			  </div>
-			  <button type="button" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;" id="cadastrarUsuario">Submit</button>
+			  <button type="button" class="blur-hover yes-button btn-acao submit" style="padding: 10px 25px;" id="cadastrarUsuario">Cadastrar</button>
 			</form>
 		</div>
 	</div>
 </section>
 <section id="formulario-exclusao" style="display: none;">
 	<input type="number" name="deluserId" id="deluserId" value="">
+	<input type="hidden" id="deluserAtivo" name="deluserAtivo" value="">
 </section>
 <script>
 	$('.atualizar').click(function() {
@@ -129,6 +130,7 @@ $users = $base->verificaUsuarios();
 		login = '#login-' + id;
 		$('#nomeUsuario').val($(nome).html());
 		$('#loginUsuario').val($(login).html());
+		$('#idUsuario').val(id);
 	
 	});
 

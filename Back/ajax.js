@@ -390,7 +390,7 @@ $(document).ready(function () {
         console.log(nome);
 
         if(nome && login && senha){
-            user = new Usuario(null, nome, login, senha);
+            user = new Usuario(null, nome, login, senha,1);
             // console.log(prato);
 
             let action = "insertNewUsuario";
@@ -584,6 +584,33 @@ $(document).ready(function () {
             })
         }
     }
+    function alterarUsuario(){
+        let id = $("#idUsuario").val();
+        let nome = $("#nomeUsuario").val();
+        let login = $("#loginUsuario").val();
+        let senha = $("#senhaUsuario").val();
+
+        if(nome && login && senha){
+            usuario = new Usuario(id, nome, login, senha,1);
+            let action = "updateUsuario";
+
+            $.ajax({
+                method: "POST",
+                url: urlController,
+                data: {
+                    action: action,
+                    data: JSON.stringify(usuario)
+                },
+                success: function(response){
+                    console.table(response);
+                    location.reload();
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })
+        }
+    }
     function alterarMesa(){
         let id = $("#altmesaId").val();
         let qt_cadeira = $("#altmesaQtdCadeira").val();
@@ -756,6 +783,30 @@ $(document).ready(function () {
                 console.log(response);
             })
         }
+    }
+    function deletarUsuario(){
+        let idUser = $("#deluserId").val();
+        let situacao = $("#deluserAtivo").val(); 
+
+        user = new Usuario(idUser, null, null, null,situacao);
+        let action = "deleteUsuario";
+
+        $.ajax({
+            method: "POST",
+            url: urlController,
+            data: {
+                action: action,
+                data: JSON.stringify(user)
+            },
+            success: function(response){
+                console.table(response);
+                location.reload();
+            }
+        })
+        .fail(function (response){
+            console.log(response);
+        })
+        
     }
     function deletarMesa(){
         let idMesa = $("#delmesaId").val();
@@ -973,12 +1024,14 @@ $(document).ready(function () {
         nome;
         login;
         senha;
+        situacao;
 
-        constructor(id, nome, login, senha){
+        constructor(id, nome, login, senha,situa){
             this.id = id;
             this.nome = nome;
             this.login = login;
             this.senha = senha;
+            this.situacao = situa;
         }
     }
     class Reserva{
@@ -1081,6 +1134,9 @@ $(document).ready(function () {
     $("#alterarPrato").click(function(){
         alterarPrato();
     });
+    $("#alterarUsuario").click(function(){
+        alterarUsuario();
+    });
     $("#alterarMesa").click(function(){
         alterarMesa()
     });
@@ -1097,6 +1153,9 @@ $(document).ready(function () {
     $("#deletarPrato").click(function(){
         deletarPrato();
     });
+    $("#deletarUsuario").click(function(){
+        deletarUsuario();
+    });
     $("#deletarMesa").click(function(){
         deletarMesa()
     });
@@ -1105,6 +1164,13 @@ $(document).ready(function () {
     });
     $("#deletarPromocao").click(function(){
         deletarPromocao();
+    });
+    $('.desativarUsuario').click(function() {
+        id = $(this).data('id')
+        ativo = $(this).data('ativo');
+        $('#deluserId').val(id);
+        $('#deluserAtivo').val(ativo);
+         deletarUsuario();
     });
 
     $("#promocaoIsPorcentagem").change(function (e) {

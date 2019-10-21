@@ -609,29 +609,6 @@ class Conexao{
         // Close statement
         $stmt->close();
     }
-    function insertNewUser(string $nome, string $login, string $senha){
-        // Prepare an insert statement
-        $sql = "INSERT INTO `usuario`(`login`, `nome`, `senha`,`ativo`) VALUES (?,?,?,?)";
-        $conn = $this->connectToDatabase();
-        $senhaCodificada = md5($senha);
-        $ativo = 1;
-        if($stmt = $conn->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("sssi", $login, $nome, $senhaCodificada,$ativo);
-            var_dump($stmt->execute());
-            die();
-            if($stmt->execute()){
-                // echo "Records inserted successfully.";
-            } else{
-                echo $conn->error;
-
-            }
-        } else{
-            echo $conn->error;
-        }
-        // Close statement
-        $stmt->close();
-    }
     function updatePrato(int $identificador, string $nome, float $valor, string $descricao){
         // Prepare an insert statement
         $sql = "UPDATE `prato` SET `nm_prato`= ?,`vl_prato`= ?,`ds_prato`= ? WHERE `id_prato`= ?";
@@ -679,7 +656,77 @@ class Conexao{
         // Close statement
         $stmt->close();
     }
+    function insertNewUser(string $nome, string $login, string $senha){
+        // Prepare an insert statement
+        $sql = "INSERT INTO `usuario`(`login`, `nome`, `senha`,`ativo`) VALUES (?,?,?,?)";
+        $conn = $this->connectToDatabase();
+        $senhaCodificada = md5($senha);
+        $ativo = 1;
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("sssi", $login, $nome, $senhaCodificada,$ativo);
+            var_dump($stmt->execute());
+            die();
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                echo $conn->error;
 
+            }
+        } else{
+            echo $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
+    function updateUsuario(int $id,string $nome, string $login, string $senha){
+        // Prepare an insert statement
+        $sql = "UPDATE `usuario` SET `nome`= ?,`login`= ?,`senha`= ? WHERE `id`= ?";
+        $conn = $this->connectToDatabase();
+        $senhaCodificada = md5($senha);
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("sssi", $nome, $login, $senhaCodificada, $id);
+
+            // Set parameters
+            // $nome = "Arroz com Feijao";
+            // $valor = 15.50;
+            // $descricao = "Tem arroz e feijao";
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            echo $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
+    function deleteUsuario(int $identificador, int $situacao){
+        // Prepare an insert statement
+        $sql = "UPDATE `usuario` SET `ativo`= ? WHERE `id`= ?";
+        $conn = $this->connectToDatabase();
+
+
+        if($stmt = $conn->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("ii",$situacao,$identificador);
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // echo "Records inserted successfully.";
+            } else{
+                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+            }
+        } else{
+            echo $conn->error;
+        }
+        // Close statement
+        $stmt->close();
+    }
     function selectAllPromocao(){
         $sql = "SELECT * FROM PROMOCAO";
         $conn = $this->connectToDatabase();

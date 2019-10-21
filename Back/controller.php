@@ -273,6 +273,21 @@ if(isset($action) && !empty($action)){
         $usuario = new Usuario();
         $usuario->adicionarUsuario($newUsuario["nome"],$newUsuario["login"],$newUsuario["senha"]);
     }
+    //alterarUsuario
+    if ($function == "updateUsuario") {
+        $data = $_POST["data"];
+        
+        $usuario = json_decode($data, true);
+        $user = new Usuario();
+        $user->alterarUsuario($usuario["id"],$usuario["nome"],$usuario["login"],$usuario["senha"]);
+    }
+    if ($function == "deleteUsuario") {
+        $data = $_POST["data"];
+        
+        $usuario = json_decode($data, true);
+        $user = new Usuario();
+        $user->desativarUsuario($usuario["id"],$usuario['situacao']);
+    }
     // aplicarDesconto
     if ($function == "insertNewPromocao") {
         $data = $_POST["data"];

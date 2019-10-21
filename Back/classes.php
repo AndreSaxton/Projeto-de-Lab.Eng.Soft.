@@ -89,15 +89,18 @@ class Cliente{
     }
 }
 class Usuario{
+    private $id;
     private $nome;
     private $usuario;
     private $senha;
+    private $situacao;
 
-    function prato(int $id = null, string $n, string $log, string $desc){
-        $this->identificador = $id;
+    function usuario(int $id = null, string $n = null, string $log = null, string $senha = null, int $situa = 1){
+        $this->id = $id;
         $this->nome = $n;
         $this->usuario = $log;
         $this->senha = $senha;
+        $this->situacao = $situa;
     }
 
     function verUsuarios(){
@@ -109,6 +112,16 @@ class Usuario{
     function adicionarUsuario(string $nome, string $login, string $senha){
         $conexao = new Conexao();
         $user = $conexao->insertNewUser($nome, $login, $senha);
+    }
+
+    function alterarUsuario(int $id,string $nome, string $login, string $senha){
+        $conexao = new Conexao();
+        $conexao->updateUsuario($id, $nome, $login, $senha);
+    }
+
+    function desativarUsuario(int $id, int $situa){
+        $conexao = new Conexao();
+        $conexao->deleteUsuario($id, $situa);
     }
 }
 class Reserva{
