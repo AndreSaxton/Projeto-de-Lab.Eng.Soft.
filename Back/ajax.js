@@ -404,6 +404,7 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    alert('Sucesso!');
                     location.reload();
                 }
             })
@@ -432,6 +433,7 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    alert('Sucesso!');
                     location.reload();
                 }
             })
@@ -490,31 +492,14 @@ $(document).ready(function () {
         }
     }
     function cadastrarPromocao(){
-        let isPorcentagem = $("#promocaoIsPorcentagem:checked").val()
-        let id_prato = $("#promocaoIdPrato").val();
-        let valor = $("#promocaoValor").val();
+        //let isPorcentagem = $("#promocaoIsPorcentagem:checked").val()
+        let nome = $("#promoNome").val();
+        let descricao = $("#promoDesc").val()
+        let valor = $("#promoValor").val();
 
-        if(id_prato && valor){
-            let prato = $.map(pratos, function( n ) {
-                if(n.id_prato == id_prato){
-                    return n;
-                }
-            });
-            let valorPorcentagem;
-            let valorReal;
-            if (isPorcentagem) {
-                isPorcentagem = true;
-                valorReal = calcularPorcentagem(prato[0].vl_prato, valor);
-                valorPorcentagem = valor;
-            }
-            else{
-                isPorcentagem = false;
-                valorReal = valor;
-                valorPorcentagem = 0;
-            }
-            
-            promocao = new Promocao(null, prato, valorPorcentagem, isPorcentagem, valorReal);
-            console.table(promocao);
+        if(nome && descricao && valor){
+        
+           promocao = new Promocao(null, valor, nome, descricao,1);
 
             let action = "insertNewPromocao";
 
@@ -527,6 +512,8 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    alert('Sucesso!');
+                    location.reload();
                 }
             })
             .fail(function (response){
@@ -606,6 +593,7 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    alert('Sucesso!');
                     location.reload();
                 }
             })
@@ -635,6 +623,7 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    alert('Sucesso!');
                     location.reload();
                 }
             })
@@ -687,32 +676,14 @@ $(document).ready(function () {
         }
     }
     function alterarPromocao(){
-        let id = $("#altpromocaoId").val();
-        let isPorcentagem = $("#altpromocaoIsPorcentagem:checked").val()
-        let id_prato = $("#altpromocaoIdPrato").val();
-        let valor = $("#altpromocaoValor").val();
+        let id = $("#idPromo").val();
+        let nome = $("#nomePromo").val();
+        let descricao = $("#descPromo").val()
+        let valor = $("#valorPromo").val();
 
-        if(id_prato && valor){
-            let prato = $.map(pratos, function( n ) {
-                if(n.id_prato == id_prato){
-                    return n;
-                }
-            });
-            let valorPorcentagem;
-            let valorReal;
-            if (isPorcentagem) {
-                isPorcentagem = true;
-                valorReal = calcularPorcentagem(prato[0].vl_prato, valor);
-                valorPorcentagem = valor;
-            }
-            else{
-                isPorcentagem = false;
-                valorReal = valor;
-                valorPorcentagem = 0;
-            }
-            
-            promocao = new Promocao(id, prato, valorPorcentagem, isPorcentagem, valorReal);
-            console.table(promocao);
+        if(id && nome && descricao && valor){
+
+            promocao = new Promocao(id, valor, nome, descricao,1);
 
             let action = "updatePromocao";
 
@@ -725,6 +696,8 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    alert('Sucesso!');
+                    location.reload();
                 }
             })
             .fail(function (response){
@@ -806,6 +779,7 @@ $(document).ready(function () {
             },
             success: function(response){
                 console.table(response);
+                alert('Sucesso!');
                 location.reload();
             }
         })
@@ -832,6 +806,7 @@ $(document).ready(function () {
             },
             success: function(response){
                 console.table(response);
+                alert('Sucesso!');
                 location.reload();
             }
         })
@@ -872,10 +847,12 @@ $(document).ready(function () {
         }
     }
     function deletarPromocao(){
-        let id_promocao = $("#delpromocaoId").val();
+        let idPromo = $("#delpromoId").val();
+        let situacao = $("#delpromoAtivo").val(); 
         
-        if(id_promocao){
-            promocao = new Promocao(id_promocao, null, null, null, null);
+        
+        if(idPromo && situacao){
+            promocao = new Promocao(idPromo, null, null, null,situacao);
             
             let action = "deletePromocao";
 
@@ -888,6 +865,8 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    alert('Sucesso!');
+                    location.reload();
                 }
             })
             .fail(function (response){
@@ -1065,16 +1044,16 @@ $(document).ready(function () {
     class Promocao{
         id;
         valor;
-        isPorcentagem;
-        porcentagem;
-        prato;
+        nome;
+        descricao;
+        situacao;
 
-        constructor(id, prato, porcentagem, isPorcentagem, valor){
+        constructor(id, valor, nome, descricao, situacao){
             this.id = id;
-            this.prato = prato;
-            this.porcentagem = porcentagem;
-            this.isPorcentagem = isPorcentagem;
             this.valor = valor;
+            this.nome = nome;
+            this.descricao = descricao;
+            this.situacao = situacao;
         }
     }
     class Refeicao{
@@ -1180,6 +1159,13 @@ $(document).ready(function () {
     });
     $("#deletarPromocao").click(function(){
         deletarPromocao();
+    });
+    $('.desativarPromocao').click(function() {
+        id = $(this).data('id')
+        ativo = $(this).data('ativo');
+        $('#delpromoId').val(id);
+        $('#delpromoAtivo').val(ativo);
+         deletarPromocao();
     });
     $('.desativarUsuario').click(function() {
         id = $(this).data('id')

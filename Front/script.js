@@ -104,4 +104,8 @@ $( document ).ready(function() {
 		}
 	});
 
+	$('.emBreve').click(function() {
+		alert('[EM BREVE] - Conteúdo Indisponível no momento');
+	});
+
 });

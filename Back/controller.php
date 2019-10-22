@@ -292,27 +292,10 @@ if(isset($action) && !empty($action)){
     if ($function == "insertNewPromocao") {
         $data = $_POST["data"];
 
-        // $jsonPratoPromocao = json_decode($jsonPratoPromocao, true);
-        $jsonPromocao = json_decode($data, true);
-        // $jsonPromocao = json_decode($jsonPromocaoPercent, true);
-        // print_r($jsonPromocaoPercent);
-        // print_r($jsonPromocao);
-        $promocao = new Promocao();
+        $promocao = json_decode($data, true);
         $lanchonete = new Lanchonete();
-        $prato = new Prato($jsonPromocao["prato"][0]["id_prato"], $jsonPromocao["prato"][0]["nm_prato"],
-         $jsonPromocao["prato"][0]["vl_prato"], $jsonPromocao["prato"][0]["ds_prato"]);
         
-
-        if($jsonPromocao["isPorcentagem"]==true)
-            $promocao->setDescontoPorcentagem($prato, $jsonPromocao["porcentagem"]);
-        else
-            $promocao->setDesconto($prato, $jsonPromocao["valor"]);
-
-        
-        // print_r($promocao);
-        // print_r($prato);
-
-        $lanchonete->aplicarDesconto($promocao);    
+        $lanchonete->aplicarDesconto($promocao['valor'],$promocao['nome'],$promocao['descricao']);    
     }
     // verListaDesconto
     if ($function == "selectAllPromocao") {
@@ -323,27 +306,18 @@ if(isset($action) && !empty($action)){
     // alterarDesconto
     if ($function == "updatePromocao") {
         $data = $_POST["data"];
-        $jsonPromocao = json_decode($data, true);
-        
-        $promocao = new Promocao();
-        $lanchonete = new Lanchonete();
-        $prato = new Prato($jsonPromocao["prato"][0]["id_prato"], $jsonPromocao["prato"][0]["nm_prato"],
-         $jsonPromocao["prato"][0]["vl_prato"], $jsonPromocao["prato"][0]["ds_prato"]);
+        $promocao = json_decode($data, true);
 
-        if($jsonPromocao["isPorcentagem"]==true)
-            $promocao->setDescontoPorcentagem($prato, $jsonPromocao["porcentagem"]);
-        else
-            $promocao->setDesconto($prato, $jsonPromocao["valor"]);
-        $promocao->setIdentificador($jsonPromocao["id"]);
-        $lanchonete->alterarDesconto($promocao);
+        $lanchonete = new Lanchonete();
+        $lanchonete->alterarDesconto($promocao['id'],$promocao['valor'],$promocao['nome'],$promocao['descricao']);
     }
     // removerDesconto
     if ($function == "deletePromocao") {
         $data = $_POST["data"];
-        $jsonPromocao = json_decode($data, true);
+        $promocao = json_decode($data, true);
         
         $lanchonete = new Lanchonete();
-        $lanchonete->desativarDesconto($jsonPromocao["id"]);
+        $lanchonete->desativarDesconto($promocao["id"],$promocao['situacao']);
     }
     // prepararMesa
     if ($function == "insertNewMesa") {

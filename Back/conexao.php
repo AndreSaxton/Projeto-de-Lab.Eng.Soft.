@@ -739,7 +739,7 @@ class Conexao{
                 // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+             echo $conn->error;
         }
 
         //valores encontrados
@@ -749,55 +749,49 @@ class Conexao{
         $stmt->close();
 
         if($result->num_rows){
-            while($row = $result->fetch_assoc()){
-                $id[] = $row["id_promocao"];
-                $valor[] = $row["vl_promocao"];
-                $porcentagem[] = $row["vl_porcentagem_promocao"];
-                $idPrato[] = $row["id_prato"];
+            $promocoes = array();
 
-                $promocoes[] = $row;
+            while($row = $result->fetch_assoc()){
+                $promocoes[$row['id_promocao']]['id'] = $row['id_promocao'];
+                $promocoes[$row['id_promocao']]['valor'] = $row['vl_promocao'];
+                $promocoes[$row['id_promocao']]['nome'] = $row['nm_promocao'];
+                $promocoes[$row['id_promocao']]['descricao'] = $row['ds_promocao']; 
+                $promocoes[$row['id_promocao']]['ativo'] = $row['ativo']; 
+                
             }
-            // foreach ($id as $key => $value) {
-            //     //echo $key . $value . "<br>";
-            //     echo "ID: " . $id[$key] . ", VALOR: ".$valor[$key]." ,PORCENTAGEM:".$porcentagem[$key]." ,ID_PRATO:".$idPrato[$key]."<br>";
-            // }
+
             return $promocoes;
         }
     }
-    function insertNewPromocao(float $valor, float $porcentagem, int $idPrato){
+    function insertNewPromocao(float $valor, string $nome, string $descricao){
         // Prepare an insert statement
-        $sql = "INSERT INTO `promocao`(`vl_promocao`, `vl_porcentagem_promocao`, `id_prato`) VALUES (?,?,?)";
+        $sql = "INSERT INTO `promocao`(`vl_promocao`, `nm_promocao`, `ds_promocao`) VALUES (?,?,?)";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("ddi", $valor, $porcentagem, $idPrato);
+            $stmt->bind_param("dss", $valor, $nome, $descricao);
 
-            // Set parameters
-            // $valor = 5.50;
-            // $porcentagem = null;
-            // $idPrato = 1;
 
-            // Attempt to execute the prepared statement
             if($stmt->execute()){
-                echo "Records inserted successfully.";
+                //echo "Records inserted successfully.";
             } else{
-                echo "ERROR: Could not execute query: $sql. " . $conn->error;
+                //echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+            echo $conn->error;
         }
         // Close statement
         $stmt->close();
     }
-    function updatePromocao(int $identificador, float $valor, float $porcentagem, int $idPrato){
+    function updatePromocao(int $identificador, float $valor, string $nome, string $descricao){
         // Prepare an insert statement
-        $sql = "UPDATE `promocao` SET `vl_promocao` = ?, `vl_porcentagem_promocao` = ?, `id_prato` = ? WHERE id_promocao = ?";
+        $sql = "UPDATE `promocao` SET `vl_promocao` = ?, `nm_promocao` = ?, `ds_promocao` = ? WHERE id_promocao = ?";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("ddii", $valor, $porcentagem, $idPrato, $identificador);
+            $stmt->bind_param("dssi", $valor, $nome, $descricao, $identificador);
 
             // Set parameters
             // $valor = 5.50;
@@ -811,28 +805,28 @@ class Conexao{
                 // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+            echo $conn->error;
         }
         // Close statement
         $stmt->close();
     }
-    function deletePromocao(int $identificador){
+    function deletePromocao(int $identificador, int $situacao){
         // Prepare an insert statement
-        $sql = "DELETE FROM `promocao` WHERE id_promocao = ?";
+        $sql = "UPDATE `promocao` SET `ativo` = ? WHERE id_promocao = ?";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("i", $identificador);
+            $stmt->bind_param("ii", $situacao, $identificador);
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // echo "Records inserted successfully.";
             } else{
-                // echo "ERROR: Could not execute query: $sql. " . $conn->error;
+                echo $conn->error;
             }
         } else{
-            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+            echo $conn->error;
         }
         // Close statement
         $stmt->close();

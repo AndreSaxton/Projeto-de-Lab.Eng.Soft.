@@ -36,6 +36,15 @@ Class Chamadas{
         return $mesas;
        
     }
+
+    function verListaPromocao(){
+        require_once('classes.php');
+        $lanchonete = new Lanchonete();
+        $promos = $lanchonete->verListaPromocao();
+
+        return $promos;
+       
+    }
     
 }    
 

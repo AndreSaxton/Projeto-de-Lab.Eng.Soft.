@@ -1,4 +1,10 @@
 <?php include('header.php'); ?>
+<script>
+    $( document ).ready(function() {
+        alert('Olá! Seja bem vindo! \n\n No momento estamos trabalhando na área do Cliente.\n É nela onde o Cliente final (Consumidor da Lanchonete) poderá interagir com todos os itens cadastrados pelo painel administrativo. \n\n Vou te redirecionar para o Painel de Controle para poder verificar as configurações e assim poder modificá-las. \n\nLembre-se: Em caso de dúvida de Login e Senha, cheque a documentação do projeto, lá você vai encontrar suas credênciais. ');
+        window.location.href ="http://localhost/Front/admin.php"; 
+    });
+</script>
 <section style="background-color: gray; height: 200px;">
 </section>
 <section id="chamada">

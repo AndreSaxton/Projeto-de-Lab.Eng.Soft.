@@ -41,12 +41,12 @@ include('header-adm.php'); ?>
 							<p class="text-bloco">Ver<br> Clientes</p>
 						</div>
 					</a>
-					<a href="https://www.devmedia.com.br/javascript-redirect-redirecionando-o-usuario-com-window-location/39809">
-						<div class="box-item" style="background-color:#cb2025;">
+					<!-- <a href="#" class="emBreve"> -->
+						<div class="box-item emBreve" style="background-color:#cb2025;">
 							<img src="./Icones/reserva.png" class="img-responsive">
 							<p class="text-bloco">Gerenciar <br> Reservas</p>
 						</div>
-					</a>
+					<!-- </a> -->
 					<a href="gerencia-mesa.php">
 						<div class="box-item" style="background-color:#f8b334;">
 							<img src="./Icones/mesas.png" class="img-responsive">
@@ -54,13 +54,13 @@ include('header-adm.php'); ?>
 						</div>
 					</a>
 					<hr>
-  					<a href="https://www.devmedia.com.br/javascript-redirect-redirecionando-o-usuario-com-window-location/39809">
+  					<a href="gerencia-promocao.php">
 						<div class="box-item" style="background-color:#cb2025;">
 							<img src="./Icones/promocao.png" class="img-responsive">
 							<p class="text-bloco">Lançar <br> Promoção</p>
 						</div>
 					</a>
-					<a href="https://www.devmedia.com.br/javascript-redirect-redirecionando-o-usuario-com-window-location/39809">
+					<a href="sair-painel.php">
 						<div class="box-item" style="background-color:#f8b334;">
 							<img src="./Icones/sair.png" class="img-responsive">
 							<p class="text-bloco">Sair <br> do Painel</p>

@@ -242,22 +242,21 @@ class Lanchonete{
         $conexao = new Conexao();
         $conexao->deletePrato($identificador);
     }
-    function aplicarDesconto(Promocao $promocao){
-        //salvar promocao no BD, talvez criar tabela associativa
+    function aplicarDesconto(float $valor, string $nome, string $descricao){
         $conexao = new Conexao();
         
-        $conexao->insertNewPromocao($promocao->getValor(), $promocao->getPorcentagemDesconto(), $promocao->getPrato()->getIdentificador());
+        $conexao->insertNewPromocao( $valor, $nome, $descricao);
     }
-    function alterarDesconto(Promocao $promocao){
+    function alterarDesconto(int $id, float $valor, string $nome, string $descricao){
         //salvar promocao no BD, talvez criar tabela associativa
-        $conexao = new Conexao();
-        
-        $conexao->updatePromocao($promocao->getIdentificador(), $promocao->getValor(), $promocao->getPorcentagemDesconto(), $promocao->getPrato()->getIdentificador());
+        $conexao = new Conexao();        
+        $conexao->updatePromocao($id, $valor, $nome, $descricao);
+        echo $nome.' '.$descricao;
     }
-    function desativarDesconto(int $identificador){
+    function desativarDesconto(int $identificador, int $situacao){
         $conexao = new Conexao();
         
-        $conexao->deletePromocao($identificador);
+        $conexao->deletePromocao($identificador, $situacao);
     }
     function prepararMesa(int $numero, int $qt_cadeira, string $descricao, int $disp){
         $conexao = new Conexao();        
@@ -279,7 +278,6 @@ class Lanchonete{
     }
     function verListaPromocao(){
         $conexao = new Conexao();
-        
         $promocoes = $conexao->selectAllPromocao();
         return $promocoes;
     }
