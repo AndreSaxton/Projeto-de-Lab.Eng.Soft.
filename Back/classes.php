@@ -238,9 +238,9 @@ class Lanchonete{
         $conexao = new Conexao();
         $conexao->updatePrato($identificador, $nome, $valor, $descricao);
     }
-    function desativarPrato(int $identificador){
+    function desativarPrato(int $identificador, int $situacao){
         $conexao = new Conexao();
-        $conexao->deletePrato($identificador);
+        $conexao->deletePrato($identificador, $situacao);
     }
     function aplicarDesconto(float $valor, string $nome, string $descricao){
         $conexao = new Conexao();

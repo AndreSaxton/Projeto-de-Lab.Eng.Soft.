@@ -1,8 +1,8 @@
 <?php
 class Conexao{
-    public $servername = "127.0.0.1";
-    public $username = "root";
-    public $password = "";
+    public $servername = "localhost";
+    public $username = "id10939434_lancheonnet";
+    public $password = "vn7tock54td5";
     public $dbname = "id10939434_lancheonnet";
 
     /*// Create connection
@@ -47,7 +47,7 @@ class Conexao{
     */
 
     function selectAllCliente(){
-        $sql = "SELECT * FROM CLIENTE";
+        $sql = "SELECT * FROM cliente";
         $conn = $this->connectToDatabase();
         
 
@@ -59,7 +59,7 @@ class Conexao{
                 // echo "ERROR: Could not execute query: $sql. " . $conn->error;
             }
         } else{
-            // echo "ERROR: Could not prepare query: $sql. " . $conn->error;
+           echo $conn->error;
         }
 
         //valores encontrados
@@ -156,7 +156,7 @@ class Conexao{
     }
 
     function selectAllUsuario(){
-        $sql = "SELECT * FROM USUARIO";
+        $sql = "SELECT * FROM usuario";
         /*$sql = "SELECT prato.id_prato, nm_prato, ds_prato,
          vl_prato-promocao.vl_promocao AS vl_prato  FROM `prato` 
          JOIN promocao on promocao.id_prato = prato.id_prato";*/
@@ -197,7 +197,7 @@ class Conexao{
     }
 
     function selectAllRefeicaoOfReserva(int $idReserva){
-        $sql = "SELECT * FROM REFEICAO WHERE id_reserva = ?";
+        $sql = "SELECT * FROM refeicao WHERE id_reserva = ?";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
@@ -262,7 +262,7 @@ class Conexao{
     }
 
     function selectAllReserva(){
-        $sql = "SELECT * FROM RESERVA";
+        $sql = "SELECT * FROM reserva";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
@@ -377,7 +377,7 @@ class Conexao{
     }
 
     function selectAllMesa(){
-        $sql = "SELECT * FROM MESA";
+        $sql = "SELECT * FROM mesa";
         $conn = $this->connectToDatabase();
         if($stmt = $conn->prepare($sql)){
             // Attempt to execute the prepared statement
@@ -478,7 +478,7 @@ class Conexao{
 
     // nao sera usado
     function selectAllLanchonete(){
-        $sql = "SELECT * FROM LANCHONETE";
+        $sql = "SELECT * FROM lanchonete";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
@@ -539,7 +539,7 @@ class Conexao{
     }
 
     function selectAllPrato(){
-        $sql = "SELECT * FROM PRATO";
+        $sql = "SELECT * FROM prato";
         /*$sql = "SELECT prato.id_prato, nm_prato, ds_prato,
          vl_prato-promocao.vl_promocao AS vl_prato  FROM `prato` 
          JOIN promocao on promocao.id_prato = prato.id_prato";*/
@@ -567,12 +567,11 @@ class Conexao{
             $pratos = array();
 
             while($row = $result->fetch_assoc()){
-                $id[] = $row["id_prato"];
-                $nome[] = $row["nm_prato"];
-                $valor[] = $row["vl_prato"];
-                $descricao[] = $row["ds_prato"];
-                
-                $pratos[] = $row;
+                $pratos[$row['id_prato']]['id_prato'] = $row['id_prato'];
+                $pratos[$row['id_prato']]['nm_prato'] = $row['nm_prato'];
+                $pratos[$row['id_prato']]['vl_prato'] = $row['vl_prato'];
+                $pratos[$row['id_prato']]['ds_prato'] = $row['ds_prato']; 
+                $pratos[$row['id_prato']]['ativo'] = $row['ativo']; 
             }
             // escrevendo o que foi selecionado
             // foreach ($id as $key => $value) {
@@ -635,14 +634,14 @@ class Conexao{
         // Close statement
         $stmt->close();
     }
-    function deletePrato(int $identificador){
+    function deletePrato(int $identificador, $situacao){
         // Prepare an insert statement
-        $sql = "DELETE FROM `prato` WHERE `id_prato`= ?";
+        $sql = "UPDATE`prato` SET `ativo` = ? WHERE `id_prato`= ?";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("i", $identificador);
+            $stmt->bind_param("ii", $situacao, $identificador);
 
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -728,7 +727,7 @@ class Conexao{
         $stmt->close();
     }
     function selectAllPromocao(){
-        $sql = "SELECT * FROM PROMOCAO";
+        $sql = "SELECT * FROM promocao";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){

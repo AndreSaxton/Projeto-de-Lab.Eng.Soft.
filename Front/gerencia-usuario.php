@@ -51,7 +51,7 @@ $users = $base->verificaUsuarios();
 			        <span id="<?php echo 'login-'.$user['id'] ?>"><?php echo $user['login']; ?></span>
 			      </div>
 			      <div class="cell">
-			      	<a href="#" class="desativarMesa" data-id='<?php echo $user['id'];?>' data-ativo='<?php echo ($user['ativo']==1) ? 0 : 1;  ?>' >
+			      	<a href="#" class="desativarUsuario" data-id='<?php echo $user['id'];?>' data-ativo='<?php echo ($user['ativo']==1) ? 0 : 1;  ?>' >
 			      		<?php echo ($user['ativo']==1) ? 'Desativar' : 'Ativar';  ?>
 			      	</a>	        
 			      </div>

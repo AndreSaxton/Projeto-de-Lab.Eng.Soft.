@@ -376,6 +376,8 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    alert('Sucesso!');
+                    location.reload();
                 }
             })
             .fail(function (response){
@@ -549,10 +551,10 @@ $(document).ready(function () {
         }
     }
     function alterarPrato(){
-        let id = $("#altpratoId").val();
-        let nome = $("#altpratoNome").val();
-        let valor = $("#altpratoValor").val();
-        let descricao = $("#altpratoDescricao").val();
+        let id = $("#codigoPrato").val();
+        let nome = $("#nomePrato").val();
+        let valor = $("#valorPrato").val();
+        let descricao = $("#descPrato").val();
 
         if(nome && valor && descricao){
             prato = new Prato(id, nome, valor, descricao);
@@ -567,6 +569,8 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    alert('Sucesso!');
+                    location.reload();
                 }
             })
             .fail(function (response){
@@ -737,14 +741,9 @@ $(document).ready(function () {
     }
     function deletarPrato(){
         let idPrato = $("#delpratoId").val();
+        let situacao = $("#delpratoAtivo").val();
 
-        if(idPrato){
-            let prato = $.map(pratos, function( n ) {
-                if(n.id_prato == idPrato){
-                    return n;
-                }
-            });
-            prato = new Prato(idPrato, prato.nm_prato, prato.vl_prato, prato.ds_prato);
+            prato = new Prato(idPrato, null, null, null,situacao);
             let action = "deletePrato";
 
             $.ajax({
@@ -756,12 +755,14 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    alert('Sucesso!');
+                    location.reload();
                 }
             })
             .fail(function (response){
                 console.log(response);
             })
-        }
+        
     }
     function deletarUsuario(){
         let idUser = $("#deluserId").val();
@@ -999,12 +1000,14 @@ $(document).ready(function () {
         nome;
         valor;
         descricao;
+        situacao;
 
-        constructor(id, nome, valor, descricao){
+        constructor(id, nome, valor, descricao, situa = 1){
             this.id = id;
             this.nome = nome;
             this.valor = valor;
             this.descricao = descricao;
+            this.situacao = situa;
         }
     }
     class Usuario{
@@ -1146,6 +1149,13 @@ $(document).ready(function () {
     });
     $("#deletarMesa").click(function(){
         deletarMesa()
+    });
+    $('.desativarPrato').click(function() {
+        id = $(this).data('id')
+        ativo = $(this).data('ativo');
+        $('#delpratoId').val(id);
+        $('#delpratoAtivo').val(ativo);
+         deletarPrato();
     });
     $('.desativarMesa').click(function() {
         id = $(this).data('id')

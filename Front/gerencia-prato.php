@@ -147,7 +147,7 @@ $pratos = $base->verificaPratos();
 		$('#codigoPrato').val(id);
 		$('#nomePrato').val($(nome).html());
 		$('#valorPrato').val($(valor).html());
-		$('#descPrato').val(desc);
+		$('#descPrato').val($(desc).html());
 	
 	});
 

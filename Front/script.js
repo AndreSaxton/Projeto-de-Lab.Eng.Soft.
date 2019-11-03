@@ -39,7 +39,7 @@ $( document ).ready(function() {
 				success: function(data) {
 					if(data == '1') {
 						alert('sucesso! Redirecionando...');
-						window.location.href ="http://localhost/Front/admin.php"; 
+						window.location.href ="admin.php"; 
 					}else{
 						alert('Acesso Negado');
 					}
@@ -80,7 +80,7 @@ $( document ).ready(function() {
 	});
 
 	$('.retornar').click(function() {
-		window.location.href ="http://localhost/Front/admin.php"; 
+		window.location.href ="https://lancheonnet.000webhostapp.com/Front/admin.php"; 
 	});
 
 	$('.atualizar').click(function() {

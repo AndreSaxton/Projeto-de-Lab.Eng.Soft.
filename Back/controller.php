@@ -263,7 +263,7 @@ if(isset($action) && !empty($action)){
         
         $prato = json_decode($data, true);
         $lanchonete = new Lanchonete();
-        $lanchonete->desativarPrato($prato["id"]);
+        $lanchonete->desativarPrato($prato["id"],$prato['situacao']);
     }
     // adicionarUsuario
     if ($function == "insertNewUsuario") {
