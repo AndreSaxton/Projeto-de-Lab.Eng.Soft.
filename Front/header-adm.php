@@ -16,4 +16,4 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
-<body>
+<body style="font-family: 'Helvetica Neue', Helvetica, Arial; font-size: 14px; line-height: 20px; font-weight: 400; color: #3b3b3b; -webkit-font-smoothing: antialiased;font-smoothing: antialiased; background: #2b2b2b;">

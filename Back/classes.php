@@ -6,14 +6,14 @@ class Cliente{
     private $nome;
     private $telefone;
     private $email;
+    private $login;
+    private $senha;
 
-    function fazerCadastro(string $nome, float $telefone, string $email){
-        //salvar no BD
-        //login e senha?;
+    function fazerCadastro(string $nome, string $telefone, string $email, string $login, string $senha){
         $conexao = new Conexao();
-        $conexao->insertNewCliente($nome, $telefone, $email);
+        $conexao->insertNewCliente($nome, $telefone, $email, $login, $senha);
     }
-    function alterarCadastro(int $identificador, string $nome, float $telefone, string $email){
+    function alterarCadastro(int $identificador, string $nome, string $telefone, string $email){
         $conexao = new Conexao();
         $conexao->updateCliente($identificador, $nome, $telefone, $email);
     }
@@ -56,11 +56,13 @@ class Cliente{
         //pagar reserva OPCIONAL, pode pagar na hora
     }
 
-    function Cliente(int $id = null, string $n = null, float $tel = null, string $e = null){
+    function Cliente(int $id = null, string $n = null, string $tel = null, string $e = null, string $l = null, string $s = null){
         $this->identificador = $id;
         $this->nome = $n;
         $this->telefone = $tel;
         $this->email = $e;
+        $this->login = $l;
+        $this->senha = $s;
     }
 
     function getIdentificador(){

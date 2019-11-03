@@ -1,8 +1,8 @@
 <?php
 class Conexao{
     public $servername = "localhost";
-    public $username = "id10939434_lancheonnet";
-    public $password = "vn7tock54td5";
+    public $username = "root";
+    public $password = "";
     public $dbname = "id10939434_lancheonnet";
 
     /*// Create connection
@@ -83,14 +83,15 @@ class Conexao{
             return $clientes;
         }
     }
-    function insertNewCliente(string $nome, float $telefone, string $email){
+    function insertNewCliente(string $nome, string $telefone, string $email, string $login, string $senha){
         // Prepare an insert statement
-        $sql = "INSERT INTO `cliente`(`nm_cliente`, `nm_email_cliente`, `cd_telefone_cliente`) VALUES (?, ?, ?)";
+        $senhaCodificada = md5($senha);
+        $sql = "INSERT INTO `cliente`(`nm_cliente`, `nm_email_cliente`, `cd_telefone_cliente`, nm_login, cd_senha) VALUES (?, ?, ?, ?, ?)";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("ssi", $nome, $email, $telefone);
+            $stmt->bind_param("sssss", $nome, $email, $telefone, $login, $senhaCodificada);
 
             // Set parameters
             /*$first_name = $_REQUEST['first_name'];
@@ -112,7 +113,7 @@ class Conexao{
         // Close statement
         $stmt->close();
     }
-    function updateCliente(int $identificador, string $nome, float $telefone, string $email){
+    function updateCliente(int $identificador, string $nome, string $telefone, string $email){
         // Prepare an insert statement
         $sql = "UPDATE `cliente` SET `nm_cliente` = ?, `nm_email_cliente` = ?, `cd_telefone_cliente` = ? WHERE id_cliente = ?";
         $conn = $this->connectToDatabase();

@@ -1,11 +1,23 @@
 $( document ).ready(function() {
 
+
+	$("#clienteContato").mask("(00) 0000-00009");
+
     $('#lanche-login').click(function() {
         $("#etapa-escolha-login").slideUp();
         setTimeout(function(){ 
         	$("#etapa-realiza-login").slideDown(); 
         	$("#etapa-realiza-login").css('display','flex');
         	$("#container-acao").css('background-image','url(Icones/background_etapas_genericas.png)').fadeIn();
+        }, 500);
+    });
+
+    $('#novo-membro').click(function(e) {
+    	e.preventDefault();
+        $("#etapa-realiza-login").slideUp();
+        setTimeout(function(){ 
+        	$("#etapa-realiza-cadastro").slideDown(); 
+        	$("#etapa-realiza-cadastro").css('display','flex');
         }, 500);
     });
 
@@ -48,6 +60,7 @@ $( document ).ready(function() {
 		}
 	});
 
+	
 	$('#lanchonete-form').validate({
 		rules: {
 			fantasia: { required: true, minlength: 2 },
@@ -107,5 +120,6 @@ $( document ).ready(function() {
 	$('.emBreve').click(function() {
 		alert('[EM BREVE] - Conteúdo Indisponível no momento');
 	});
+
 
 });

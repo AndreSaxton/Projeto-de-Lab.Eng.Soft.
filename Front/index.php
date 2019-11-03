@@ -24,7 +24,7 @@
 <section id="container-acao" style="min-height: 570px;">
     <div class="container">
         <div class="row">
-            <article id="etapa-escolha-login" style="display: flex;">
+            <article id="etapa-escolha-login" style="display: none; width: 100%;">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 area-logins">
                     <div id="bloco-texto">
                         <h1>Vamos Começar?</h1>
@@ -47,13 +47,50 @@
                             <label for="senha" class="lbl-login">Senha</label><br>
                             <input type="password" name="senha" id="senha" class="input-login"><br>
                             <input type="submit" name="logar" id="entrar" value="ENTRAR">
-                            <a href="#" >NOVO MEMBRO</a>
+                            <a href="#" id="novo-membro" >NOVO MEMBRO</a>
                         </form>
                         
                     </div>
                 </div>
             </article>
-                
+            <article id="etapa-realiza-cadastro" style="display: none; width: 100%;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="bloco-cadastro">
+                        <form id="form-cadastro">
+                            <label for="nome" class="lbl-login">Nome</label><br>
+                            <input type="text" name="nome" id="clienteNome" class="input-login">
+                            <br>
+                            <label for="email" class="lbl-login">E-mail</label><br>
+                            <input type="email" name="email" id="clienteEmail" class="input-login">
+                            <br>
+                            <label for="contato" class="lbl-login">Tel. de contato</label><br>
+                            <input type="text" name="contato" id="clienteContato" class="input-login">
+                            <br>
+                            <label for="login" class="lbl-login">Login</label><br>
+                            <input type="login" name="login" id="clienteLogin" class="input-login">
+                            <br>
+                            <label for="senha" class="lbl-login">Senha</label><br>
+                            <input type="password" name="senha" id="clienteSenha" class="input-login">
+                            <br>
+                            <input type="submit" name="cadastrar" id="cadastrar" value="Concluir e Logar">
+                        </form>
+                        
+                    </div>
+                </div>
+            </article>
+            <article id="etapa-pessoas" style="display: flex;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="area-pessoas">
+                        
+                        <p>Uma mesa para</p>
+                        <h2>QUANTOS?</h2>
+                        <input type="number" name="pessoas" id="pessoas" min="1" max="6" value="1">
+                        <span>Pessoas</span>
+                        <br>
+                        <button>Próxima Etapa</button>
+                    </div>
+                </div>
+            </article>               
             
         </div>
     </div>

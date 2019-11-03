@@ -328,15 +328,35 @@ $(document).ready(function () {
             console.log(response);
         })
     }
+
+    $('#form-cadastro').validate({
+        rules: {
+            nome: { required: true, minlength: 2 },
+            email: { required: true, minlength: 2, email:true },
+            contato: { required: true, minlength: 14 },
+            login: {required: true, minlength: 3},
+            senha: { required: true,  minlength: 6}
+        },messages: {
+            nome: { required: 'Nome é um campo obrigatório', minlength: 'No mínimo 2 letras' },
+            email: { required: 'E-mail é um campo obrigatório', minlength: 'No mínimo 2 letras', email:"Digite um e-mail valido" },
+            contato: { required: 'Telefone é um campo obrigatório', minlength: 'No mínimo 14 dígitos' },
+            login: { required: 'Login é um campo obrigatório', minlength: 'No mínimo 3 letras' },
+            senha: { required: 'Telefone é um campo obrigatório', minlength: 'A senha deve ter 6 dígitos'}
+        },submitHandler: function(form) {
+            var dados = $(form).serialize();
+            cadastrarCliente();
+        }
+    });
     // estas montam um objeto e enviam via json para ser salvo no BD
     function cadastrarCliente(){
         let nome = $("#clienteNome").val();
-        let telefone = $("#clienteTelefone").val();
+        let telefone = $("#clienteContato").val();
         let email = $("#clienteEmail").val();
+        let login = $("#clienteLogin").val();
+        let senha = $("#clienteSenha").val();
 
         if(nome && telefone && email){
-            cliente = new Cliente(null, nome, telefone, email);
-            // console.log(cliente);
+            cliente = new Cliente(null, nome, telefone, email, login, senha);
 
             let action = "insertNewCliente";
 
@@ -349,12 +369,36 @@ $(document).ready(function () {
                 },
                 success: function(response){
                     console.table(response);
+                    constroiSessao();
                 }
             })
             .fail(function (response){
                 console.log(response);
             })
         }
+    }
+    function constroiSessao(){
+        let nome = $("#clienteNome").val();
+        let telefone = $("#clienteContato").val();
+        let email = $("#clienteEmail").val();
+        let login = $("#clienteLogin").val();
+        let senha = $("#clienteSenha").val();
+
+        cliente = new Cliente(null, nome, telefone, email, login, senha);
+
+        $.ajax({
+                method: "POST",
+                url: urlSessao,
+                data: {
+                    data: JSON.stringify(cliente)
+                },
+                success: function(response){
+                    console.table(response);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })        
     }
     function cadastrarPrato(){
         let nome = $("#pratoNome").val();
@@ -972,12 +1016,16 @@ $(document).ready(function () {
         nome;
         telefone;
         email;
+        login;
+        senha;
 
-        constructor(id, nome, telefone, email){
+        constructor(id, nome, telefone, email, login, senha){
             this.id = id;
             this.nome = nome;
             this.telefone = telefone;
             this.email = email;
+            this.login = login;
+            this.senha = senha;
         }
     }
     class Mesa{
@@ -1088,6 +1136,7 @@ $(document).ready(function () {
     var idReservaRefeicao = 19;
     // url onde esta o controller
     var urlController = "../Back/controller.php";
+    var urlSessao = "../Back/sessao.php";
 
     // funções que populam a pagina
     selectAllPrato();
@@ -1097,9 +1146,9 @@ $(document).ready(function () {
     selectAllRefeicaoOfReserva(idReservaRefeicao);
     selectAllPromocao();
     
-    $("#cadastrarCliente").click(function(){
-        cadastrarCliente();
-    });
+    // $("#cadastrarCliente").click(function(){
+    //     cadastrarCliente();
+    // });
     $("#cadastrarPrato").click(function(){
         cadastrarPrato();
     });

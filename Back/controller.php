@@ -145,8 +145,8 @@ if(isset($action) && !empty($action)){
         $cliente = json_decode($data, true);
 
         // so cadastra de o cliente nao tiver ID
-        $cliente = new Cliente(null, $cliente["nome"], $cliente["telefone"], $cliente["email"]);
-        $cliente->fazerCadastro($cliente["nome"], $cliente["telefone"], $cliente["email"]);
+        $Cliente = new Cliente(null, $cliente["nome"], $cliente["telefone"], $cliente["email"], $cliente['login'], $cliente['senha']);
+        $Cliente->fazerCadastro($cliente["nome"], $cliente["telefone"], $cliente["email"], $cliente['login'], $cliente['senha']);
     }
     // alterarCadastro
     if ($function == "updateCliente") {
