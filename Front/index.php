@@ -78,20 +78,35 @@
                     </div>
                 </div>
             </article>
-            <article id="etapa-pessoas" style="display: flex;">
+            <article id="etapa-pessoas" style="display: none; width: 100%;">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div id="area-pessoas">
                         
                         <p>Uma mesa para</p>
                         <h2>QUANTOS?</h2>
                         <input type="number" name="pessoas" id="pessoas" min="1" max="6" value="1">
-                        <span>Pessoas</span>
+                        <label>Pessoas</label>
                         <br>
-                        <button>Próxima Etapa</button>
+                        <button id="btn-pessoas">Próxima Etapa</button>
                     </div>
                 </div>
             </article>               
-            
+            <article id="etapa-mesas" style="display: flex;">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <img src="Icones/mesa.png" class="img-responsive img-w100" style="margin-top: 5%;">
+                    <p class="placa-mesa">Mesa 00</p>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
+                    <p class="titulo-mesa">Informações <br><b> da mesa</b></p>
+                    <p class="descricao-mesa"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <button id="escolhe-mesa">ESCOLHER</button>
+                </div>
+            </article>
         </div>
     </div>
 </section>

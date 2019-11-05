@@ -538,7 +538,7 @@ h5{
   height: 40px;
   width: 40%;
   font-size: 30px;
-  margin-top: 5%;
+  margin: 5%;
 }
 
 #area-pessoas span {
@@ -547,4 +547,72 @@ h5{
   text-shadow: 4px 3px 5px rgba(0,0,0,0.94);
   position: absolute;
   top: 92%;
+}
+
+#area-pessoas label{
+  color: white;
+  font-size: 30px;
+  text-shadow: 4px 3px 5px rgba(0,0,0,0.94);
+}
+
+#btn-pessoas{
+  background: transparent;
+  color: white;
+  text-shadow: 4px 3px 5px rgba(0,0,0,0.94);
+  border: none;
+  background-color: #f75353;
+  padding: 4% 5%;
+  font-size: 25px;
+  position: relative;
+  left: 30%;
+  margin-top: 5%;
+}
+
+#etapa-mesas{
+  width: 100%;
+  margin-top: 5%; 
+}
+
+.placa-mesa{
+  position: absolute;
+  color: white;
+  font-size: 30px;
+  top: 40%;
+  background: rgba(0,0,0,.6);
+  text-shadow: 4px 3px 5px rgba(0,0,0,0.94);
+  padding: 1% 5%;
+}
+
+.titulo-mesa{
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 33px;
+  color: #f99a44;
+  text-shadow: 4px 3px 5px rgba(0,0,0,0.94);
+  margin: 12% 0% 0% 15%;
+}
+
+
+.titulo-mesa b {
+  color: #ef4648;
+}
+
+.descricao-mesa{
+  padding: 5%;
+  font-size: 17px;
+  background: rgba(255,255,255,0.5);
+  margin-top: -3%;
+}
+
+#escolhe-mesa{
+  background: transparent;
+  color: white;
+  text-shadow: 4px 3px 5px rgba(0,0,0,0.94);
+  border: none;
+  background-color: #f75353;
+  padding: 2% 10%;
+  font-size: 25px;
+  position: relative;
+  left: 30%;
+  margin-top: 5%;
 }
