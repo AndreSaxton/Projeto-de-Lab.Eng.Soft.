@@ -401,6 +401,10 @@ h5{
     width: 100%;
 }
 
+.fl-lft{
+  float: left;
+}
+
 #chamada{
     margin: 5%;
 }
@@ -515,8 +519,8 @@ h5{
 
 #area-pessoas{
   line-height: 10px;
-  margin-top: 35%;
-  margin-left: 65%;
+  margin-top: 25%;
+  margin-left: 25%;
   width: 100%;
 }
 
@@ -561,11 +565,11 @@ h5{
   text-shadow: 4px 3px 5px rgba(0,0,0,0.94);
   border: none;
   background-color: #f75353;
-  padding: 4% 5%;
+  padding: 2% 5%;
   font-size: 25px;
   position: relative;
-  left: 30%;
-  margin-top: 5%;
+  left: 15%;
+  margin: 5%;
 }
 
 #etapa-mesas{
@@ -604,7 +608,7 @@ h5{
   margin-top: -3%;
 }
 
-#escolhe-mesa{
+.escolhe-mesa, #escolhe-prato{
   background: transparent;
   color: white;
   text-shadow: 4px 3px 5px rgba(0,0,0,0.94);
@@ -615,4 +619,61 @@ h5{
   position: relative;
   left: 30%;
   margin-top: 5%;
+}
+
+.owl-nav{
+  color: white;
+  font-size: 25px;
+  width: 70%;
+  position: absolute;
+  left: 36%;
+}
+
+.owl-carousel .owl-nav button.owl-prev {
+  padding-right: 40%!important;
+}
+
+.decorativa{
+  text-align: center;
+}
+
+.nome-prato{
+  text-align: center;
+  font-size: 25px;
+  color: white;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 4px 3px 5px rgba(0,0,0,0.94); 
+}
+
+.descricao-prato{
+  text-align: center;
+  color: #212529;
+}
+
+.item-prato{
+  background-color: rgba(255,255,255,.5);
+  text-align: center;
+}
+
+.preco-prato{
+  text-align: center;
+}
+
+.preco-prato a{
+  padding: 3% 13%;
+  border: 1px solid black;
+  font-size: 17px;
+  color: #212529;
+  font-weight: 700;
+}
+
+.input-prato{
+  margin-bottom: 5%;  
+  text-align: center;
+}
+
+.label-selecionado{
+  position: absolute;
+  top: 0;
 }

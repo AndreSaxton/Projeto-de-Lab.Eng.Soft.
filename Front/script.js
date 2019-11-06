@@ -12,7 +12,7 @@ $( document ).ready(function() {
         }, 500);
     });
 
-    $('#novo-membro').click(function(e) {
+    $('#novo-membro').click(function(e) { 
     	e.preventDefault();
         $("#etapa-realiza-login").slideUp();
         setTimeout(function(){ 
@@ -21,18 +21,22 @@ $( document ).ready(function() {
         }, 500);
     });
 
-    $('#form-login').validate({
-		rules: {
-			login: { required: true, minlength: 2 },
-			senha: { required: true,  minlength: 6}
-		},messages: {
-			login: { required: 'Preencha o seu Login', minlength: 'No mínimo 2 letras'},
-			senha: { required: 'Informe a sua senha',  minlength: 'Tamanho mínimo: 06 dígitos' }
-		},submitHandler: function(form) {
-			alert('mandou');
-			return false;
-		}
-	});
+    $('#btn-pessoas').click(function() { 
+        $("#etapa-pessoas").slideUp();
+        setTimeout(function(){ 
+        	$("#etapa-mesas").slideDown(); 
+        	$("#etapa-mesas").css('display','flex');
+        }, 500);
+    });
+
+    $('.escolhe-mesa').click(function() { 
+        $("#etapa-mesas").slideUp();
+        setTimeout(function(){ 
+        	$("#etapa-pratos").slideDown(); 
+        	$("#etapa-pratos").css('display','flex');
+        }, 500);
+    });
+
 
 	$('#validar-log-admin').validate({
 		rules: {
@@ -59,6 +63,17 @@ $( document ).ready(function() {
 			});
 		}
 	});
+
+	$('.owl-carousel').owlCarousel({
+	    loop:true,
+	    margin:10,
+	    nav:true,
+	    items:1
+
+	});
+
+	$('.owl-prev span').html('< Mesa Anterior');
+	$('.owl-next span').html('Próxima Mesa >');
 
 	
 	$('#lanchonete-form').validate({
@@ -90,6 +105,26 @@ $( document ).ready(function() {
 				}
 			});
 		}
+	});
+
+	$('.seleciona-prato').click(function(e) {
+		e.preventDefault();
+		if( $(this).hasClass('desativado')){
+			var seletor =  '#qtd-prato-' + $(this).data('id');
+			var tag = '#seleciona-'+$(this).data('id');
+			$(seletor).removeAttr("disabled");
+			$(tag).slideDown();
+			$(this).removeClass('desativado');
+		}else{
+			var seletor =  '#qtd-prato-' + $(this).data('id');
+			var tag = '#seleciona-'+$(this).data('id');
+			$(seletor).val('');
+			$(seletor).attr("disabled","disabled");
+			$(tag).slideUp();
+			$(this).addClass('desativado');
+		}
+		
+
 	});
 
 	$('.retornar').click(function() {

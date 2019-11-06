@@ -347,6 +347,37 @@ $(document).ready(function () {
             cadastrarCliente();
         }
     });
+    $('#form-login').validate({
+        rules: {
+            loginCliente: { required: true, minlength: 2 },
+            senhaCliente: { required: true,  minlength: 6}
+        },messages: {
+            loginCliente: { required: 'Preencha o seu Login', minlength: 'No mínimo 2 letras'},
+            senhaCliente: { required: 'Informe a sua senha',  minlength: 'Tamanho mínimo: 06 dígitos' }
+        },submitHandler: function(form) {
+            let login = $("#loginCliente").val();
+            let senha = $("#senhaCliente").val();
+            cliente = new Cliente(null, null, null, null, login, senha);
+            $.ajax({
+                method: "POST",
+                url: urlSessao,
+                data: {
+                    data: JSON.stringify(cliente)
+                },
+                success: function(response){
+                    console.table(response);
+                    $("#etapa-realiza-login").slideUp();
+                    setTimeout(function(){ 
+                        $("#etapa-pessoas").slideDown(); 
+                        $("#etapa-pessoas").css('display','flex');
+                    }, 500);
+                }
+            })
+            .fail(function (response){
+                console.log(response);
+            })  
+        }
+    });
     // estas montam um objeto e enviam via json para ser salvo no BD
     function cadastrarCliente(){
         let nome = $("#clienteNome").val();
