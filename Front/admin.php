@@ -41,12 +41,12 @@ include('header-adm.php'); ?>
 							<p class="text-bloco">Ver<br> Clientes</p>
 						</div>
 					</a>
-					<!-- <a href="#" class="emBreve"> -->
-						<div class="box-item emBreve" style="background-color:#cb2025;">
+					<a href="gerencia-reserva.php" >
+						<div class="box-item" style="background-color:#cb2025;">
 							<img src="./Icones/reserva.png" class="img-responsive">
 							<p class="text-bloco">Gerenciar <br> Reservas</p>
 						</div>
-					<!-- </a> -->
+					</a>
 					<a href="gerencia-mesa.php">
 						<div class="box-item" style="background-color:#f8b334;">
 							<img src="./Icones/mesas.png" class="img-responsive">

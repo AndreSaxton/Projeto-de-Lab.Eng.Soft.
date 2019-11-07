@@ -92,7 +92,7 @@ var_dump($pratos);
                         
                         <p>Uma mesa para</p>
                         <h2>QUANTOS?</h2>
-                        <input type="number" name="pessoas" id="pessoas" min="1" max="6" value="1">
+                        <input type="number" name="pessoas" id="pessoas" min="1" max="6">
                         <label>Pessoas</label>
                         <br>
                         <button id="btn-pessoas">Próxima Etapa</button>
@@ -110,17 +110,20 @@ var_dump($pratos);
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fl-lft ">
                                 <p class="titulo-mesa">Informações <br><b> da mesa</b></p>
                                 <p class="descricao-mesa"> <?php echo $mesa['descricao'] ?></p>
-                                <button class="escolhe-mesa">ESCOLHER</button>
+                                <button class="escolhe-mesa" data-id="<?php echo $mesa['id'] ?>">ESCOLHER</button>
                             </div>
                         </div>
                     <?php } ?>                    
-
+                    <input type="hidden" name="escolheMesa" id="escolheMesa">
                 </div>
             </article>
             <article id="etapa-pratos" style="display: none; width: 100%;">
                 <div class="container" style="margin: 5%;">
                     <div class="row">
-                        <?php foreach ($pratos as $prato) { ?>
+                        <?php $count = 0; ?>
+                        <?php foreach ($pratos as $prato) { 
+                            $count++;
+                        ?>
                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 fl-lft item-prato">
                            <p class="nome-prato"><?php echo $prato['nm_prato']; ?></p>
                             <div class="decorativa">
@@ -128,7 +131,7 @@ var_dump($pratos);
                             </div>
                            <p class="descricao-prato"><?php echo $prato['ds_prato']; ?></p> 
                            <p class="preco-prato">
-                            <a href="#" class="seleciona-prato desativado" data-id="<?php echo $prato['id_prato'] ?>"> R$ <?php echo $prato['vl_prato'] ?></a>
+                            <a href="#" class="seleciona-prato desativado" id="ver-prato-<?php echo $prato['id_prato'] ?>" data-id="<?php echo $prato['id_prato'] ?>"> R$ <?php echo $prato['vl_prato'] ?></a>
                             </p>
                            <label for="qtd-prato"> Quantidade: </label>
                            <input type="number" class="input-prato" min='1' name="qtd-prato-<?php echo $prato['id_prato'] ?>" id="qtd-prato-<?php echo $prato['id_prato'] ?>" disabled>
@@ -144,6 +147,7 @@ var_dump($pratos);
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button id="escolhe-prato">ESCOLHER</button>
+                            <input type="hidden" name="qtdPrato" id='qtdPrato' value="<?php echo $count; ?>">
                         </div>
                         
                     </div>
@@ -151,6 +155,10 @@ var_dump($pratos);
                     
 
             </article>
+            <article id="etapa-final" style="display: none; width: 100%;">
+                <p>FINALIZADO</p>
+            </article>
+
         </div>
     </div>
 </section>

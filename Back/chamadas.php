@@ -45,6 +45,14 @@ Class Chamadas{
         return $promos;
        
     }
+
+    function verificaReservas(){
+        require_once('classes.php');
+        $lanchonete = new Lanchonete();
+        $reservas = $lanchonete->verListaReserva();
+        return $reservas;
+
+    }
     
 }    
 

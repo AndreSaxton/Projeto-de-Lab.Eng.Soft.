@@ -365,12 +365,16 @@ $(document).ready(function () {
                     data: JSON.stringify(cliente)
                 },
                 success: function(response){
-                    console.table(response);
-                    $("#etapa-realiza-login").slideUp();
-                    setTimeout(function(){ 
-                        $("#etapa-pessoas").slideDown(); 
-                        $("#etapa-pessoas").css('display','flex');
-                    }, 500);
+                    if(response=="1"){
+                        $("#etapa-realiza-login").slideUp();
+                        setTimeout(function(){ 
+                            $("#etapa-pessoas").slideDown(); 
+                            $("#etapa-pessoas").css('display','flex');
+                        }, 500);
+                    }else{
+                        alert('Oops! Usuário ou senha incorreto. verifique seu cadastro para continuar!');
+                    }
+                    
                 }
             })
             .fail(function (response){
@@ -378,6 +382,8 @@ $(document).ready(function () {
             })  
         }
     });
+
+
     // estas montam um objeto e enviam via json para ser salvo no BD
     function cadastrarCliente(){
         let nome = $("#clienteNome").val();

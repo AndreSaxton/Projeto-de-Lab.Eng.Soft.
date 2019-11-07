@@ -263,7 +263,7 @@ class Conexao{
     }
 
     function selectAllReserva(){
-        $sql = "SELECT * FROM reserva";
+        $sql = "select r.id_reserva as id, c.nm_cliente as cliente, m.cd_numero_mesa as mesa, DATE_FORMAT(r.dt_inicio_reserva,'%d/%m/%Y %Hh%i') as data from reserva r inner join cliente c on (r.id_cliente = c.id_cliente) inner join mesa m on (r.id_mesa = m.id_mesa) where r.ativo=1";
         $conn = $this->connectToDatabase();
 
         if($stmt = $conn->prepare($sql)){
@@ -285,22 +285,9 @@ class Conexao{
         if($result->num_rows)
         {
             while($row = $result->fetch_assoc()){
-                $id[] = $row["id_reserva"];
-                $dtInicio[] = $row["dt_inicio_reserva"];
-                $dtTermino[] = $row["dt_termino_reserva"];
-                $dtPagamento[] = $row["dt_pagamento_reserva"];
-                $idCliente[] = $row["id_cliente"];
-                $idMesa[] = $row["id_mesa"];
 
                 $reserva[] = $row;
             }
-            // foreach ($id as $key => $value) {
-            //     //echo $key . $value . "<br>";
-            //     echo "ID: " . $id[$key] . ", INICIO: ".$dtInicio[$key].
-            //     " ,TERMINO:".$dtTermino[$key]." ,PAGAMENTO: ".$dtPagamento[$key].
-            //     " ,ID_CLIENTE: ".$idCliente[$key]." ,ID_MESA: ".$idMesa[$key].
-            //     "<br>";
-            // }
             return $reserva;
         }
     }

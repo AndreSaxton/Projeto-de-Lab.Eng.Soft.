@@ -27,7 +27,78 @@ $( document ).ready(function() {
         	$("#etapa-mesas").slideDown(); 
         	$("#etapa-mesas").css('display','flex');
         }, 500);
+
+        var quantidade = $('#pessoas').val();
+        $('#pessoas').val(quantidade);
     });
+
+    $('#escolhe-prato').click(function() { 
+
+    	var urlSessao = "../Back/reserva.php";
+    	var mesa = $('#escolheMesa').val();
+
+        $.ajax({
+				type: 'POST',
+				url: urlSessao,
+				async: true,
+				data: {mesa: mesa},
+				success: function(data) {
+					
+					if(data !="ERROR"){
+						adicionarpratos(data);
+					}else{
+						alert('Um erro ocorreu, tente novamente mais tarde');
+					}
+
+				}
+			});
+        
+        // $("#etapa-mesas").slideUp();
+        // setTimeout(function(){ 
+        //     $("#etapa-pratos").slideDown(); 
+        //     $("#etapa-pratos").css('display','flex');
+        // }, 500);
+
+    });
+
+    function adicionarpratos(reserva){
+    	var urlAdiciona = "../Back/adicionarPrato.php";
+    	var qtd = $('#qtdPrato').val();
+    	var prato;
+    	var verifica;
+    	var reserva = reserva;
+    	var pratoId;
+    	var quantidade;
+    	for (var i = 1; i <= qtd; i++) {
+    		prato = "#qtd-prato-"+i;
+    		verifica ="#ver-prato-"+i;
+ 
+    		if(!($(verifica).hasClass('desativado'))){
+    			pratoId = $(verifica).data('id');
+    			quantidade = $(prato).val();
+    			$.ajax({
+				type: 'POST',
+				url: urlAdiciona,
+				async: true,
+				data: {prato: pratoId, reserva:reserva, quantidade:quantidade},
+				success: function(reservado) {
+					if(reservado !="ERROR"){
+						$("#etapa-pratos").slideUp();
+				        setTimeout(function(){ 
+				            $("#etapa-final").slideDown(); 
+				            $("#etapa-final").css('display','flex');
+				        }, 500);
+
+					}else{
+						alert('Um erro ocorreu, tente novamente mais tarde');
+					}
+
+				}
+			});
+    		}
+    	}
+
+    }
 
     $('.escolhe-mesa').click(function() { 
         $("#etapa-mesas").slideUp();
@@ -35,6 +106,10 @@ $( document ).ready(function() {
         	$("#etapa-pratos").slideDown(); 
         	$("#etapa-pratos").css('display','flex');
         }, 500);
+
+        var mesa = $(this).data('id');
+        $('#escolheMesa').val(mesa);
+
     });
 
 
