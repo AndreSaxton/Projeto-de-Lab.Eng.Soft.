@@ -12,7 +12,7 @@ include('header-adm.php');
 include('./../Back/chamadas.php');
 $base = new Chamadas();
 $reservas = $base->verificaReservas();
-var_dump($reservas);
+//var_dump($reservas);
 
 ?>
 <style> body{background-color: #93a6a8;} </style>
@@ -43,6 +43,9 @@ var_dump($reservas);
 			      <div class="cell ">
 			        Atendido
 			      </div>
+			      <div class="cell ">
+			        Ver Pratos
+			      </div>
 			    </div>
 			<?php foreach ($reservas as $reserva) { ?>
 				
@@ -64,6 +67,9 @@ var_dump($reservas);
 			      <div class="cell">
 			      	<a href="#" class="atendido" data-id='<?php echo $reserva['id'];?>' > Atendido </a>
 			      </div>
+			      <div class="cell">
+			      	<a href="#" class="verPratos" data-verificador='<?php echo $reserva['id'];?>' > Ver Pratos </a>
+			      </div>
 			    </div>
 
 
@@ -82,6 +88,24 @@ var_dump($reservas);
 		</div>
 	</div>
 </section>
+<div class="modal"  id="modalPratos" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background: #ea6153!important;">
+        <h5 class="modal-title">Pratos Solicitados pelo Cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
 	$('.atendido').click(function() {
 		id = $(this).data('id');

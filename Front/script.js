@@ -100,6 +100,32 @@ $( document ).ready(function() {
 
     }
 
+    $('.verPratos').click(function() {
+    	var urlListaPratos = "../Back/verPratos.php";
+    	var id = $(this).data('verificador');
+    	$.ajax({
+				type: 'POST',
+				url: urlListaPratos,
+				async: true,
+				data: {reserva: id},
+				success: function(pratos) {
+					if(pratos !="ERROR"){
+						result = jQuery.parseJSON(pratos);
+						for (var i = 0; i < result.length; i++) {
+							$('.modal-body').append('<p><span>'+result[i].quantidade+'x </span> - '+result[i].prato+'</p>');
+						}       
+
+					}else{
+						alert('Um erro ocorreu, tente novamente mais tarde');
+					}
+
+				}
+			});
+
+
+    	$('#modalPratos').modal('show');
+    });
+
     $('.escolhe-mesa').click(function() { 
         $("#etapa-mesas").slideUp();
         setTimeout(function(){ 

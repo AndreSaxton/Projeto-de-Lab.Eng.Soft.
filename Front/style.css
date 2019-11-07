@@ -677,3 +677,9 @@ h5{
   position: absolute;
   top: 0;
 }
+
+.modal-body{
+  font-size: 20px;
+  font-weight: 700;
+}
+
