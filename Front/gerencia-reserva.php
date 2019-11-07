@@ -116,6 +116,7 @@ $reservas = $base->verificaReservas();
                 data: {id: id},
                 success: function(response){
                     console.table(response);
+                    location.reload();
                 }
             })
             .fail(function (response){

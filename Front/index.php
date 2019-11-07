@@ -156,7 +156,8 @@ var_dump($pratos);
 
             </article>
             <article id="etapa-final" style="display: none; width: 100%;">
-                <p>FINALIZADO</p>
+                <p class="thanks">Muito Obrigado! <br>
+                Estamos preparando sua mesa e Aguardando por você!</p>
             </article>
 
         </div>
