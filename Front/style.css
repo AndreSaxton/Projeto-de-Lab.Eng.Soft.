@@ -402,7 +402,7 @@ h5{
 }
 
 #chamada{
-    margin: 5%;
+    margin: 10%;
 }
 
 .titulo-chamada{
@@ -422,6 +422,11 @@ h5{
     font-size: 16px;
 }
 
+.text-about-description{
+  text-align: justify;
+  color: #B9B9B9;
+}
+
 #container-acao{
     background: url(Icones/background-lanchonete-1.jpg);
     background-position: bottom;
@@ -437,6 +442,11 @@ h5{
 #bloco-texto{
     text-align: center;
     color: white;
+}
+
+#bloco-texto-about{
+    text-align: justify-all;
+    color: blue;
 }
 
 .area-logins{
